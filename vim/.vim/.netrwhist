@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/tsani/games/ftb/TechWorld2/minecraft'
+let g:netrw_dirhist_2='/home/tsani/projects/haskell/lojban-twitter-irc-announce/.cabal-sandbox'
+let g:netrw_dirhist_3='/home/tsani/.stepmania-5.0/Save/LocalProfiles'
+let g:netrw_dirhist_4='/home/tsani/.stepmania-5.0/Save/LocalProfiles/00000000'
+let g:netrw_dirhist_5='/home/tsani/dotfiles/xmonad/.xmonad'
