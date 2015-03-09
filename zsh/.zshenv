@@ -1,2 +1,2 @@
 export MPD_HOST=konabebna@localhost
-export PATH=/usr/lib/smlnj/bin:$PATH
+export PATH=$HOME/.cabal/bin:/usr/lib/smlnj/bin:$PATH
