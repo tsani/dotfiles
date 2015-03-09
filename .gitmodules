@@ -7,3 +7,6 @@
 [submodule "vim/.vim/bundle/vim-commentary"]
 	path = vim/.vim/bundle/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
+[submodule "zsh/.oh-my-zsh"]
+	path = zsh/.oh-my-zsh
+	url = git@github.com:robbyrussell/oh-my-zsh.git
