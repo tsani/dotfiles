@@ -90,7 +90,8 @@ set tm=500
 " Enable syntax highlighting
 syntax enable
 
-set number
+" Line numbers are for n00bs
+set nonumber
 
 colorscheme distinguished
 set background=dark
@@ -138,7 +139,7 @@ set tabstop=4
 
 set ai "Auto indent
 set wrap "Wrap lines
-set linebreak "Visually wrap lines with line breaks
+set list "show end-of-line to avoid confusion with wrapping
 
 
 """"""""""""""""""""""""""""""
