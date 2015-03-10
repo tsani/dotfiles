@@ -34,6 +34,9 @@ nmap <leader>w :w!<cr>
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
+" Highlight the line that the cursor is on.
+set cursorline
+
 " Turn on the WiLd menu
 set wildmenu
 set wildmode=longest:full
@@ -45,7 +48,7 @@ set wildignore=*.o,*~,*.pyc
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
