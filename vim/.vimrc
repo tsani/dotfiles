@@ -37,6 +37,9 @@ set so=7
 " Highlight the line that the cursor is on.
 set cursorline
 
+" Set a colored column on the list of the textwidth
+set colorcolumn=80
+
 " Turn on the WiLd menu
 set wildmenu
 set wildmode=longest:full
