@@ -37,7 +37,7 @@ set so=7
 " Highlight the line that the cursor is on.
 set cursorline
 
-" Set a colored column on the list of the textwidth
+" Set a colored column on the column of the textwidth
 set colorcolumn=80
 
 " Turn on the WiLd menu
@@ -139,13 +139,9 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-"" Linebreak on 500 characters
-"set lbr
-"set tw=500
-
-set ai "Auto indent
-set wrap "Wrap lines
-set list "show end-of-line to avoid confusion with wrapping
+set ai        "Auto indent
+set wrap      "Wrap lines
+set linebreak "Break lines
 
 
 """"""""""""""""""""""""""""""
@@ -163,10 +159,6 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
-
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -203,13 +195,35 @@ set stal=2
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
+" Return to last edit position when opening files
 autocmd BufReadPost *
  \ if line("'\"") > 0 && line("'\"") <= line("$") |
  \   exe "normal! g`\"" |
  \ endif
 " Remember info about open buffers on close
 set viminfo^=%
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Code folding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set foldmethod=indent "Fold code based on indentation
+set foldnestmax=3     "Fold up to three levels in
+set nofoldenable      "Don't fold by default
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Persistent undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+if has('persistent_undo')
+    silent !mkdir -p ~/.vim/backups
+    set undodir=~/.vim/backups
+    set undofile
+endif
 
 
 """"""""""""""""""""""""""""""
