@@ -89,15 +89,15 @@ set novisualbell
 set t_vb=
 set tm=500
 
+" Line numbers are for n00bs
+set nonumber
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-
-" Line numbers are for n00bs
-set nonumber
 
 colorscheme distinguished
 set background=dark
