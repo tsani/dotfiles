@@ -1,7 +1,8 @@
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
-URxvt*background: black
+URxvt*background: [90]#000000
+URxvt*opacity: 0.9
 URxvt*foreground: grey
 URxvt*depth: 32
 URxvt*font: xft:Terminus:size=10
