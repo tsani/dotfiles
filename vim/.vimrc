@@ -398,3 +398,10 @@ au Bufenter *.hs compiler ghc
 " configure browser for haskell_doc.vim
 let g:haddock_browser = "/usr/bin/firefox"
 let g:haddock_docdir = "/home/tsani/.cabal/share/doc"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Tricks
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Write current buffer as root.
+command! Sw w !sudo tee % > /dev/null
