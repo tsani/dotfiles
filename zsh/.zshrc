@@ -25,6 +25,7 @@ alias lst="ls -tr"
 alias catra="kill -9"
 alias :w="echo 'this is not vim'"
 alias wow="git status"
+alias gti="git" # this typo is waaaay too frequent
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
