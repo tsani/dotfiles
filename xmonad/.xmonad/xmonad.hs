@@ -14,6 +14,7 @@ import System.Exit
 import XMonad.Layout.Grid
 import XMonad.Layout.Spacing
 import XMonad.Layout.Tabbed
+import XMonad.Layout.Spiral
 import XMonad.Hooks.EwmhDesktops
 
 import qualified XMonad.StackSet as W
@@ -186,8 +187,10 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 ------------------------------------------------------------------------
 -- Layouts:
 
+phi = toRational $ (1 + sqrt 5) / 2
+
 myLayout = smartBorders $ smartSpacing 5 $ Full |||
-               (avoidStruts $ tiled ||| Mirror tiled) -- -}
+               (avoidStruts $ tiled ||| Mirror tiled ||| spiral phi ) -- -}
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
