@@ -14,5 +14,6 @@ fi
 while true; do
     echo -e "HTTP/1.0 200 OK\nContent-type $ft\n" \
         | cat - "$1" \
-        | netcat -l -p "$SERV_PORT"
+        | netcat -l -p "$SERV_PORT" \
+        || true
 done
