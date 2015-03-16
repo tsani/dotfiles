@@ -11,9 +11,7 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Layout.NoBorders
 import System.IO(hPutStrLn)
 import System.Exit
-import XMonad.Layout.Grid
 import XMonad.Layout.Spacing
-import XMonad.Layout.Tabbed
 import XMonad.Layout.Spiral
 import XMonad.Hooks.EwmhDesktops
 
