@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Simply print the newest file in the Downloads directory
+
+ls -t ~/Downloads | head -n 1

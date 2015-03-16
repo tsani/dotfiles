@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Serve a given file over HTTP.
+
+set -e
+
+# Infer the mime-type of the file.
+ft="$(file -i "$1")"
+
+if test -z "$SERV_PORT" ; then
+    SERV_PORT=8181
+fi
+
+while true; do
+    echo -e "HTTP/1.0 200 OK\nContent-type $ft\n" \
+        | cat - "$1" \
+        | netcat -l -p "$SERV_PORT"
+done

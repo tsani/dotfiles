@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# A convenient script to allow running a Mathematica script with a shebang.
+# e.g. #!/usr/bin/env mscript
+
+exec MathematicaScript -script $@

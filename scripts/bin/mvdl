@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Move the N newest files from the downloads directory to a given directory.
+
+N=1
+DEST="."
+
+while (( $# )) ; do
+    case "$1" in
+        "-n")
+            N="$2"
+            shift
+            ;;
+        *)
+            DEST="$1"
+            ;;
+    esac
+    shift
+done
+
+ls -t ~/Downloads | head -n "$N" | xargs -I {} mv -v ~/Downloads/{} "$DEST"
