@@ -1,2 +1,4 @@
 /vim/.vim/backups
 /vim/.vim/.netrwhist
+*.o
+*.hi
