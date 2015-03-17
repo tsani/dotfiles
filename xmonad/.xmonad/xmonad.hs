@@ -197,7 +197,7 @@ myLayout = smartBorders $ smartSpacing 5 $ Full |||
      nmaster = 1
 
      -- Default proportion of screen occupied by master pane
-     ratio   = 2/3
+     ratio   = 1 / phi
 
      -- Percent of screen to increment by when resizing panes
      delta   = 3/100
