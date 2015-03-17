@@ -15,6 +15,7 @@ compton &
 steam_wishlist_watcher.sh &
 xscreensaver -nosplash &
 redshift &
+eval 'ssh-agent -c'
 
 # run the window manager
 exec xmonad
