@@ -1,0 +1,145 @@
+#!/usr/bin/env python
+
+import sys
+from datetime import datetime
+
+eprint = lambda *args, **kwargs: print(*args, file=sys.stderr, **kwargs)
+
+def create_boilerplate(course=None, course_code=None, assignment_number=None,
+        title=None, use_math=False, use_programming=False, author=None,
+        date=datetime.today()):
+    if assignment_number is None:
+        assignment_number_line = 'Assignment'
+    else:
+        assignment_number_line = 'Assignment \\#%d' % assignment_number
+
+    if course is None:
+        course_line = ''
+    else:
+        course_line = course
+
+    if course_code is not None:
+        if course_line:
+            course_line += ' (%s)' % course_code
+        else:
+            course_line = course_code
+
+    title_line = '' if title is None else title
+
+    tex_title_line = ''.join([
+        '\\title{',
+        '\\\\'.join(
+            x for x
+            in [title_line, assignment_number_line, course_line]
+            if x),
+        '}'])
+
+    if author is None:
+        tex_author_line = '\\author{}'
+    else:
+        tex_author_line = ''.join(['\\author{', author, '}'])
+
+    if date is None:
+        tex_date_line = '\\date{}'
+    else:
+        tex_date_line = ''.join(['\\date{', date.strftime('%d %B %Y'), '}'])
+
+    tex_document_class = '\\documentclass{article}'
+
+    packages = []
+    if use_math:
+        packages.extend(['amsmath', 'amssymb', 'amsthm'])
+    if use_programming:
+        packages.extend(['algorithm', 'algorithmicx', 'algpseudocode'])
+
+    tex_packages_line = ''.join([
+        '\\usepackage{',
+        ', '.join(packages),
+        '}'])
+
+    return '\n'.join([
+        tex_document_class, '',
+        tex_packages_line, '',
+        tex_title_line,
+        tex_author_line,
+        tex_date_line, '',
+        '\\begin{document}', '', '\maketitle', '', '', '', '\\end{document}'])
+
+_usage = '\n'.join([
+        'start_assignment.py -- '
+        'school assignment LaTeX boilerplate generator.',
+        'usage: start_assignment.py [--course <COURSE>] [--code '
+        '<COURSE CODE>]',
+        '  [--[no]math] [--[no]programming] [--title <TITLE>]',
+        '  [(-n|--number) <ASSIGNMENT #>] [--author <AUTHOR>]',
+        '  [--date <YYYY-MM-DD>]',
+        '',
+        'By default, --math and --noprogramming are given. The default date',
+        'is today\'s date.',
+        'Note that all switches are optional. By default, this produces a',
+        'completely generic template including the standard AMS packages',
+        'for mathematics typesetting.',
+        '',
+        'The output is written to stdout; use redirection to save the',
+        'generated template.',
+        ])
+
+def _show_usage():
+    eprint(_usage)
+
+if __name__ == '__main__':
+    course = None
+    course_code = None
+    assignment_number = None
+    title = None
+    author = None
+    date = datetime.today()
+
+    math = True
+    programming = False
+
+    i = 1
+    while i < len(sys.argv):
+        arg = sys.argv[i]
+        n = lambda: sys.argv[i + 1]
+
+        if  arg == '--title':
+            title = n()
+            i += 1
+        elif arg == '--author':
+            author = n()
+            i += 1
+        elif arg == '--course':
+            course = n()
+            i += 1
+        elif arg == '--code':
+            course_code = n()
+            i += 1
+        elif arg == '--date':
+            try:
+                date = datetime.strptime(arg, '%Y-%m-%d')
+            except ValueError:
+                eprint('invalid date format')
+                sys.exit(1)
+        elif arg == '--math':
+            math = True
+        elif arg == '--nomath':
+            math = False
+        elif arg == '--programming':
+            programming = True
+        elif arg == '--noprogramming':
+            programming = False
+        elif arg == '-n' or arg == '--number':
+            assignment_number = int(n())
+            i += 1
+        elif arg == '-h' or arg == '--help':
+            _show_usage()
+            sys.exit(0)
+        else:
+            eprint('unrecognized argument:', arg)
+            sys.exit(1)
+
+        i += 1
+
+    print(create_boilerplate(course, course_code, assignment_number,
+        title, math, programming, author, date))
