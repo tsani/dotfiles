@@ -9,6 +9,8 @@ ZSH_THEME="blinks"
 
 source $ZSH/oh-my-zsh.sh
 
+unsetopt AUTO_CD
+
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -60,7 +62,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git)
-
 
 # Customize to your needs...
 #export PYTHONPATH=/usr/lib/python3.3/site-packages
