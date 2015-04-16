@@ -1,0 +1,33 @@
+#!/bin/bash
+
+REMOTE="$1"
+PORT=19999
+shift
+
+cat /dev/fd/3 3<< 'EOF3' /dev/fd/4 4<< EOF4 /dev/fd/5 5<< 'EOF5' /dev/fd/6 6<< EOF6 /dev/fd/7 7<< 'EOF7' | ssh -R $PORT:localhost:22 "$REMOTE" bash
+#!/bin/bash
+
+# create a directory to do our dirty work in.
+DIR=/tmp/remote-command
+mkdir -p "$DIR"
+MNT="$(mktemp -d -p "$DIR")"
+EOF3
+
+# mount the local machine's current directory with sshfs over
+# the reverse tunnel into our new directory
+sshfs -p $PORT "$USER@localhost:$PWD" \\
+EOF4
+    "$MNT"
+
+# enter the directory and execute the payload.
+cd "$MNT"
+EOF5
+$@
+EOF6
+
+# clean up after ourselves
+cd
+fusermount -u "$MNT"
+rmdir "$MNT"
+EOF7
+
