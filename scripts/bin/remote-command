@@ -15,7 +15,7 @@ EOF3
 
 # mount the local machine's current directory with sshfs over
 # the reverse tunnel into our new directory
-sshfs -p $PORT "$USER@localhost:$PWD" \\
+sshfs -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $PORT "$USER@localhost:$PWD" \\
 EOF4
     "$MNT"
 
