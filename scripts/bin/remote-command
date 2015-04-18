@@ -18,6 +18,11 @@ EOF3
 sshfs -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $PORT "$USER@localhost:$PWD" \\
 EOF4
     "$MNT"
+if [ $? -ne 0 ] ; then
+    echo "failed to mount current working directory onto remote" >&2
+    rmdir "$MNT"
+    exit 1
+fi
 
 # enter the directory and execute the payload.
 cd "$MNT"
