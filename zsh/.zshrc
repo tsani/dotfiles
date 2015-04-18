@@ -30,6 +30,12 @@ alias wow="git status"
 alias gti="git" # this typo is waaaay too frequent
 alias g="git"
 
+which atril >/dev/null 2>&1
+if [ $? -eq 0 ] ; then
+    # I have the bad habit of using evince instead of atril.
+    alias evince="atril"
+fi
+
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
