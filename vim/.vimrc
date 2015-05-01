@@ -99,8 +99,8 @@ set nonumber
 " Enable syntax highlighting
 syntax enable
 
-colorscheme distinguished
-set background=dark
+set background=light
+colorscheme solarized
 
 " Set extra options when running in GUI mode
 if has("gui_running")
