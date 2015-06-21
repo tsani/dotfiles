@@ -399,7 +399,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " use ghc functionality for haskell files
-au Bufenter *.hs compiler ghc
+" au Bufenter *.hs compiler ghc
 
 " configure browser for haskell_doc.vim
 let g:haddock_browser = "/usr/bin/firefox"
