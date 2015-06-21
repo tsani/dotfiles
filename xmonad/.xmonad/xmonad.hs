@@ -1,19 +1,23 @@
+import System.Exit
+import System.IO(hPutStrLn)
+
 import XMonad
 import XMonad.Core
 import XMonad.Actions.CycleWS
+import XMonad.Actions.DynamicWorkspaces
+import XMonad.Actions.CopyWindow ( copy, kill1 )
 import XMonad.Hooks.ICCCMFocus
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
-import System.IO(hPutStrLn)
-import System.Exit
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral
-import XMonad.Hooks.EwmhDesktops
+import XMonad.Prompt
+import XMonad.Util.Run(spawnPipe)
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -34,17 +38,14 @@ myBorderWidth   = 2
 --
 myModMask       = mod4Mask
 
--- The default number of workspaces (virtual screens) and their names.
--- By default we use numeric strings, but any string may be used as a
--- workspace name. The number of workspaces is determined by the length
--- of this list.
---
--- A tagging example:
---
--- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
---
-myWorkspaces    = [ "1-chat", "2-web", "3-code", "4-misc", "5-misc"
-                  , "6-misc", "7-games", "8-email", "9-music" ]
+-- Default workspaces
+myWorkspaces    = [ "chat", "code", "web", "music" ]
+
+-- Safely move away from the current workspace. The current workspace will be
+-- closed if it is empty (contains to windows), unless its name matches in the
+-- list of sticky windows defined by myWorkspaces.
+moveAway :: X () -> X ()
+moveAway = removeEmptyWorkspaceAfterExcept myWorkspaces
 
 -- Border colors for unfocused and focused windows, respectively.
 --
@@ -57,109 +58,125 @@ myFocusedBorderColor = "#DD0000"
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launch a terminal
-    [ ((modMask,               xK_Return), spawn $ XMonad.terminal conf)
-    , ((modMask .|. shiftMask, xK_Return), spawn "urxvt -fg green -e sudo su -")
+    [ ((modMask,               xK_Return     ), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modMask,               xK_p     ), spawn "dmenu_run")
+    , ((modMask,               xK_p          ), spawn "dmenu_run")
 
     -- launch gmrun
-    , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun")
+    , ((modMask .|. shiftMask, xK_p          ), spawn "gmrun")
 
-    -- close focused window
-    , ((modMask .|. shiftMask, xK_c     ), kill)
+    , ((modMask              , xK_backslash  ), spawn "surf")
+
+    -- Lock the screen.
+    , ((modMask .|. shiftMask, xK_z          ), spawn "xscreensaver-command -lock")
+
+    -- Volume controls
+	, ((modMask              , xK_F9         ), spawn "volume toggle")
+	, ((modMask              , xK_F10        ), spawn "volume down")
+	, ((modMask              , xK_F11        ), spawn "volume up")
+
+    -- Kill the screen backlight.
+	, ((modMask              , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
+
+    -- Backlight controls.
+	, ((modMask              , xK_F6         ), spawn "xbacklight -dec 10")
+	, ((modMask              , xK_F7         ), spawn "xbacklight -inc 10")
+
+    -- Music controls
+	, ((modMask              , xK_Page_Up    ), spawn "mpc prev")
+	, ((modMask              , xK_Page_Down  ), spawn "mpc next")
+	, ((modMask              , xK_Pause      ), spawn "mpc toggle")
+    , ((modMask              , xK_Scroll_Lock), spawn "nowplaying.sh")
+
+    -- close focused window; only deletes a copy
+    , ((modMask .|. shiftMask, xK_c          ), kill1)
+
+    -- REALLY kill the focussed window; sends the WM_CLOSE event to the window
+    , ((modMask .|. shiftMask, xK_x          ), kill)
 
      -- Rotate through the available layout algorithms
-    , ((modMask,               xK_space ), sendMessage NextLayout)
+    , ((modMask,               xK_space      ), sendMessage NextLayout)
 
     --  Reset the layouts on the current workspace to default
-    , ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+    , ((modMask .|. shiftMask, xK_space      ), setLayout $ XMonad.layoutHook conf)
 
     -- Resize viewed windows to the correct size
-    , ((modMask,               xK_n     ), refresh)
+    , ((modMask,               xK_n          ), refresh)
 
     -- Move focus to the next window
-    , ((modMask,               xK_Tab   ), windows W.focusDown)
+    , ((modMask,               xK_Tab        ), windows W.focusDown)
 
     -- Move focus to the next window
-    , ((modMask,               xK_j     ), windows W.focusDown)
+    , ((modMask,               xK_j          ), windows W.focusDown)
 
     -- Move focus to the previous window
-    , ((modMask,               xK_k     ), windows W.focusUp  )
+    , ((modMask,               xK_k          ), windows W.focusUp  )
 
-    -- Move focus to the master window
-    -- , ((modMask,               xK_m     ), windows W.focusMaster  )
-
-    -- Swap the focused window and the master window
-    -- , ((modMask,               xK_Up), windows W.swapMaster)
-    , ((modMask,               xK_m     ), windows W.swapMaster)
+    -- Swap focussed window with master window.
+    , ((modMask,               xK_m          ), windows W.swapMaster)
 
     -- Swap the focused window with the next window
-    , ((modMask .|. shiftMask, xK_j     ), windows W.swapDown  )
+    , ((modMask .|. shiftMask, xK_j          ), windows W.swapDown  )
 
     -- Swap the focused window with the previous window
-    , ((modMask .|. shiftMask, xK_k     ), windows W.swapUp    )
+    , ((modMask .|. shiftMask, xK_k          ), windows W.swapUp    )
 
     -- Shrink the master area
-    , ((modMask,               xK_h     ), sendMessage Shrink)
+    , ((modMask,               xK_h          ), sendMessage Shrink)
 
     -- Expand the master area
-    , ((modMask,               xK_l     ), sendMessage Expand)
+    , ((modMask,               xK_l          ), sendMessage Expand)
 
     -- Push window back into tiling
-    , ((modMask,               xK_t     ), withFocused $ windows . W.sink)
+    , ((modMask,               xK_t          ), withFocused $ windows . W.sink)
 
     -- Increment the number of windows in the master area
-    , ((modMask              , xK_comma ), sendMessage (IncMasterN 1))
+    , ((modMask              , xK_comma      ), sendMessage (IncMasterN 1))
 
     -- Deincrement the number of windows in the master area
-    , ((modMask              , xK_period), sendMessage (IncMasterN (-1)))
+    , ((modMask              , xK_period     ), sendMessage (IncMasterN (-1)))
 
     -- toggle the status bar gap
     -- TODO, update this binding with avoidStruts , ((modMask              , xK_b     ),
 
     -- Quit xmonad
-    , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
+    , ((modMask .|. shiftMask, xK_q          ), io (exitWith ExitSuccess))
 
     -- Restart xmonad
-    , ((modMask              , xK_q     ), restart "xmonad" True)
+    , ((modMask              , xK_q          ), restart "xmonad" True)
 
-    , ((modMask              , xK_Left       ), prevWS)
-    , ((modMask              , xK_Right      ), nextWS)
+    -- Workspace management
+    , ((modMask              , xK_Left       ), moveAway prevWS)
+    , ((modMask              , xK_Right      ), moveAway nextWS)
     , ((modMask .|. shiftMask, xK_Left       ), shiftToPrev)
     , ((modMask .|. shiftMask, xK_Right      ), shiftToNext)
     , ((modMask              , xK_Down       ), nextScreen)
     , ((modMask              , xK_Up         ), prevScreen)
     , ((modMask .|. shiftMask, xK_Down       ), shiftNextScreen)
     , ((modMask .|. shiftMask, xK_Up         ), shiftPrevScreen)
-    , ((modMask              , xK_z          ), toggleWS)
-    , ((modMask .|. shiftMask, xK_z          ), spawn "xscreensaver-command -lock")
-	, ((modMask              , xK_F9         ), spawn "volume toggle")
-	, ((modMask              , xK_F10        ), spawn "volume down")
-	, ((modMask              , xK_F11        ), spawn "volume up")
-	, ((modMask              , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
-	, ((modMask              , xK_F6         ), spawn "xbacklight -dec 10")
-	, ((modMask              , xK_F7         ), spawn "xbacklight -inc 10")
-	, ((modMask              , xK_Page_Up    ), spawn "mpc prev")
-	, ((modMask              , xK_Page_Down  ), spawn "mpc next")
-	, ((modMask              , xK_Pause      ), spawn "mpc toggle")
-    , ((modMask              , xK_Scroll_Lock), spawn "/home/tsani/bin/nowplaying.sh")
-    ]
-    ++
+    , ((modMask              , xK_z          ), moveAway toggleWS)
 
-    --
-    -- mod-[1..9], Switch to workspace N
-    -- mod-shift-[1..9], Move client to workspace N
-    --
-    [((m .|. modMask, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+    -- Dynamic workspace management
+    , ((modMask .|. shiftMask, xK_BackSpace  ), removeWorkspace)
+    , ((modMask              , xK_b          ), selectWorkspace defaultXPConfig)
+    , ((modMask              , xK_n          ), withWorkspace defaultXPConfig (windows . W.shift))
+    , ((modMask .|. shiftMask, xK_n          ), withWorkspace defaultXPConfig (windows . copy))
+    , ((modMask              , xK_a          ), renameWorkspace defaultXPConfig)
+    ]
+
+    -- mod-[1..9]       %! Switch to workspace N
+    -- mod-shift-[1..9] %! Move client to workspace N
     ++
+    zip (zip (repeat (modMask)) [xK_1..xK_9]) (map (withNthWorkspace W.greedyView) [0..])
+    ++
+    zip (zip (repeat (modMask .|. shiftMask)) [xK_1..xK_9]) (map (withNthWorkspace W.shift) [0..])
 
     --
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     --
+    ++
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
@@ -250,16 +267,16 @@ myUrgencyHook = dzenUrgencyHook
 main = do
     myDzen <- spawnPipe "dzen2 -p"
     xmonad
-      $ withUrgencyHook NoUrgencyHook
+      $ withUrgencyHook myUrgencyHook
         $ ewmh defaultConfig
         -- simple stuff
         { terminal           = myTerminal
         , focusFollowsMouse  = True
         , borderWidth        = myBorderWidth
         , modMask            = myModMask
+        , workspaces         = myWorkspaces
 
         -- numlockMask        = myNumlockMask
-        , workspaces         = myWorkspaces
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
 
