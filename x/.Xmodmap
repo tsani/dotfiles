@@ -1,10 +1,17 @@
-! remove Lock = Caps_Lock
-! keysym Escape = Caps_Lock
-! keysym Caps_Lock = Escape
-! add Lock = Caps_Lock
-
-! Give windows key Mod4 powers (needed by xmonad!)
-add Mod4 = Super_L
+! Kill left alt behaviour
+clear Mod1
+! Clear existing Mod4 assignment
+clear Mod4
+! Clear capslock assignment
+clear Lock
+! Set escape key to capslock
+keycode 9 = Caps_Lock
+! Set "search button" to escape
+keycode 133 = Escape
+! Set left alt to super L (windows key)
+keycode 64 = Super_L
+! Give capslock key capslock powers
+add Lock = Caps_Lock
 
 keysym Up = Up Page_Up
 keysym Down = Down Page_Down
