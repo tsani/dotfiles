@@ -5,15 +5,18 @@
 set -e
 
 # Infer the mime-type of the file.
-ft="$(file -i "$1")"
+ft="$(file -b -i --mime-type "$1")"
 
 if test -z "$SERV_PORT" ; then
     SERV_PORT=8181
 fi
 
+result="$(mktemp)"
+
+echo -e "HTTP/1.0 200 OK\nContent-type: $ft\n" | cat - "$1" > "$result"
+
 while true; do
-    echo -e "HTTP/1.0 200 OK\nContent-type $ft\n" \
-        | cat - "$1" \
-        | netcat -l -p "$SERV_PORT" \
-        || true
+        cat "$result" | 
+        netcat -l -p "$SERV_PORT" -q 0 || 
+        true
 done
