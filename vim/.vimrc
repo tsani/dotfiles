@@ -328,7 +328,12 @@ noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 " Quickly open a buffer for scripbble
 map <leader>a :e ~/buffer<cr>
 
+" Quickly close the current window.
 map <leader>q :q<cr>
+
+" I tend to use macro a as a scratchpad macro, and typing @a takes waaaay too
+" long.
+map <leader>z @a
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
