@@ -1,0 +1,15 @@
+[user]
+	email = git@mail.jerrington.me
+	name = Jacob Errington
+[push]
+	default = simple
+[color]
+	ui = auto
+[core]
+	editor = vim
+[alias]
+	shove = push -f
+    co = checkout
+    ci = commit
+    s = status
+    b = branch
