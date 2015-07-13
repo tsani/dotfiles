@@ -10,7 +10,7 @@ xsetroot -cursor_name left_ptr &
 
 # start some nice programs
 mpd &
-hsetroot -full ~/.wallpaper/moon_by_kpx_beatrix-d7pmpj0.png
+hsetroot -full ~/.wallpaper/ycombinator.png
 compton &
 steam_wishlist_watcher.sh &
 xscreensaver -nosplash &
