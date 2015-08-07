@@ -22,6 +22,8 @@ import XMonad.Util.Run(spawnPipe)
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
+import Data.List ( sort, intercalate )
+
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
@@ -31,6 +33,10 @@ myTerminal      = "urxvt"
 --
 myBorderWidth   = 2
 
+-- Home page to open when launching a web browser
+--
+browserHome = "http://google.com/"
+
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
 -- ("right alt"), which does not conflict with emacs keybindings. The
@@ -39,11 +45,11 @@ myBorderWidth   = 2
 myModMask       = mod4Mask
 
 -- Default workspaces
-myWorkspaces    = [ "chat", "code", "web", "music" ]
+myWorkspaces    = sort [ "shell", "irc", "code", "web", "music" ]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor  = "#222222"
+myNormalBorderColor  = "#222255"
 myFocusedBorderColor = "#DD0000"
 
 ------------------------------------------------------------------------
@@ -60,7 +66,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launch gmrun
     , ((modMask .|. shiftMask                , xK_p          ), spawn "gmrun")
 
-    , ((modMask                              , xK_backslash  ), spawn "surf")
+    , ((modMask                              , xK_backslash  ), spawn $ intercalate " " ["surf", browserHome])
 
     -- Lock the screen.
     , ((modMask .|. shiftMask                , xK_z          ), spawn "xscreensaver-command -lock")
