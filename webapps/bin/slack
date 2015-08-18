@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if test -z "$1"
+then
+    echo "No slack channel to open." >&2
+    exit 1
+fi
+
+URL="https://${1}.slack.com/"
+
+if test -z "$BROWSER"
+then
+    BROWSER="xdg-open"
+fi
+
+exec $BROWSER "$URL"
