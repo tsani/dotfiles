@@ -15,3 +15,4 @@
     b = branch
     l = log --all --graph --oneline --decorate=short
     ls = log --all --graph --oneline --decorate=short --stat
+    lss = log --all --graph --decorate=short --stat
