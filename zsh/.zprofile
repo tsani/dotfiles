@@ -1,4 +1,4 @@
-export PATH=/usr/bin/vendor_perl:$HOME/bin:$HOME/.cabal/bin:/opt/android-sdk/platform-tools:$PATH
+export PATH=/usr/bin/vendor_perl:$HOME/bin:$HOME/.gem/ruby/2.2.0/bin:$HOME/.cabal/bin:/opt/android-sdk/platform-tools:$PATH
 export BROWSER=surf
 export EDITOR=vim
 export _JAVA_AWT_WM_NONREPARENTING=1
