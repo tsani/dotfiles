@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec mplayer "$(youtube-dl -g "$1" | tail -n 1)"
