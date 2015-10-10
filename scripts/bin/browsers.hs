@@ -92,15 +92,7 @@ main = do
                  mUrl <- safeGetSurfUrl w
                  mPid <- safeGetPid w
                  mTitle <- safeGetTitle w
-                 return $ do
-                    url <- mUrl
-                    pid <- mPid
-                    title <- mTitle
-                    return $ WinInfo
-                        { winTitle = title
-                        , winUrl = url
-                        , winPid = pid
-                        }
+                 return $ WinInfo <$> mTitle <*> mUrl <*> mPid
              )
              $ ws
 
