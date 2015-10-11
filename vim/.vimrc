@@ -6,13 +6,20 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 
 execute pathogen#infect()
 
-" Enable filetype plugins
-filetype plugin indent on
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable haskell-vim omnifunc
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+" Enable Neocomplete
+let g:neocomplete#enable_at_startup = 1
+
+" Enable filetype plugins
+filetype plugin indent on
+
 " Sets how many lines of history VIM has to remember
 set history=700
 
