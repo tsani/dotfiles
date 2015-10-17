@@ -37,6 +37,6 @@
 [submodule "vim/.vim/bundle/vimproc.vim"]
 	path = vim/.vim/bundle/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
-[submodule "vim/.vim/bundle/syntastic"]
-	path = vim/.vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
+[submodule "vim/.vim/bundle/neomake"]
+	path = vim/.vim/bundle/neomake
+	url = https://github.com/benekastah/neomake.git
