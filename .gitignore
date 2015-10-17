@@ -1,5 +1,6 @@
 /vim/.vim/backups
 /vim/.vim/.netrwhist
+/vim/.vim/shada/
 *.o
 *.hi
 /scripts/bin/browsers
