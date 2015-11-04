@@ -15,6 +15,7 @@ compton &
 steam_wishlist_watcher.sh &
 xscreensaver -nosplash &
 redshift &
+dunst &
 eval $('ssh-agent')
 
 # run the window manager
