@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+dmenu | xargs -I {} xdg-open "http://google.com/search?q={}"
