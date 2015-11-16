@@ -1,5 +1,15 @@
 #!/usr/bin/zsh -l
 
+function trywallpaper () {
+    while (( $# ))
+    do
+        test -e ~/.wallpaper/$1 && hsetroot -full ~/.wallpaper/$1 && return 0
+        shift
+    done
+
+    hsetroot -solid black
+}
+
 xrdb -merge $HOME/.Xresources
 
 usermodmap=$HOME/.Xmodmap # swap escape and caps
@@ -10,7 +20,7 @@ xsetroot -cursor_name left_ptr &
 
 # start some nice programs
 mpd &
-hsetroot -full ~/.wallpaper/ycombinator.png
+trywallpaper "ycombinator.png" "sofybakni.jpg" &
 compton &
 steam_wishlist_watcher.sh &
 xscreensaver -nosplash &
