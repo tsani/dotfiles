@@ -17,9 +17,7 @@ source $ZSH/oh-my-zsh.sh
 
 unsetopt AUTO_CD
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias cid="cabal install --only-dependencies"
 alias grepc="grep --colour=always"
 alias mv="mv -i"
 alias mn="mpc next"
