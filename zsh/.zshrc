@@ -17,29 +17,6 @@ source $ZSH/oh-my-zsh.sh
 
 unsetopt AUTO_CD
 
-alias cid="cabal install --only-dependencies"
-alias grepc="grep --colour=always"
-alias mv="mv -i"
-alias mn="mpc next"
-alias mp="mpc prev"
-alias mpcvu="mpc volume +5"
-alias mpcvd="mpc volume -5"
-alias sr="screen -r"
-alias dlclip="xclip -o | xargs wget"
-alias chmox="chmod +x"
-alias lst="ls -tr"
-alias catra="kill -9"
-alias :w="echo 'this is not vim'"
-alias wow="git status"
-alias gti="git" # this typo is waaaay too frequent
-alias g="git"
-
-which atril >/dev/null 2>&1
-if [ $? -eq 0 ] ; then
-    # I have the bad habit of using evince instead of atril.
-    alias evince="atril"
-fi
-
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -89,5 +66,7 @@ function fuck() {
           echo ; echo " (╯°□°）╯︵$(echo "$2"|toilet -f term -F rotate)"; echo
             fi
         }
+
+source $HOME/.zsh_aliases
 
 fortune

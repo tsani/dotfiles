@@ -61,7 +61,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask                              , xK_Return     ), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modMask                              , xK_p          ), spawn "dmenu_run")
+    , ((modMask                              , xK_p          ), spawn "dmenu_run -dim 0.3 -fn 'DejaVu' -x 480 -y 270 -w 960 -l 15 -r -p '$ '")
 
     -- launch gmrun
     , ((modMask .|. shiftMask                , xK_p          ), spawn "gmrun")

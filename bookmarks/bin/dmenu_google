@@ -2,4 +2,10 @@
 
 set -e
 
-dmenu | xargs -I {} xdg-open "http://google.com/search?q={}"
+eval "dmenu $DMENU_OPTIONS" -p "Search" | read query
+
+if test -n "$query"
+then
+    echo "$query" |
+    xargs -I {} xdg-open "http://google.com/search?q={}"
+fi
