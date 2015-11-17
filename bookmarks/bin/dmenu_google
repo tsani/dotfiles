@@ -1,11 +1,20 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 set -e
 
-eval "dmenu $DMENU_OPTIONS" -p "Search" | read query
+if [ "$1" = "-x" ]
+then
+    PROMPT="Go"
+    URL="http://duckduckgo.com/?q=!+{}"
+else
+    PROMPT="Search"
+    URL="http://duckduckgo.com/?q={}"
+fi
+
+eval "dmenu $DMENU_OPTIONS" -noinput -l 0 -p "$PROMPT" | read query
 
 if test -n "$query"
 then
     echo "$query" |
-    xargs -I {} xdg-open "http://google.com/search?q={}"
+    xargs -I {} xdg-open "$URL"
 fi

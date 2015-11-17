@@ -68,6 +68,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     , ((modMask                              , xK_backslash  ), spawn $ intercalate " " ["surf", browserHome])
     , ((modMask .|. shiftMask                , xK_backslash  ), spawn $ "dmenu_google")
+    , ((modMask .|. shiftMask                , xK_Return     ), spawn $ "dmenu_google -x")
 
     -- Lock the screen.
     , ((modMask .|. shiftMask                , xK_z          ), spawn "xscreensaver-command -lock")
