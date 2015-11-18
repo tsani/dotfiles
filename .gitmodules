@@ -40,3 +40,6 @@
 [submodule "vim/.vim/bundle/neomake"]
 	path = vim/.vim/bundle/neomake
 	url = https://github.com/benekastah/neomake.git
+[submodule "vim/.vim/bundle/idris-vim"]
+	path = vim/.vim/bundle/idris-vim
+	url = https://github.com/idris-hackers/idris-vim.git
