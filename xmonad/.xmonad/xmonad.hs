@@ -35,7 +35,7 @@ myBorderWidth   = 2
 
 -- Home page to open when launching a web browser
 --
-browserHome = "http://google.com/"
+browserHome = "http://jerrington.me/"
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -66,7 +66,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launch gmrun
     , ((modMask .|. shiftMask                , xK_p          ), spawn "gmrun")
 
-    , ((modMask                              , xK_backslash  ), spawn $ intercalate " " ["surf", browserHome])
+    , ((modMask                              , xK_backslash  ), spawn $ intercalate " " ["xdg-open", browserHome])
     , ((modMask .|. shiftMask                , xK_backslash  ), spawn $ "dmenu_google")
     , ((modMask .|. shiftMask                , xK_Return     ), spawn $ "dmenu_google -x")
 
