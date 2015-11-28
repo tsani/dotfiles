@@ -15,7 +15,7 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
-import XMonad.Layout.Spiral
+import XMonad.Layout.WorkspaceDir
 import XMonad.Prompt
 import XMonad.Util.Run(spawnPipe)
 
@@ -65,6 +65,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launch gmrun
     , ((modMask .|. shiftMask                , xK_p          ), spawn "gmrun")
+    , ((modMask                              , xK_equal      ), changeDir defaultXPConfig)
 
     , ((modMask                              , xK_backslash  ), spawn $ intercalate " " ["xdg-open", browserHome])
     , ((modMask .|. shiftMask                , xK_backslash  ), spawn $ "dmenu_google")
@@ -204,10 +205,8 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 ------------------------------------------------------------------------
 -- Layouts:
 
-phi = toRational $ (1 + sqrt 5) / 2
-
-myLayout = smartBorders $ smartSpacing 5 $ Full |||
-               (avoidStruts $ tiled ||| Mirror tiled ||| spiral phi ) -- -}
+myLayout = workspaceDir "~" $ smartBorders $ smartSpacing 5 $
+           Full ||| (avoidStruts tiled)
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -216,10 +215,10 @@ myLayout = smartBorders $ smartSpacing 5 $ Full |||
      nmaster = 1
 
      -- Default proportion of screen occupied by master pane
-     ratio   = 1 / phi
+     ratio   = 1 / 1.608
 
      -- Percent of screen to increment by when resizing panes
-     delta   = 3/100
+     delta   = 2/100
 
 ------------------------------------------------------------------------
 -- Window rules:
