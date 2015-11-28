@@ -17,3 +17,5 @@
     ls = log --all --graph --oneline --decorate=short --stat
     lss = log --all --graph --decorate=short --stat
     lsp = log --all --graph --decorate=short --stat -p
+    psuh = push
+    p = push
