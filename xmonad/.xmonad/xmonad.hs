@@ -24,6 +24,8 @@ import qualified Data.Map        as M
 
 import Data.List ( sort, intercalate )
 
+myScreenWidth   = 1920
+
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
@@ -145,6 +147,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Restart xmonad
     , ((modMask                              , xK_q          ), restart "xmonad" True)
+    -- Quit xmonad
+    , ((modMask .|. shiftMask                , xK_q          ), io exitSuccess)
 
     -- Workspace management
     , ((modMask                              , xK_Left       ), prevWS)
@@ -264,13 +268,26 @@ myLogHook h = dynamicLogWithPP tsaniPP { ppOutput = hPutStrLn h }
 
 myUrgencyHook = dzenUrgencyHook
 
+myDzenCommand = "dzen2 -p -x 0 -w " ++ show width where
+    width = myScreenWidth * 2 `div` 3
+
+myConkyCommand = concat
+    [ "conky | dzen2"
+    , " -x ", show offset
+    , " -w ", show width
+    , " -ta r"
+    ] where
+        width = myScreenWidth * 1 `div` 3
+        offset = myScreenWidth * 2 `div` 3
+
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-    myDzen <- spawnPipe "dzen2 -p"
+    myDzen <- spawnPipe myDzenCommand
+    myConky <- spawnPipe myConkyCommand
     xmonad
       $ withUrgencyHook myUrgencyHook
         $ ewmh defaultConfig
