@@ -143,9 +143,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- toggle the status bar gap
     -- TODO, update this binding with avoidStruts , ((modMask              , xK_b     ),
 
-    -- Quit xmonad
-    , ((modMask .|. shiftMask                , xK_q          ), io (exitWith ExitSuccess))
-
     -- Restart xmonad
     , ((modMask                              , xK_q          ), restart "xmonad" True)
 
@@ -167,13 +164,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. controlMask              , xK_b          ), withWorkspace defaultXPConfig (windows . copy))
     , ((modMask                              , xK_a          ), renameWorkspace defaultXPConfig)
     ]
-
-    -- mod-[1..9]       %! Switch to workspace N
-    -- mod-shift-[1..9] %! Move client to workspace N
-    ++
-    zip (zip (repeat (modMask)) [xK_1..xK_9]) (map (withNthWorkspace W.greedyView) [0..])
-    ++
-    zip (zip (repeat (modMask .|. shiftMask)) [xK_1..xK_9]) (map (withNthWorkspace W.shift) [0..])
 
     --
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
@@ -256,7 +246,21 @@ myManageHook = manageDocks <+> composeAll
 -- By default, do nothing.
 myStartupHook = return ()
 
-myLogHook h = dynamicLogWithPP dzenPP { ppOutput = hPutStrLn h }
+tsaniPP :: PP
+tsaniPP = defaultPP
+	{ ppHiddenNoWindows = pad
+    , ppHidden  = dzenColor "black"  tsaniBlue . pad
+    , ppCurrent = dzenColor "yellow" tsaniBlue . pad
+    , ppUrgent  = dzenColor "red"    "yellow"  . pad
+    , ppSep     = pad "|"
+    , ppWsSep   = ""
+	, ppLayout  = const ""
+    , ppTitle   = shorten 70
+    , ppOrder   = reverse
+    }
+	where tsaniBlue = "#7c98ff"
+
+myLogHook h = dynamicLogWithPP tsaniPP { ppOutput = hPutStrLn h }
 
 myUrgencyHook = dzenUrgencyHook
 
@@ -277,7 +281,6 @@ main = do
         , modMask            = myModMask
         , workspaces         = myWorkspaces
 
-        -- numlockMask        = myNumlockMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
 
