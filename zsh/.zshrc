@@ -70,3 +70,8 @@ function fuck() {
 source $HOME/.zsh_aliases
 
 fortune
+if test -e ~/todo.txt
+then
+    echo
+    cat ~/todo.txt
+fi
