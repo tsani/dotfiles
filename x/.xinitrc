@@ -3,7 +3,7 @@
 function trywallpaper () {
     while (( $# ))
     do
-        test -e ~/.wallpaper/$1 && hsetroot -full ~/.wallpaper/$1 && return 0
+        test -e ~/.wallpaper/$1 && hsetroot -center ~/.wallpaper/$1 && return 0
         shift
     done
 
@@ -20,7 +20,7 @@ xsetroot -cursor_name left_ptr &
 
 # start some nice programs
 mpd &
-trywallpaper "ycombinator.png" "sofybakni.jpg" &
+trywallpaper "stallman.png" "ycombinator.png" "sofybakni.jpg" &
 compton &
 steam_wishlist_watcher.sh &
 xscreensaver -nosplash &
