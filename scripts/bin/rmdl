@@ -1,13 +1,10 @@
 #!/bin/bash
 
-# Move the N newest files from the downloads directory to a given directory.
-
 if test -z "$DOWNLOAD_DIR" ; then
     DOWNLOAD_DIR="$HOME/downloads"
 fi
 
 N=1
-DEST="."
 
 while (( $# )) ; do
     case "$1" in
@@ -16,10 +13,11 @@ while (( $# )) ; do
             shift
             ;;
         *)
-            DEST="$1"
+            echo "Unknown flag."
+            exit 1
             ;;
     esac
     shift
 done
 
-ls -t "$DOWNLOAD_DIR" | head -n "$N" | xargs -I {} mv -v "$DOWNLOAD_DIR/{}" "$DEST"
+ls -t "$DOWNLOAD_DIR" | head -n "$N" | xargs -I {} rm -v "$DOWNLOAD_DIR/{}"
