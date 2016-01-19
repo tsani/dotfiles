@@ -14,3 +14,4 @@ alias :w="echo 'this is not vim'"
 alias wow="git status"
 alias gti="git" # this typo is waaaay too frequent
 alias g="git"
+alias f="urxvt &!" # useful for opening a new shell in the same directory
