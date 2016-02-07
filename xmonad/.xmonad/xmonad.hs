@@ -74,7 +74,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask                , xK_Return     ), spawn $ "dmenu_google -x")
 
     -- Lock the screen.
-    , ((modMask .|. shiftMask                , xK_z          ), spawn "xscreensaver-command -lock")
+    , ((modMask .|. shiftMask                , xK_z          ), spawn "slock")
 
     -- Volume controls
 	, ((modMask                              , xK_F9         ), spawn "volume toggle")
