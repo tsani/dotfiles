@@ -37,6 +37,9 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " Enable Neocomplete
 let g:neocomplete#enable_at_startup = 1
 
+" Search using ag
+set grepprg=ag
+
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -58,6 +61,9 @@ filetype plugin indent on
 
 " Sets how many lines of history VIM has to remember
 set history=700
+
+" Lines 80 characters or more are a sin
+set tw=79
 
 " Set to auto read when a file is changed from the outside
 set autoread
