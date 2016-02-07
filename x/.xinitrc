@@ -20,7 +20,7 @@ xsetroot -cursor_name left_ptr &
 
 # start some nice programs
 mpd &
-trywallpaper "stallman.png" "ycombinator.png" "sofybakni.jpg" &
+trywallpaper "835.png" "stallman.png" "ycombinator.png" "sofybakni.jpg" &
 compton &
 steam_wishlist_watcher.sh &
 xscreensaver -nosplash &
