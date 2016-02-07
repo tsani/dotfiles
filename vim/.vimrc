@@ -6,6 +6,16 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 
 execute pathogen#infect()
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Filetype associations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Fix LaTeX file extension association
+autocmd BufNewFile,BufRead *.tex setf tex
+
+" Minilang
+autocmd BufNewFile,BufRead *.min setf minilang
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
