@@ -46,3 +46,6 @@
 [submodule "vim/.vim/bundle/vimshell.vim"]
 	path = vim/.vim/bundle/vimshell.vim
 	url = https://github.com/Shougo/vimshell.vim.git
+[submodule "other/mutt-colors-solarized"]
+	path = other/mutt-colors-solarized
+	url = git@github.com:altercation/mutt-colors-solarized.git
