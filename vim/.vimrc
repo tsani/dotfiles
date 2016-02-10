@@ -16,6 +16,9 @@ autocmd BufNewFile,BufRead *.tex setf tex
 " Minilang
 autocmd BufNewFile,BufRead *.min setf minilang
 
+" Tutch
+autocmd BufNewFile,BufRead *.tut setf tutch
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
