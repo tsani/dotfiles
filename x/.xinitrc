@@ -23,7 +23,6 @@ mpd &
 trywallpaper "835.png" "stallman.png" "ycombinator.png" "sofybakni.jpg" &
 compton &
 steam_wishlist_watcher.sh &
-xscreensaver -nosplash &
 redshift &
 dunst &
 eval $('ssh-agent')
