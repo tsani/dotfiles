@@ -15,3 +15,4 @@ alias wow="git status"
 alias gti="git" # this typo is waaaay too frequent
 alias g="git"
 alias f="urxvt &!" # useful for opening a new shell in the same directory
+alias open="xdg-open"
