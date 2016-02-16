@@ -391,6 +391,13 @@ map <leader>z @a
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
+nmap <leader>p :setlocal paste<CR>:r !xclip -o<CR>:setlocal nopaste<CR>
+
+nmap <leader>P :setlocal paste<CR>:r !xclip -o -selection clipboard<CR>:setlocal nopaste<CR>
+
+vmap <leader>p :w !xclip -i<CR>
+vmap <leader>P :w !xclip -i -selection clipboard<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
