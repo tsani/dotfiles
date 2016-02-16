@@ -49,3 +49,6 @@
 [submodule "other/mutt-colors-solarized"]
 	path = other/mutt-colors-solarized
 	url = git@github.com:altercation/mutt-colors-solarized.git
+[submodule "vim/.vim/bundle/tutch.vim"]
+	path = vim/.vim/bundle/tutch.vim
+	url = git@github.com:djeik:tutch.vim
