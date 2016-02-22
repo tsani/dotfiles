@@ -91,7 +91,7 @@ set so=7
 set cursorline
 
 " Set a colored column on the column of the textwidth
-set colorcolumn=80
+set colorcolumn=+1
 
 " Turn on the WiLd menu
 set wildmenu
