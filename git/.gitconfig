@@ -7,7 +7,7 @@
     ui = auto
 [core]
     editor = vim
-    excludesfile = /Users/jake/.gitignore
+    excludesfile = ~/.gitignore
 [alias]
     shove = push -f
     co = checkout
