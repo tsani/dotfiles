@@ -2,4 +2,8 @@
 
 # Simply print the newest file in the Downloads directory
 
-ls -t ~/downloads | head -n 1 | cat <(echo -n "$HOME/downloads/") -
+if test -z "$DOWNLOAD_DIR" ; then
+    DOWNLOAD_DIR="$HOME/downloads"
+fi
+
+ldl | head -n 1

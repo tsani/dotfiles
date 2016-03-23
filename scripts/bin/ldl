@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if test -z "$DOWNLOAD_DIR" ; then
+    DOWNLOAD_DIR="$HOME/downloads"
+fi
+
+find $DOWNLOAD_DIR -type f -maxdepth 1 |
+while read line ; do
+    eval "$(stat -s "$line")"
+    echo -e "$st_mtime\t$line"
+done |
+sort -rn |
+cut -d"	" -f2-

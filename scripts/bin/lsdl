@@ -20,4 +20,4 @@ while (( $# )) ; do
     shift
 done
 
-ls -t "$DOWNLOAD_DIR" | head -n "$N" | nl
+ldl | head -n "$N" | nl

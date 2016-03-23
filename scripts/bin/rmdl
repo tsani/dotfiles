@@ -20,4 +20,7 @@ while (( $# )) ; do
     shift
 done
 
-ls -t "$DOWNLOAD_DIR" | head -n "$N" | xargs -I {} rm -v "$DOWNLOAD_DIR/{}"
+ldl | head -n "$N" |
+while read line ; do
+    rm -v "$line"
+done
