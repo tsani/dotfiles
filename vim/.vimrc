@@ -41,7 +41,7 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 let g:neocomplete#enable_at_startup = 1
 
 " Search using ag
-set grepprg=ag
+set grepprg=ag\ --nogroup\ --filename
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -314,6 +314,7 @@ vmap <D-j> <M-j>
 vmap <D-k> <M-k>
 endif
 
+" Inserting a single character
 nnoremap s :exec "normal i".nr2char(getchar())."\e"<CR>
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
@@ -324,6 +325,7 @@ exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
+autocmd BufWrite *.hs :call DeleteTrailingWS()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -332,11 +334,11 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
-" Open vimgrep and put the cursor in the right position
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+" Open grep and put the cursor in the right position
+map <leader>g :grep
 
 " Vimgreps in the current file
-map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+map <leader><space> :grep  <C-R>%<C-A><right><right><right><right><right>
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
@@ -353,7 +355,7 @@ vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 "   <leader>p
 "
 map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>co :%y<cr>:tabnew<cr>:set syntax=qf<cr>Pgg
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 map <leader>sw yw /<C-R>0<cr>
@@ -395,9 +397,12 @@ nmap <leader>p :setlocal paste<CR>:r !xclip -o<CR>:setlocal nopaste<CR>
 
 nmap <leader>P :setlocal paste<CR>:r !xclip -o -selection clipboard<CR>:setlocal nopaste<CR>
 
-vmap <leader>p :w !xclip -i<CR>
-vmap <leader>P :w !xclip -i -selection clipboard<CR>
+map <leader>p :w !xclip -i<CR>
+map <leader>P :w !xclip -i -selection clipboard<CR>
 
+" Make sure that we can jump to the beginning and end of the line in ex mode
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
