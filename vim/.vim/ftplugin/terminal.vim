@@ -1,0 +1,3 @@
+setlocal nocursorline
+setlocal nocursorcolumn
+setlocal nospell
