@@ -239,12 +239,6 @@ map k gk
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
 " Close the current buffer
 map <leader>bd :Bclose<cr>
 
@@ -260,6 +254,9 @@ map <leader>tm :tabmove
 " To quickly move between tabs
 nmap <leader>> :tabnext<cr>
 nmap <leader>< :tabprevious<cr>
+
+nmap <leader>bn :bnext<cr>
+nmap <leader>bp :bprev<cr>
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -355,8 +352,8 @@ autocmd BufWrite *.hs :call DeleteTrailingWS()
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
-" Open grep and put the cursor in the right position
-map <leader>g :grep
+" Open grep the word under the cursor.
+nnoremap <leader>g viwy:silent grep! <C-R>0<CR>:cope<CR>:redraw!<CR>
 
 " Vimgreps in the current file
 map <leader><space> :grep  <C-R>%<C-A><right><right><right><right><right>
@@ -407,19 +404,14 @@ map <leader>a :e ~/buffer<cr>
 " Quickly close the current window.
 map <leader>q :q<cr>
 
-" I tend to use macro a as a scratchpad macro, and typing @a takes waaaay too
-" long.
-map <leader>z @a
+" Switch buffers
+map <leader>z :b #<CR>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-nmap <leader>p :setlocal paste<CR>:r !xclip -o<CR>:setlocal nopaste<CR>
-
-nmap <leader>P :setlocal paste<CR>:r !xclip -o -selection clipboard<CR>:setlocal nopaste<CR>
-
-map <leader>p :w !xclip -i<CR>
-map <leader>P :w !xclip -i -selection clipboard<CR>
+" make all cut/paste commands affect the clipboard
+set clipboard=unnamed
 
 " Make sure that we can jump to the beginning and end of the line in ex mode
 cnoremap <C-A> <Home>
@@ -502,3 +494,9 @@ let g:haddock_docdir = "/home/tsani/.cabal/share/doc"
 
 " Write current buffer as root.
 command! Sw w !sudo tee % > /dev/null
+
+" Smart way to move between windows
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
