@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if test -n "$NVIM_LISTEN_ADDRESS" && which nvr > /dev/null ; then
+    nvr --remote $@
+else
+    $EDITOR $@
+fi
