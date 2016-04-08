@@ -40,6 +40,12 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " Enable Neocomplete
 let g:neocomplete#enable_at_startup = 1
 
+" terminal buffer settings
+if has("nvim")
+    autocmd TermClose * call <SID>BufcloseCloseIt()
+    autocmd TermOpen * setf terminal
+endif
+
 " Search using ag
 set grepprg=ag\ --nogroup\ --filename
 
@@ -180,6 +186,21 @@ set nobackup
 set nowb
 set noswapfile
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Neovim terminal emulator
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if has("nvim")
+    " To quickly open split terminals
+    command! Tv :vs | terminal!
+    command! Th :sp | terminal!
+
+    " Moving out of terminal buffers easily
+    tmap <C-l> <C-\><C-n><C-l>
+    tmap <C-h> <C-\><C-n><C-h>
+    tmap <C-j> <C-\><C-n><C-j>
+    tmap <C-k> <C-\><C-n><C-j>
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
