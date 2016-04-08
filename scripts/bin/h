@@ -1,7 +1,11 @@
 #!/bin/bash
 
 if test -n "$NVIM_LISTEN_ADDRESS" && which nvr > /dev/null ; then
-    nvr -o $@
+    if [ -z "$*" ] ; then
+        nvr -c ':split | :terminal!'
+    else
+        nvr -o $@
+    fi
 else
     $EDITOR $@
 fi
