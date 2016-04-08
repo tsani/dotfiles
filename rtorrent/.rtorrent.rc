@@ -2,8 +2,8 @@
 log.open_file = "rtorrent", ~/torrents/rtorrent.log
 log.add_output = "debug", "rtorrent" 
 
-session = /home/tsani/torrents/.session
-directory = /home/tsani/torrents/incomplete
+session = ~/torrents/.session
+directory = ~/torrents/incomplete
 
 ratio.enable=
 # upload 200% (3x)
@@ -13,7 +13,7 @@ ratio.max.set=2000
 # 200M is the threshold between min and max. If I upload more than 200M, then min is used, else max is used
 ratio.upload.set=200M
 
-schedule = watch_directory_1,10,10,"load_start=/home/tsani/torrents/.watch/*.torrent,d.set_custom1=/home/tsani/torrents/complete"
+schedule = watch_directory_1,10,10,"load_start=~/torrents/.watch/*.torrent,d.set_custom1=~/torrents/complete"
 
 ## insert a method with the alias 'checkdirs1'
 ## 1) returns true if the current path of the torrent data is not equal to the value of custom1
