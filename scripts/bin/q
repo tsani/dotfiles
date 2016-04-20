@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if test -n "$NVIM_LISTEN_ADDRESS" && which nvr > /dev/null ; then
+    nvr -c ':q'
+else
+    echo 'either not running nvim or nvr is not installed' >&2
+    exit 1
+fi
