@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl http://stuff.jerrington.me/files/tsani_ip.txt
