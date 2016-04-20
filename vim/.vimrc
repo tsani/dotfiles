@@ -161,6 +161,9 @@ set tm=500
 " Line numbers are for n00bs
 set nonumber
 
+" whitespace characters
+set list
+set listchars=tab:>\ ,trail:-,nbsp:+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
