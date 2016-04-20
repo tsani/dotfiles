@@ -19,6 +19,16 @@ autocmd BufNewFile,BufRead *.min setf minilang
 " Tutch
 autocmd BufNewFile,BufRead *.tut setf tutch
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Quickfix list hacking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Capture the output of a command into the quickfix list.
+" Only really useful if the command is a compiler or linter of some kind, with
+" output in the format that Vim expects in the quickfix list.
+" Realistically, for compilers though, we should use set makeprg in a filetype
+" plugin.
+command! -bang -nargs=1 Q cexpr<bang> system('$SHELL -c ' . shellescape(<q-args>))
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
