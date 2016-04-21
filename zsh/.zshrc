@@ -69,7 +69,7 @@ function fuck() {
 
 source $HOME/.zsh_aliases
 
-fortune
+command -v fortune >/dev/null 2>&1 && fortune
 if test -e ~/todo.txt
 then
     echo
