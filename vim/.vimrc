@@ -426,6 +426,8 @@ map <leader>pp :setlocal paste!<cr>
 " make all cut/paste commands affect the clipboard
 set clipboard=unnamed
 
+nmap <leader>b :mak<CR>
+
 " Make sure that we can jump to the beginning and end of the line in ex mode
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>

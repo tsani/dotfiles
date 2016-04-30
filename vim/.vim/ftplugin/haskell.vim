@@ -1,3 +1,2 @@
-set makeprg=cabal
+set makeprg=cabal\ build
 set tw=79
-nmap ,b :mak build<CR>
