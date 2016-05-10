@@ -52,7 +52,6 @@ let g:neocomplete#enable_at_startup = 1
 
 " terminal buffer settings
 if has("nvim")
-    autocmd TermClose * call <SID>BufcloseCloseIt()
     autocmd TermOpen * setf terminal
 endif
 
