@@ -4,10 +4,9 @@ if test -z "$DOWNLOAD_DIR" ; then
     DOWNLOAD_DIR="$HOME/downloads"
 fi
 
-find $DOWNLOAD_DIR -type f -maxdepth 1 |
+find $DOWNLOAD_DIR -maxdepth 1 -type f |
 while read line ; do
-    eval "$(stat -s "$line")"
-    echo -e "$st_mtime\t$line"
+    echo -e "$(stat -c '%Y' "$line")\t$line"
 done |
 sort -rn |
 cut -d"	" -f2-
