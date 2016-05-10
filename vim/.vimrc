@@ -212,7 +212,16 @@ if has("nvim")
     tmap <C-h> <C-\><C-n><C-h>
     tmap <C-j> <C-\><C-n><C-j>
     tmap <C-k> <C-\><C-n><C-k>
+
+    " Automatically enter insert mode when entering a terminal buffer
+    autocmd WinEnter * call InsertTerminal()
 endif
+
+function! InsertTerminal()
+    if &buftype ==# 'terminal'
+        startinsert
+    endif
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
