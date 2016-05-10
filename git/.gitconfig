@@ -10,6 +10,7 @@
 [alias]
     shove = push -f
     co = checkout
+    cop = checkout --patch
     ci = commit
     s = status
     b = branch
