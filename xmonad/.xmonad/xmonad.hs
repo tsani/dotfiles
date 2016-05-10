@@ -49,6 +49,22 @@ myWorkspaces    = sort [ "shell", "irc", "code", "web", "music" ]
 myNormalBorderColor  = "#222255"
 myFocusedBorderColor = "#DD0000"
 
+spawnDmenu :: X ()
+spawnDmenu = do
+    dim <- gets (screenRect . W.screenDetail . W.current . windowset)
+    let (w, h) = (rect_width dim, rect_height dim)
+    let (dw, dh) = (w `div` 3, h `div` 3)
+    let (dx, dy) = (w `div` 3, h `div` 3)
+    let s = concat
+            [ "dmenu_run -dim 0.3 -fn 'DejaVu'"
+            , " -x ", show dx
+            , " -y ", show dy
+            , " -w ", show dw
+            , " -l ", show (dh `div` 20)
+            , " -r -p '$ '"
+            ]
+    spawn s
+
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
@@ -58,7 +74,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask                              , xK_Return     ), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modMask                              , xK_p          ), spawn "dmenu_run -dim 0.3 -fn 'DejaVu' -x 480 -y 270 -w 960 -l 15 -r -p '$ '")
+    , ((modMask                              , xK_p          ), spawnDmenu)
 
     -- launch gmrun
     , ((modMask .|. shiftMask                , xK_p          ), spawn "gmrun")
