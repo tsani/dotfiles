@@ -24,7 +24,7 @@ import qualified Data.Map        as M
 
 import Data.List ( sort, intercalate )
 
-myScreenWidth   = 1920
+myScreenWidth   = 1680
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
