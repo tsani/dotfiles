@@ -1,0 +1,20 @@
+#/usr/bin/zsh
+
+i=1
+
+mpc playlist | while read line ; do
+    echo "$line" | grep -i -q "$*"
+
+    if [ $? -eq 0 ] ; then
+        mpc play "$i"
+        i=0
+        break
+    fi
+
+    i=$(($i+1))
+done
+
+[ ! $i ] && echo "No such track." && exit 1
+
+exit 0
+
