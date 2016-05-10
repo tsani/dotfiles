@@ -28,29 +28,24 @@ myScreenWidth   = 1920
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
---
 myTerminal      = "urxvt"
 
 -- Width of the window border in pixels.
---
 myBorderWidth   = 2
 
 -- Home page to open when launching a web browser
---
 browserHome = "http://jerrington.me/"
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
 -- ("right alt"), which does not conflict with emacs keybindings. The
 -- "windows key" is usually mod4Mask.
---
 myModMask       = mod4Mask
 
 -- Default workspaces
 myWorkspaces    = sort [ "shell", "irc", "code", "web", "music" ]
 
 -- Border colors for unfocused and focused windows, respectively.
---
 myNormalBorderColor  = "#222255"
 myFocusedBorderColor = "#DD0000"
 
