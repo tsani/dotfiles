@@ -69,6 +69,9 @@ function fuck() {
 
 source $HOME/.zsh_aliases
 
+# enable neoman integration
+source $HOME/.vim/bundle/neoman.vim/scripts/neovim.zsh
+
 command -v fortune >/dev/null 2>&1 && fortune
 if test -e ~/todo.txt
 then
