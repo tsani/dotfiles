@@ -4,7 +4,7 @@ if test -z "$DOWNLOAD_DIR" ; then
     DOWNLOAD_DIR="$HOME/downloads"
 fi
 
-find $DOWNLOAD_DIR -maxdepth 1 -type f |
+find -L $DOWNLOAD_DIR -maxdepth 1 -type f |
 while read line ; do
     echo -e "$(stat -c '%Y' "$line")\t$line"
 done |
