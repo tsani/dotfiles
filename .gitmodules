@@ -58,6 +58,9 @@
 [submodule "vim/.vim/bundle/vim-go"]
 	path = vim/.vim/bundle/vim-go
 	url = https://github.com/fatih/vim-go
+[submodule "irssi/.irssi/scripts/irssi-notifier"]
+	path = irssi/.irssi/scripts/irssi-notifier
+	url = https://github.com/paddykontschak/irssi-notifier.git
 [submodule "vim/.vim/bundle/neoman.vim"]
 	path = vim/.vim/bundle/neoman.vim
 	url = https://github.com/nhooyr/neoman.vim.git
