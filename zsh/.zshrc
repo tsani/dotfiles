@@ -64,10 +64,12 @@ export SAVEHIST=1000
 export HISTCONTROL=ignorespace:erasedups
 
 function fuck() {
-  if killall -9 "$2"; then
-          echo ; echo " (╯°□°）╯︵$(echo "$2"|toilet -f term -F rotate)"; echo
-            fi
-        }
+    if killall -9 "$2" ; then
+        echo
+        echo " (╯°□°）╯︵$(echo "$2"|toilet -f term -F rotate)"
+        echo
+    fi
+}
 
 source $HOME/.zsh_aliases
 
