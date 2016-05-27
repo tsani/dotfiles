@@ -261,6 +261,8 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 map j gj
 map k gk
 
+nmap <C-t> :tabe %<CR>
+
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
