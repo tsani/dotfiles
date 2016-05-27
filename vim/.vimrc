@@ -204,8 +204,8 @@ set noswapfile
 
 if has("nvim")
     " To quickly open split terminals
-    command! Tv :vs | terminal!
-    command! Th :sp | terminal!
+    command! -bang -nargs=* -complete=shellcmd Tv :vs | terminal<bang> <args>
+    command! -bang -nargs=* -complete=shellcmd Th :sp | terminal<bang> <args>
 
     " Moving out of terminal buffers easily
     tmap <C-l> <C-\><C-n><C-l>
