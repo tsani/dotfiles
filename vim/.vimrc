@@ -157,8 +157,12 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Line numbers are for n00bs
+" Line numbers: relative while in normal mode, no numbers in insert mode
 set nonumber
+set relativenumber
+
+au InsertEnter * :set norelativenumber | set foldcolumn=4
+au InsertLeave * :set relativenumber | set foldcolumn=0
 
 " whitespace characters
 set list
