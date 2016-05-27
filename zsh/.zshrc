@@ -58,8 +58,10 @@ bindkey "[7~" beginning-of-line
 bindkey "[8~" end-of-line
 bindkey "[3~" delete-char
 
+# History management
 export HISTSIZE=1000
 export SAVEHIST=1000
+export HISTCONTROL=ignorespace:erasedups
 
 function fuck() {
   if killall -9 "$2"; then
