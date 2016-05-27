@@ -83,3 +83,5 @@ then
     echo
     cat ~/todo.txt
 fi
+
+source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
