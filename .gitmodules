@@ -48,10 +48,10 @@
 	url = https://github.com/Shougo/vimshell.vim.git
 [submodule "other/mutt-colors-solarized"]
 	path = other/mutt-colors-solarized
-	url = git@github.com:altercation/mutt-colors-solarized.git
+	url = https://github.com/altercation/mutt-colors-solarized.git
 [submodule "vim/.vim/bundle/tutch.vim"]
 	path = vim/.vim/bundle/tutch.vim
-	url = git@github.com:djeik/tutch.vim.git
+	url = https://github.com/djeik/tutch.vim.git
 [submodule "vim/.vim/bundle/vim-coffee-script"]
 	path = vim/.vim/bundle/vim-coffee-script
 	url = https://github.com/kchmck/vim-coffee-script
