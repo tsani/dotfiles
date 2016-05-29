@@ -1,7 +1,10 @@
 #!/bin/bash
 
+set -e
+
 if test -n "$NVIM_LISTEN_ADDRESS" && which nvr > /dev/null ; then
-    nvr --remote $@
+    exec nvr --remote $@
 else
-    $EDITOR $@
+    test -n "$EDITOR" && exec $EDITOR $@
+    exec vim $@
 fi
