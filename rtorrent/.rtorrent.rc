@@ -13,27 +13,14 @@ ratio.max.set=2000
 # 200M is the threshold between min and max. If I upload more than 200M, then min is used, else max is used
 ratio.upload.set=200M
 
+port_range = 60125-64125
+port_random = yes
+encryption = allow_incoming,try_outgoing,enable_retry
+
 schedule = watch_directory_1,10,10,"load_start=~/torrents/.watch/*.torrent,d.set_custom1=~/torrents/complete"
 
-## insert a method with the alias 'checkdirs1'
-## 1) returns true if the current path of the torrent data is not equal to the value of custom1
-## 2) otherwise, returns false
-system.method.insert=checkdirs1,simple,"not=\"$equal={d.get_custom1=,d.get_base_path=}\""
+system.method.set_key = event.download.finished,move_complete,"d.set_directory=$d.get_custom1= ;execute=mv,-u,$d.get_base_path=,$d.get_custom1="
 
-## insert a method with the alias 'movecheck1'
-## 1) returns true if all 3 commands return true ('result of checkdirs1' && 'torrent is 100% done', 'custom1 variable is set')
-## 2) otherwise, returns false
-system.method.insert=movecheck1,simple,"and={checkdirs1=,d.get_complete=,d.get_custom1=}"
-
-## set a key with the name 'move_hashed1' that is triggered by the hash_done event.
-## 1) When hashing of a torrent completes, this custom key will be triggered.
-## 2) when triggered, execute the 'movecheck1' method and check the return value.
-## 3) if the 'movecheck' method returns 'true', execute the 'movedir1' method we inserted above.
-## NOTE-0: *Only* data that has had their hash checked manually with ^R [^R = Control r].
-## Or on a rtorrent restart[which initiates a hash check]. Will the data move; ~/torrents/incomplete => ~/torrents/complete for example.
-## NOTE-1: 'branch' is an 'if' conditional statement: if(movecheck1){movedir1}
-system.method.set_key=event.download.hash_done,move_hashed1,"branch={$movecheck1=,movedir1=}"
-
+dht_port = 63425
 dht = auto
-dht_port = 6881
 peer_exchange = yes
