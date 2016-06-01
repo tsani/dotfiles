@@ -217,8 +217,16 @@ if has("nvim")
     tmap <C-j> <C-\><C-n><C-j>
     tmap <C-k> <C-\><C-n><C-k>
 
+    " Fast close terminal window
+    tmap <C-\><C-q> <C-\><C-n>:q<CR>
+
     " Automatically enter insert mode when entering a terminal buffer
     autocmd WinEnter * call InsertTerminal()
+
+    " Reset terminal size
+    " Remark: we have to go to normal mode *twice* due to the WinEnter
+    " autocommand that invokes InsertTerminal() (above)
+    tmap <C-_> <C-\><C-n>:sp<CR><C-\><C-n>:q<CR>
 endif
 
 function! InsertTerminal()
