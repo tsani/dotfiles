@@ -1,3 +1,6 @@
 setlocal nocursorline
 setlocal nocursorcolumn
 setlocal nospell
+setlocal norelativenumber
+setlocal nonumber
+setlocal foldcolumn=0
