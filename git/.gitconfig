@@ -11,6 +11,8 @@
     shove = push -f
     co = checkout
     cop = checkout --patch
+    stap = stash --patch
+    resp = reset --patch
     ci = commit
     s = status
     b = branch
@@ -20,3 +22,4 @@
     lsp = log --all --graph --decorate=short --stat -p
     psuh = push
     p = push
+    rc = rebase --continue
