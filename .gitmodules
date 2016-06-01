@@ -64,3 +64,9 @@
 [submodule "zsh/.zsh/zsh-syntax-highlighting"]
 	path = zsh/.zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "irssi/.irssi/scripts/irssi-notifier"]
+	path = irssi/.irssi/scripts/irssi-notifier
+	url = https://github.com/paddykontschak/irssi-notifier.git
+[submodule "web-tools"]
+	path = web-tools
+	url = git@github.com:oohlala/web-tools.git
