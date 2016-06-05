@@ -88,21 +88,21 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask  , xK_z          ), spawn "slock")
 
     -- Volume controls
-	, ((modMask                , xK_F9         ), spawn "volume toggle")
-	, ((modMask                , xK_F10        ), spawn "volume down")
-	, ((modMask                , xK_F11        ), spawn "volume up")
+    , ((modMask                , xK_F9         ), spawn "volume toggle")
+    , ((modMask                , xK_F10        ), spawn "volume down")
+    , ((modMask                , xK_F11        ), spawn "volume up")
 
     -- Kill the screen backlight.
-	, ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
+    , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
 
     -- Backlight controls.
-	, ((modMask                , xK_F6         ), spawn "xbacklight -dec 10")
-	, ((modMask                , xK_F7         ), spawn "xbacklight -inc 10")
+    , ((modMask                , xK_F6         ), spawn "xbacklight -dec 10")
+    , ((modMask                , xK_F7         ), spawn "xbacklight -inc 10")
 
     -- Music controls
-	, ((modMask                , xK_Page_Up    ), spawn "mpc prev")
-	, ((modMask                , xK_Page_Down  ), spawn "mpc next")
-	, ((modMask                , xK_Pause      ), spawn "mpc toggle")
+    , ((modMask                , xK_Page_Up    ), spawn "mpc prev")
+    , ((modMask                , xK_Page_Down  ), spawn "mpc next")
+    , ((modMask                , xK_Pause      ), spawn "mpc toggle")
     , ((modMask                , xK_Scroll_Lock), spawn "nowplaying.sh")
 
     -- close focused window; only deletes a copy
@@ -243,13 +243,13 @@ myLayout = workspaceDir "~" $ smartBorders $ smartSpacing 5 $
 myManageHook = manageDocks <+> composeAll
     [ className =? "MPlayer"                              --> doFloat
     , className =? "Gimp"                                 --> doFloat
-	, className =? "org-spoutcraft-launcher-Main"         --> doFloat
-	, className =? "net-minecraft-MinecraftLauncher"      --> doFloat
-	, className =? "net-ftb-mclauncher-MinecraftLauncher" --> doFloat
-	, className =? "StepMania"                            --> doFloat
-	, className =? "CaveStory+"                           --> doFloat
+    , className =? "org-spoutcraft-launcher-Main"         --> doFloat
+    , className =? "net-minecraft-MinecraftLauncher"      --> doFloat
+    , className =? "net-ftb-mclauncher-MinecraftLauncher" --> doFloat
+    , className =? "StepMania"                            --> doFloat
+    , className =? "CaveStory+"                           --> doFloat
     , resource  =? "desktop_window"                       --> doIgnore
-	]
+    ]
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -263,17 +263,17 @@ myStartupHook = return ()
 
 tsaniPP :: PP
 tsaniPP = defaultPP
-	{ ppHiddenNoWindows = pad
+    { ppHiddenNoWindows = pad
     , ppHidden  = dzenColor "black"  tsaniBlue . pad
     , ppCurrent = dzenColor "yellow" tsaniBlue . pad
     , ppUrgent  = dzenColor "red"    "yellow"  . pad
     , ppSep     = pad "|"
     , ppWsSep   = ""
-	, ppLayout  = const ""
+    , ppLayout  = const ""
     , ppTitle   = shorten 70
     , ppOrder   = reverse
     }
-	where tsaniBlue = "#7c98ff"
+    where tsaniBlue = "#7c98ff"
 
 myLogHook h = dynamicLogWithPP tsaniPP { ppOutput = hPutStrLn h }
 
