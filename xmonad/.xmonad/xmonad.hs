@@ -91,6 +91,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                , xK_F9         ), spawn "volume toggle")
     , ((modMask                , xK_F10        ), spawn "volume down")
     , ((modMask                , xK_F11        ), spawn "volume up")
+    , ((modMask .|. shiftMask  , xK_F9         ), spawn "mpc-toggle")
+    , ((modMask .|. shiftMask  , xK_F10        ), spawn "mpc volume -5")
+    , ((modMask .|. shiftMask  , xK_F11        ), spawn "mpc volume +5")
 
     -- Kill the screen backlight.
     , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
