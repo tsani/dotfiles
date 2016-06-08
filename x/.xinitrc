@@ -25,6 +25,10 @@ compton --no-fading-openclose &
 steam_wishlist_watcher.sh &
 redshift &
 dunst &
+(   which xautolock slock >/dev/null &&
+    xautolock -time 15 -locker slock -notify 30 \
+        -notifier 'notify-send "slock" "screen will soon lock"' -detectsleep
+) &
 eval $('ssh-agent')
 
 # run the window manager
