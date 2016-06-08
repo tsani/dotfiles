@@ -1,3 +1,3 @@
 #!/bin/bash
 
-MPD_HOST=localhost /usr/local/bin/mpc prev
+mpc --host $HOME/.mpd/socket prev

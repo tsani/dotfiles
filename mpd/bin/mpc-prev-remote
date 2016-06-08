@@ -5,4 +5,4 @@ if test -z "$MPD_LABCODERS" ; then
     exit 1
 fi
 
-MPD_HOST=$MPD_LABCODERS /usr/local/bin/mpc prev
+MPD_HOST=$MPD_LABCODERS mpc prev

@@ -1,9 +1,9 @@
 #!/bin/zsh
 
-PLAYING="$(MPD_HOST=localhost /usr/local/bin/mpc | grep playing)"
+PLAYING="$(mpc --host $HOME/.mpd/socket | grep playing)"
 
 if test -n "$PLAYING" ; then
-    MPD_HOST=localhost /usr/local/bin/mpc stop >> ~/debug
+    MPD_HOST=localhost mpc stop
 else
-    MPD_HOST=localhost /usr/local/bin/mpc play >> ~/debug
+    MPD_HOST=localhost mpc play
 fi
