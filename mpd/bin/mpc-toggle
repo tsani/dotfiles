@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+PLAYING="$(MPD_HOST=localhost /usr/local/bin/mpc | grep playing)"
+
+if test -n "$PLAYING" ; then
+    MPD_HOST=localhost /usr/local/bin/mpc stop >> ~/debug
+else
+    MPD_HOST=localhost /usr/local/bin/mpc play >> ~/debug
+fi

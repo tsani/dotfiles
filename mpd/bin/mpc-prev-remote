@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if test -z "$MPD_LABCODERS" ; then
+    echo 'no labcoders mpd host configured'
+    exit 1
+fi
+
+MPD_HOST=$MPD_LABCODERS /usr/local/bin/mpc prev
