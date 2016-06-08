@@ -103,9 +103,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                , xK_F7         ), spawn "xbacklight -inc 10")
 
     -- Music controls
-    , ((modMask                , xK_Page_Up    ), spawn "mpc prev")
-    , ((modMask                , xK_Page_Down  ), spawn "mpc next")
+    , ((modMask                , xK_Page_Up    ), spawn "mpc-prev")
+    , ((modMask                , xK_Page_Down  ), spawn "mpc-next")
+    , ((modMask .|. shiftMask  , xK_Page_Up    ), spawn "mpc-prev-remote")
+    , ((modMask .|. shiftMask  , xK_Page_Down  ), spawn "mpc-next-remote")
     , ((modMask                , xK_Pause      ), spawn "mpc toggle")
+    , ((modMask .|. shiftMask  , xK_Pause      ), spawn "mpc-toggle")
     , ((modMask                , xK_Scroll_Lock), spawn "nowplaying.sh")
 
     -- close focused window; only deletes a copy
