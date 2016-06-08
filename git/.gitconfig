@@ -16,7 +16,8 @@
     ci = commit
     s = status
     b = branch
-    l = log --all --graph --oneline --decorate=short
+    l = log --graph --oneline --decorate=short
+    la = log --all --graph --oneline --decorate=short
     ls = log --all --graph --oneline --decorate=short --stat
     lss = log --all --graph --decorate=short --stat
     lsp = log --all --graph --decorate=short --stat -p
