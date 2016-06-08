@@ -1,10 +1,18 @@
-#!/bin/bash
+#!/bin/zsh
+
+# Universal editing script.
+# Will open files in a controlling neovim instance, if available.
+# Failing that, will open with $EDITOR, if available.
+# Failing that, will open with vim, if installed.
+# Failing that, will open with nano, if installed.
+# Failing that, abort with an error message.
 
 set -e
 
-if test -n "$NVIM_LISTEN_ADDRESS" && which nvr > /dev/null ; then
-    exec nvr --remote $@
-else
-    test -n "$EDITOR" && exec $EDITOR $@
-    exec vim $@
-fi
+test -n "$NVIM_LISTEN_ADDRESS" && which nvr > /dev/null && exec nvr --remote $@
+test -n "$EDITOR" && exec $EDITOR $@
+which vim >/dev/null && exec vim $@
+which nano >/dev/null && exec nano $@
+
+echo 'no editors installed' >&2
+exit 1
