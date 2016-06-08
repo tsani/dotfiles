@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<root>
+    <item>
+      <name>Send Shift-Ctrl-F13 for Right Option</name>
+      <identifier>private.send_shift_ctrl_f13_for_ropt</identifier>
+      <autogen>__KeyToKey__ KeyCode::OPTION_R,
+                            KeyCode::F13, ModifierFlag::SHIFT_L
+                                        | ModifierFlag::CONTROL_L
+      </autogen>
+    </item>
+
+    <vkopenurldef>
+        <name>KeyCode::VK_OPEN_URL_SHELL_mpc-toggle</name>
+        <url type="shell">
+            <![CDATA[/Users/jake/bin/mpc-toggle]]>
+        </url>
+    </mkopenurldef>
+
+    <vkopenurldef>
+        <name>KeyCode::VK_OPEN_URL_SHELL_mpc-next-remote</name>
+        <url type="shell">
+            <![CDATA[/Users/jake/bin/mpc-next-remote]]>
+        </url>
+    </mkopenurldef>
+
+    <vkopenurldef>
+        <name>KeyCode::VK_OPEN_URL_SHELL_mpc-prev-remote</name>
+        <url type="shell">
+            <![CDATA[/Users/jake/bin/mpc-prev-remote]]>
+        </url>
+    </mkopenurldef>
+
+    <vkopenurldef>
+        <name>KeyCode::VK_OPEN_URL_SHELL_mpc-next</name>
+        <url type="shell">
+            <![CDATA[/Users/jake/bin/mpc-next]]>
+        </url>
+    </mkopenurldef>
+
+    <vkopenurldef>
+        <name>KeyCode::VK_OPEN_URL_SHELL_mpc-prev</name>
+        <url type="shell">
+            <![CDATA[/Users/jake/bin/mpc-prev]]>
+        </url>
+    </mkopenurldef>
+
+    <item>
+        <name>Change Command+F8 to toggle local MPD playing</name>
+        <identifier>private.mpc_toggle</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::F8, ModifierFlag::COMMAND_L,
+            KeyCode::VK_OPEN_URL_SHELL_mpc-toggle
+        </autogen>
+    </item>
+
+    <item>
+        <name>Change Command+Shift+F9 to go to next remote MPD track</name>
+        <identifier>private.mpc_next_remote</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::F9, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L,
+            KeyCode::VK_OPEN_URL_SHELL_mpc-next-remote
+        </autogen>
+    </item>
+
+    <item>
+        <name>Change Command+Shift+F7 to go to prev remote MPD track</name>
+        <identifier>private.mpc_prev_remote</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::F7, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L,
+            KeyCode::VK_OPEN_URL_SHELL_mpc-prev-remote
+        </autogen>
+    </item>
+
+    <item>
+        <name>Change Command+F9 to go to next local MPD track</name>
+        <identifier>private.mpc_next</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::F9, ModifierFlag::COMMAND_L,
+            KeyCode::VK_OPEN_URL_SHELL_mpc-next
+        </autogen>
+    </item>
+
+    <item>
+        <name>Change Command+F7 to go to prev local MPD track</name>
+        <identifier>private.mpc_prev</identifier>
+        <autogen>
+            __KeyToKey__
+            KeyCode::F7, ModifierFlag::COMMAND_L,
+            KeyCode::VK_OPEN_URL_SHELL_mpc-prev
+        </autogen>
+    </item>
+</root>
