@@ -92,8 +92,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                , xK_F10        ), spawn "volume down")
     , ((modMask                , xK_F11        ), spawn "volume up")
     , ((modMask .|. shiftMask  , xK_F9         ), spawn "mpc-toggle")
-    , ((modMask .|. shiftMask  , xK_F10        ), spawn "mpc volume -5")
-    , ((modMask .|. shiftMask  , xK_F11        ), spawn "mpc volume +5")
+    , ((modMask .|. shiftMask  , xK_F10        ), spawn "mpc --host $HOME/.mpd/socket volume -5")
+    , ((modMask .|. shiftMask  , xK_F11        ), spawn "mpc --host $HOME/.mpd/socket volume +5")
 
     -- Kill the screen backlight.
     , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
@@ -107,7 +107,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                , xK_Page_Down  ), spawn "mpc-next")
     , ((modMask .|. shiftMask  , xK_Page_Up    ), spawn "mpc-prev-remote")
     , ((modMask .|. shiftMask  , xK_Page_Down  ), spawn "mpc-next-remote")
-    , ((modMask                , xK_Pause      ), spawn "mpc toggle")
+    , ((modMask                , xK_Pause      ), spawn "mpc --host $HOME/.mpd/socket toggle")
     , ((modMask .|. shiftMask  , xK_Pause      ), spawn "mpc-toggle")
     , ((modMask                , xK_Scroll_Lock), spawn "nowplaying.sh")
 
