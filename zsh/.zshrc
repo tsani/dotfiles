@@ -74,7 +74,7 @@ function fuck() {
 source $HOME/.zsh_aliases
 
 # enable neoman integration
-NEOMAN="$HOME/.vim/bundle/neovim.vim/scripts/neovim.zsh"
+NEOMAN="$HOME/.vim/bundle/neoman.vim/scripts/neovim.zsh"
 test -e "$NEOMAN" && source "$NEOMAN"
 
 command -v fortune >/dev/null 2>&1 && fortune
