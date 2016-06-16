@@ -1,2 +1,3 @@
 nnoremap h gT
 nnoremap l gt
+nnoremap ,z :b #<CR>
