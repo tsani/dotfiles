@@ -24,3 +24,4 @@
     psuh = push
     p = push
     rc = rebase --continue
+    diff-stash = diff 'stash@{0}^..stash@{0}'
