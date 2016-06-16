@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Moves all files listed on the command line to the torrent watch directory.
+
+if test -z "$TORRENT_WATCH_DIR" ; then
+    TORRENT_WATCH_DIR="$HOME/torrents/.watch"
+fi
+
+mv -t "$TORRENT_WATCH_DIR" "$@"
