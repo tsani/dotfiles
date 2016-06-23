@@ -15,7 +15,4 @@ alias wow="git status"
 alias gti="git" # this typo is waaaay too frequent
 alias g="git"
 alias f="urxvt &!" # useful for opening a new shell in the same directory
-
-function open () {
-    xdg-open $@ >/dev/null 2>&1 &!
-}
+alias owdpar="oohlala-web-deploy --push --all --reload"
