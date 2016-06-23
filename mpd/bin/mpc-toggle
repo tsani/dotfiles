@@ -3,7 +3,7 @@
 PLAYING="$(mpc --host $HOME/.mpd/socket | grep playing)"
 
 if test -n "$PLAYING" ; then
-    MPD_HOST=localhost mpc stop
+    mpc --host $HOME/.mpd/socket stop
 else
-    MPD_HOST=localhost mpc play
+    mpc --host $HOME/.mpd/socket play
 fi
