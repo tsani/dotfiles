@@ -25,3 +25,4 @@
     p = push
     rc = rebase --continue
     diff-stash = diff 'stash@{0}^..stash@{0}'
+    diff-ci = diff 'HEAD^..HEAD'
