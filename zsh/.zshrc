@@ -17,6 +17,9 @@ source $ZSH/oh-my-zsh.sh
 
 unsetopt AUTO_CD
 
+# To enable comments in interactive mode.
+setopt interactivecomments
+
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
