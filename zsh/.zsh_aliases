@@ -15,5 +15,5 @@ alias wow="git status"
 alias gti="git" # this typo is waaaay too frequent
 alias g="git"
 alias f="urxvt &!" # useful for opening a new shell in the same directory
-alias owdpar="oohlala-web-deploy --push --all --reload"
+alias owdpar="oll-web-deploy --push --all --reload"
 alias gap='git add -p'
