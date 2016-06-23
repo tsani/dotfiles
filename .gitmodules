@@ -70,3 +70,6 @@
 [submodule "web-tools"]
 	path = web-tools
 	url = git@github.com:oohlala/web-tools.git
+[submodule "web-dotfiles"]
+	path = web-dotfiles
+	url = git@github.com:oohlala/web-dotfiles.git

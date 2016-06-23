@@ -4,7 +4,7 @@
 GHC = ghc
 GHCFLAGS = --make -O2
 
-all: scripts/bin/browsers scripts/bin/writewatch vimproc
+all: scripts/bin/browsers scripts/bin/writewatch vimproc ssh
 
 scripts/bin/browsers: scripts/bin/browsers.hs
 	$(GHC) $(GHCFLAGS) $<
@@ -18,3 +18,7 @@ clean:
 .PHONY: vimproc
 vimproc:
 	make -C vim/.vim/bundle/vimproc.vim
+
+.PHONY: ssh
+ssh:
+	make -C ssh
