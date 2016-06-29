@@ -17,3 +17,4 @@ alias g="git"
 alias f="urxvt &!" # useful for opening a new shell in the same directory
 alias owdpar="oll-web-deploy --push --all --reload"
 alias gap='git add -p'
+alias gf='git fetch'
