@@ -28,3 +28,5 @@
     diff-ci = diff 'HEAD^..HEAD'
     d = diff
     dc = diff --cached
+    r = rebase
+    ri = rebase -i
