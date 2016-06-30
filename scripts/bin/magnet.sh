@@ -13,5 +13,8 @@ fi
 
 [[ "$1" =~ xt=urn:btih:([^&/]+) ]] || \
     eval 'echo "not a magnet link >&2" ; exit 1'
+
 echo "d10:magnet-uri${#1}:${1}e" > \
     "$MAGNET_DIR/meta-${BASH_REMATCH[1]}.torrent"
+
+test -n "$DISPLAY" && notify-send "rtorrent" "converted magnet link"
