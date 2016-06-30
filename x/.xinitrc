@@ -21,7 +21,7 @@ xsetroot -cursor_name left_ptr &
 # start some nice programs
 mpd &
 trywallpaper "835.png" "stallman.png" "ycombinator.png" "sofybakni.jpg" &
-compton --no-fading-openclose &
+compton --no-fading-openclose --backend glx --vsync opengl &
 steam_wishlist_watcher.sh &
 redshift &
 dunst &
