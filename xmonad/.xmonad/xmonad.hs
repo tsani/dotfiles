@@ -6,7 +6,6 @@ import XMonad.Core
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.CopyWindow ( copy, kill1 )
-import XMonad.Hooks.ICCCMFocus
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.ManageDocks
