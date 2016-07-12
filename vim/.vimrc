@@ -287,6 +287,9 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 map j gj
 map k gk
 
+" Quickly open command window
+nmap ; q:
+
 " Open current file in another tab
 nmap <C-t> :tabe %<CR>
 
