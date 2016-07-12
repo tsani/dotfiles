@@ -6,6 +6,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 
 execute pathogen#infect()
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Filetype associations
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -19,6 +20,7 @@ autocmd BufNewFile,BufRead *.min setf minilang
 " Tutch
 autocmd BufNewFile,BufRead *.tut setf tutch
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Quickfix list hacking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -30,9 +32,11 @@ autocmd BufNewFile,BufRead *.tut setf tutch
 " plugin.
 command! -bang -nargs=1 Q cexpr<bang> system('$SHELL -c ' . shellescape(<q-args>))
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Syntastic setup
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -99,6 +103,7 @@ nmap <leader>w :w!<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -148,6 +153,7 @@ set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch
+
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -168,9 +174,11 @@ au InsertLeave * :set relativenumber | set foldcolumn=0
 set list
 set listchars=tab:>\ ,trail:-,nbsp:+
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Enable syntax highlighting
 syntax enable
 
@@ -194,6 +202,7 @@ set ffs=unix,dos,mac
 " Show trailing whitespace as an error
 match Error /\s\+$/
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -201,6 +210,7 @@ match Error /\s\+$/
 set nobackup
 set nowb
 set noswapfile
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Neovim terminal emulator
@@ -238,24 +248,31 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Use spaces instead of tabs
 set expandtab
 
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
+" 1 tab == 4 spaces, except when it's not!
 set shiftwidth=4
 set tabstop=4
 
-set ai        "Auto indent
-set wrap      "Wrap lines
-set linebreak "Break lines
+" Auto indent
+set ai
+
+" Wrap lines
+set wrap
+
+" Break lines
+set linebreak
 
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
+
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f')<CR>
@@ -265,10 +282,12 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
 
+" Open current file in another tab
 nmap <C-t> :tabe %<CR>
 
 " Disable highlight when <leader><cr> is pressed
@@ -315,6 +334,12 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
+" Smart way to move between windows
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Code folding
@@ -341,6 +366,7 @@ endif
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
+
 " Always show the status line
 set laststatus=2
 
@@ -351,6 +377,7 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ %y\ \ Line:\ %l/%L\ Col:\ %c
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
@@ -384,6 +411,7 @@ autocmd BufWrite *.hs :call DeleteTrailingWS()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimgrep searching and cope displaying
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
@@ -417,6 +445,7 @@ map <leader>sw yw /<C-R>0<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
@@ -430,6 +459,7 @@ map <leader>s? z=
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
@@ -454,9 +484,11 @@ nmap <leader>b :mak<CR>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
@@ -514,6 +546,7 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+
 """"""""""""""""""""'""""""""""""""""""""""""""""""""""""""
 " => Haskell Mode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -525,15 +558,10 @@ endfunction
 let g:haddock_browser = "/usr/bin/firefox"
 let g:haddock_docdir = "/home/tsani/.cabal/share/doc"
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Tricks
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Write current buffer as root.
 command! Sw w !sudo tee % > /dev/null
-
-" Smart way to move between windows
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
