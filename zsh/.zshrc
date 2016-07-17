@@ -13,8 +13,6 @@ plugins=(git urltools archlinux bower cabal github pip python redis-cli screen s
 SOLARIZED_THEME=light
 ZSH_THEME="blinks"
 
-source $ZSH/oh-my-zsh.sh
-
 unsetopt AUTO_CD
 
 # To enable comments in interactive mode.
@@ -25,6 +23,8 @@ setopt interactivecomments
 
 # Comment this out to disable bi-weekly auto-update checks
 DISABLE_AUTO_UPDATE="true"
+
+source $ZSH/oh-my-zsh.sh
 
 # Uncomment to change how often before auto-updates occur? (in days)
 # export UPDATE_ZSH_DAYS=13
