@@ -90,6 +90,9 @@ set tw=79
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" Use backslash to reverse a movement command.
+nnoremap \ ,
+
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
@@ -97,7 +100,7 @@ let g:mapleader = ","
 let maplocalleader = "\\"
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nnoremap <leader>w :w!<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -288,8 +291,8 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
+nnoremap j gj
+nnoremap k gk
 
 " Remap space to 'repeat find'
 nnoremap <space> ;
@@ -298,29 +301,29 @@ nnoremap <space> ;
 nnoremap ; q:
 
 " Open current file in another tab
-nmap <C-t> :tabe %<CR>
+nnoremap <C-t> :tabe %<CR>
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+nnoremap <silent> <leader><cr> :noh<cr>
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
+nnoremap <leader>bd :Bclose<cr>
 
 " Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
+nnoremap <leader>ba :1,1000 bd!<cr>
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm :tabmove
 
 " To quickly move between tabs
-nmap <leader>> :tabnext<cr>
-nmap <leader>< :tabprevious<cr>
+nnoremap <leader>> :tabnext<cr>
+nnoremap <leader>< :tabprevious<cr>
 
-nmap <leader>bn :bnext<cr>
-nmap <leader>bp :bprev<cr>
+nnoremap <leader>bn :bnext<cr>
+nnoremap <leader>bp :bprev<cr>
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -474,21 +477,18 @@ map <leader>s? z=
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scripbble
-map <leader>a :e ~/buffer<cr>
+nnoremap <leader>a :e ~/buffer<cr>
 
 " Quickly close the current window.
-map <leader>q :q<cr>
+nnoremap <leader>q :q<cr>
 
 " Switch buffers
-map <leader>z :b #<CR>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+nnoremap <leader>z :b #<CR>
 
 " make all cut/paste commands affect the clipboard
 set clipboard=unnamed
 
-nmap <leader>b :mak<CR>
+nnoremap <leader>b :mak<CR>
 
 " Make sure that we can jump to the beginning and end of the line in ex mode
 cnoremap <C-A> <Home>
@@ -575,3 +575,18 @@ let g:haddock_docdir = "/home/tsani/.cabal/share/doc"
 
 " Write current buffer as root.
 command! Sw w !sudo tee % > /dev/null
+
+" Use regular ex command prompt with semicolon instead of colon
+nnoremap ; :
+"
+" Quickly open command window
+nnoremap : q:i
+
+try
+" vim-commentary defines these, but it turns out they're actually deprecated,
+" so let's unmap them since I don't use them anyway.
+unmap \\
+unmap \\\
+unmap \\u
+catch
+endtry
