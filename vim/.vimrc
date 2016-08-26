@@ -142,6 +142,10 @@ set smartcase
 " Highlight search results
 set hlsearch
 
+" Hijack search highlighting feature to simply cause a highlight of the word
+" under the cursor.
+nmap <leader>h yiw/<C-r>0<return><C-o>
+
 " Makes search act like search in modern browsers
 set incsearch
 
