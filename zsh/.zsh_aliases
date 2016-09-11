@@ -20,6 +20,11 @@ alias owd="oll-web-deploy --parallel"
 alias gap='git add -p'
 alias gf='git fetch'
 
+
 grs() {
     git stash && git rebase $@ && git stash pop
+}
+
+open() {
+    xdg-open $@ >/dev/null 2>&1 &!
 }
