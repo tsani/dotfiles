@@ -1,0 +1,69 @@
+#!/bin/bash
+
+set -e
+
+err() {
+    echo $@ >&2
+}
+
+usage() {
+    echo "usage: share [-c] FILE [NAME]"
+    echo "  The sharable URL is printed to standard output."
+    echo
+    echo "Options:"
+    echo "  -c -- save the sharable URL to the clipboard instead of printing"
+}
+
+die() {
+    MSG="$1"
+    test -n "$MSG" && err "$MSG"
+    err "$(usage())"
+    exit 1
+}
+
+PLATFORM="$(uname)"
+
+if [ "$PLATFORM" = "Linux" ] ; then
+    copy() {
+        xclip -i -selection clipboard
+    }
+elif [ "$PLATFORM" = "Darwin" ] ; then
+    copy() {
+        pbcopy
+    }
+else
+    die "Unknown platform; available platforms are Linux and Darwin."
+fi
+
+dest() {
+    xargs
+}
+
+while (( $# )) ; do
+    case "$1" in
+        "-c")
+            dest() {
+                copy
+            }
+            ;;
+        *)
+            if test -z "$SOURCE" ; then
+                SOURCE="$1"
+            elif test -z "$TARGET" ; then
+                TARGET="$1"
+            else
+                die "unexpected positional command-line argument"
+            fi
+            ;;
+    esac
+    shift
+done
+
+test -z "$SOURCE" && die "No target file to share."
+if test -z "$TARGET" ; then
+    SOURCE_NAME="$(basename $SOURCE)"
+    TARGET="$(echo "$SOURCE" | sed 's/ /+/g')"
+fi
+
+rsync "$SOURCE" "j:www/files/$TARGET"
+echo "http://stuff.jerrington.me/files/$TARGET" | dest
