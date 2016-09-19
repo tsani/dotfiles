@@ -235,7 +235,7 @@ if has("nvim")
     tmap <C-\><C-q> <C-\><C-n>:q<CR>
 
     " Automatically enter insert mode when entering a terminal buffer
-    autocmd WinEnter * call InsertTerminal()
+    " autocmd WinEnter * call InsertTerminal()
 
     " Reset terminal size
     " Remark: we have to go to normal mode *twice* due to the WinEnter
