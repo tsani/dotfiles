@@ -1,3 +1,27 @@
 #!/bin/bash
 
-exec xdg-open "$(lastdl)"
+DOWNLOAD=0
+TARGET=
+
+while (( $# )) ; do
+    case "$1" in
+        "--download"|"-d")
+            DOWNLOAD=1
+            ;;
+        *)
+            if test -n "$TARGET" ; then
+                echo "Unexpected positional argument." >&2
+                exit 1
+            fi
+            TARGET="$1"
+            ;;
+    esac
+    shift
+done
+
+if [ $DOWNLOAD -eq 1 ] ; then
+    TARGET="$(tempdl "$TARGET")"
+    exec open "$TARGET"
+else
+    exec open "$(lastdl)"
+fi

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+QUIET=0
+
+while (( $# )) ; do
+    case "$1" in
+        "--quiet"|"-q")
+            QUIET=1
+            ;;
+        *)
+            break
+            ;;
+    esac
+    shift
+done
+
+PLATFORM="$(uname)"
+if [ "$PLATFORM" = "Linux" ] ; then
+    openf() {
+        /usr/bin/xdg-open $@ &!
+    }
+elif [ "$PLATFORM" = "Darwin" ] ; then
+    openf() {
+        /usr/bin/open $@
+    }
+else
+    echo "Unsupported platform." >&2
+    exit 1
+fi
+
+if [ $QUIET -eq 1 ] ; then
+    openf $@ >/dev/null 2>&1
+else
+    openf $@
+fi

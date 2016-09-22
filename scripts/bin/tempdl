@@ -1,0 +1,5 @@
+#!/bin/bash
+
+TMP="$(mktemp --tmpdir=/tmp tempdl.XXXXXXXXXX)"
+wget "$@" -O "$TMP"
+echo "$TMP"
