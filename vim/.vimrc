@@ -291,8 +291,11 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 map j gj
 map k gk
 
+" Remap space to 'repeat find'
+nnoremap <space> ;
+
 " Quickly open command window
-nmap ; q:
+nnoremap ; q:
 
 " Open current file in another tab
 nmap <C-t> :tabe %<CR>
