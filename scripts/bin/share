@@ -17,7 +17,7 @@ usage() {
 die() {
     MSG="$1"
     test -n "$MSG" && err "$MSG"
-    err "$(usage())"
+    err "$(usage)"
     exit 1
 }
 
