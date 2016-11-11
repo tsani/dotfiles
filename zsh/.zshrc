@@ -87,4 +87,6 @@ then
     cat ~/todo.txt
 fi
 
+test -f ~/.pystartup && export PYTHONSTARTUP="$HOME/.pystartup"
+
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
