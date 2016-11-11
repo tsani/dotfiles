@@ -25,6 +25,8 @@ grs() {
     git stash && git rebase $@ && git stash pop
 }
 
-open() {
-    xdg-open $@ >/dev/null 2>&1 &!
-}
+if [ "$(uname)" = "Linux" ] ; then
+    open() {
+        xdg-open $@ >/dev/null 2>&1 &!
+    }
+fi
