@@ -24,9 +24,17 @@ die() {
 PLATFORM="$(uname)"
 
 if [ "$PLATFORM" = "Linux" ] ; then
-    copy() {
-        xclip -i -selection clipboard
-    }
+    if which xsel > /dev/null ; then
+        copy() {
+            xsel
+        }
+    elif which xclip > /dev/null ; then
+        copy() {
+            xsel -i -selection clipboard
+        }
+    else
+        die 'No clipboard provider available.'
+    fi
 elif [ "$PLATFORM" = "Darwin" ] ; then
     copy() {
         pbcopy
