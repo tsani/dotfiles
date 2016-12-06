@@ -1,8 +1,8 @@
 URxvt.perl-ext-common: default,matcher
-URxvt.url-launcher: /usr/bin/vimb
+URxvt.url-launcher: /usr/bin/x-www-browser
 URxvt.matcher.button: 1
 URxvt*depth: 32
-URxvt*font: xft:DejaVu Sans Mono:size=8,xft:Symbola:size=8
+URxvt*font: xft:DejaVu Sans Mono:size=10,xft:Symbola:size=10
 URxvt*scrollBar: false
 
 XTerm*background: black
