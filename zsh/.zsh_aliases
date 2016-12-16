@@ -24,9 +24,3 @@ alias gf='git fetch'
 grs() {
     git stash && git rebase $@ && git stash pop
 }
-
-if [ "$(uname)" = "Linux" ] ; then
-    open() {
-        xdg-open $@ >/dev/null 2>&1 &!
-    }
-fi
