@@ -88,24 +88,24 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Volume controls
     , ((modMask                , xK_F9         ), spawn "volume toggle")
-    , ((modMask                , xK_F10        ), spawn "volume down")
-    , ((modMask                , xK_F11        ), spawn "volume up")
+    , ((modMask                , xK_F5         ), spawn "volume -5%")
+    , ((modMask                , xK_F6         ), spawn "volume +5%")
     , ((modMask .|. shiftMask  , xK_F9         ), spawn "mpc-toggle")
-    , ((modMask .|. shiftMask  , xK_F10        ), spawn "mpc --host $HOME/.mpd/socket volume -5")
-    , ((modMask .|. shiftMask  , xK_F11        ), spawn "mpc --host $HOME/.mpd/socket volume +5")
+    , ((modMask .|. shiftMask  , xK_F5         ), spawn "mpc --host $HOME/.mpd/socket volume -5")
+    , ((modMask .|. shiftMask  , xK_F6         ), spawn "mpc --host $HOME/.mpd/socket volume +5")
 
     -- Kill the screen backlight.
     , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
 
     -- Backlight controls.
-    , ((modMask                , xK_F6         ), spawn "xbacklight -dec 10")
-    , ((modMask                , xK_F7         ), spawn "xbacklight -inc 10")
+    , ((modMask                , xK_F8         ), spawn "xbacklight -dec 10")
+    , ((modMask                , xK_F9         ), spawn "xbacklight -inc 10")
 
     -- Music controls
-    , ((modMask                , xK_Page_Up    ), spawn "mpc-prev")
-    , ((modMask                , xK_Page_Down  ), spawn "mpc-next")
-    , ((modMask .|. shiftMask  , xK_Page_Up    ), spawn "mpc-prev-remote")
-    , ((modMask .|. shiftMask  , xK_Page_Down  ), spawn "mpc-next-remote")
+    , ((modMask                , xK_Prior      ), spawn "mpc-prev")
+    , ((modMask                , xK_Next       ), spawn "mpc-next")
+    , ((modMask .|. shiftMask  , xK_Prior      ), spawn "mpc-prev-remote")
+    , ((modMask .|. shiftMask  , xK_Next       ), spawn "mpc-next-remote")
     , ((modMask                , xK_Pause      ), spawn "mpc --host $HOME/.mpd/socket toggle")
     , ((modMask .|. shiftMask  , xK_Pause      ), spawn "mpc-toggle")
     , ((modMask                , xK_Scroll_Lock), spawn "nowplaying.sh")
