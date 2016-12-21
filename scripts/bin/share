@@ -74,4 +74,4 @@ if test -z "$TARGET" ; then
 fi
 
 rsync -v "$SOURCE" "j:www/files/$TARGET" >&2
-echo "http://files.jerrington.me/$TARGET" | dest
+echo "https://files.jerrington.me/$TARGET" | dest
