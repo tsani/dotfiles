@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if test -z "$VOLUME_SINK" ; then
+    VOLUME_SINK=0
+fi
+
+ADJUSTMENT="$1"
+
+if [ "$ADJUSTMENT" = "toggle" ] ; then
+    pactl set-sink-mute "$VOLUME_SINK" toggle
+else
+    pactl set-sink-volume "$VOLUME_SINK" "$ADJUSTMENT"
+fi
