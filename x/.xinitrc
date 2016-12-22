@@ -24,6 +24,7 @@ trywallpaper "835.png" "stallman.png" "ycombinator.png" "sofybakni.jpg" &
 steam_wishlist_watcher.sh &
 redshift &
 dunst &
+zeno &
 (   which xautolock slock >/dev/null &&
     xautolock -time 15 -locker slock -notify 30 \
         -notifier 'notify-send "slock" "screen will soon lock"' -detectsleep
