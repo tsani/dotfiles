@@ -95,7 +95,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask  , xK_F6         ), spawn "mpc --host $HOME/.mpd/socket volume +5")
 
     -- Kill the screen backlight.
-    , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
+    , ((modMask                , xK_F7         ), spawn "sleep 1 ; xset dpms force off")
 
     -- Backlight controls.
     , ((modMask                , xK_F8         ), spawn "xbacklight -dec 10")
