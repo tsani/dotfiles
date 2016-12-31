@@ -73,3 +73,6 @@
 [submodule "web-dotfiles"]
 	path = web-dotfiles
 	url = git@github.com:oohlala/web-dotfiles.git
+[submodule "apollo"]
+	path = apollo
+	url = https://github.com/tsani/apollo.git
