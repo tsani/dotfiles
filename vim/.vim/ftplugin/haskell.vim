@@ -1,4 +1,4 @@
-set makeprg=cabal\ build
-set tw=79
-set shiftwidth=2
-set softtabstop=2
+setlocal makeprg=cabal\ new-build
+setlocal tw=79
+setlocal shiftwidth=2
+setlocal softtabstop=2

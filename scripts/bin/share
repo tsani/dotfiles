@@ -30,7 +30,7 @@ if [ "$PLATFORM" = "Linux" ] ; then
         }
     elif which xclip > /dev/null ; then
         copy() {
-            xsel -i -selection clipboard
+            xclip -i -selection clipboard
         }
     else
         die 'No clipboard provider available.'
