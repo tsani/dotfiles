@@ -1,10 +1,13 @@
-.PHONY: all
 .SUFFIXES:
 
 GHC = ghc
 GHCFLAGS = --make -O2
+NOTIFY_SFX_DIR=dunst/.local/share/pb-notify
+NOTIFY_SFX_PATH=$(NOTIFY_SFX_DIR)/notify-sfx.wav
+NOTIFY_SFX_URL=https://files.jerrington.me/notify-sfx.wav
 
-all: scripts/bin/browsers scripts/bin/writewatch vimproc ssh
+.PHONY: all
+all: vimproc ssh $(NOTIFY_SFX_PATH)
 
 scripts/bin/browsers: scripts/bin/browsers.hs
 	$(GHC) $(GHCFLAGS) $<
@@ -22,3 +25,7 @@ vimproc:
 .PHONY: ssh
 ssh:
 	make -C ssh
+
+$(NOTIFY_SFX_PATH):
+	mkdir -p "$(NOTIFY_SFX_DIR)"
+	wget "$(NOTIFY_SFX_URL)" -O $@
