@@ -17,11 +17,11 @@ done
 PLATFORM="$(uname)"
 if [ "$PLATFORM" = "Linux" ] ; then
     openf() {
-        /usr/bin/xdg-open $@ &!
+        /usr/bin/xdg-open "$@" &!
     }
 elif [ "$PLATFORM" = "Darwin" ] ; then
     openf() {
-        /usr/bin/open $@
+        /usr/bin/open "$@"
     }
 else
     echo "Unsupported platform." >&2
@@ -29,7 +29,7 @@ else
 fi
 
 if [ $QUIET -eq 1 ] ; then
-    openf $@ >/dev/null 2>&1
+    openf "$@" >/dev/null 2>&1
 else
-    openf $@
+    openf "$@"
 fi
