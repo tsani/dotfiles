@@ -24,6 +24,9 @@ dunst &
 (   which xautolock slock >/dev/null &&
     xautolock -time 15 -locker slock -notify 30 \
         -notifier 'notify-send "slock" "screen will soon lock"' -detectsleep
+) &
+(   which pb-notify >/dev/null &&
+    (while ! pb-notify ; do sleep 15 ; done) &
 )
 
 # run the window manager
