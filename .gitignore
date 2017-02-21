@@ -6,3 +6,4 @@
 *.hi
 /scripts/bin/browsers
 /ssh/.ssh/config
+/dunst/.local/
