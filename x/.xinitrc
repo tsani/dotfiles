@@ -10,13 +10,8 @@ function trywallpaper () {
     hsetroot -solid black
 }
 
-xrdb -merge $HOME/.Xresources
-
-usermodmap=$HOME/.Xmodmap # swap escape and caps
-
-xmodmap "$usermodmap" &
-
-xsetroot -cursor_name left_ptr &
+xrdb -merge $HOME/.Xresources &
+xmodmap "$HOME/.Xmodmap" &
 
 # start some nice programs
 mpd &
@@ -24,6 +19,7 @@ trywallpaper "835.png" "stallman.png" "ycombinator.png" "sofybakni.jpg" &
 steam_wishlist_watcher.sh &
 redshift &
 zeno &
+xsetroot -cursor_name left_ptr &
 dunst &
 (   which xautolock slock >/dev/null &&
     xautolock -time 15 -locker slock -notify 30 \
@@ -31,4 +27,8 @@ dunst &
 )
 
 # run the window manager
-exec ssh-agent xmonad
+if which ssh-agent >/dev/null ; then
+    exec ssh-agent xmonad
+else
+    exec xmonad
+fi
