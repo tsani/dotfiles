@@ -1,5 +1,5 @@
 [global]
-    font = Monospace 8
+    font = Monospace 12
 
     # allow a small subset of html markup:
     # <b>bold</b>
@@ -29,7 +29,7 @@
 
     # alignment of message text.
     # Possible values are "left", "center" and "right"
-    alignment = right
+    alignment = left
 
     # The frequency with wich text that is longer than the notification
     # window allows bounces back and forth.
@@ -83,7 +83,7 @@
     #
     # If this option is set to mouse or keyboard, the monitor option will be
     # ignored.
-    follow = mouse
+    follow = keyboard
 
     # should a notification popped up from history be sticky or
     # timeout as if it would normally do.
@@ -115,7 +115,7 @@
     # print a notification on startup
     # This is mainly for error detection, since dbus (re-)starts dunst
     # automatically after a crash.
-    startup_notification = false
+    startup_notification = true
 
     # dmenu path
     dmenu = /usr/bin/dmenu -p dunst:
@@ -134,17 +134,17 @@
     # xev might be helpful to find names for keys
 
     # close notification
-    close = ctrl+space
+    close = mod1+space
 
     # close all notifications
-    close_all = ctrl+shift+space
+    close_all = mod1+shift+space
 
     # redisplay last message(s)
     # On the US keyboard layout 'grave' is normally above TAB and left of '1'.
-    history = ctrl+grave
+    history = mod1+grave
 
     # context menu
-    context = ctrl+shift+period
+    context = mod1+shift+period
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
@@ -194,6 +194,10 @@
 ## This notification will not be displayed
 #    summary = "foobar"
 #    format = ""
+
+[sms-notification]
+    appname = pb-notify
+    script = play-notify-sfx.sh
 
 #[signed_on]
 #    appname = Pidgin
