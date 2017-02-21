@@ -88,8 +88,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Volume controls
     , ((modMask                , xK_F9         ), spawn "volume toggle")
-    , ((modMask                , xK_F10        ), spawn "volume down")
-    , ((modMask                , xK_F11        ), spawn "volume up")
+    , ((modMask                , xK_F10        ), spawn "volume -5%")
+    , ((modMask                , xK_F11        ), spawn "volume +5%")
     , ((modMask .|. shiftMask  , xK_F9         ), spawn "mpc-toggle")
     , ((modMask .|. shiftMask  , xK_F10        ), spawn "mpc --host $HOME/.mpd/socket volume -5")
     , ((modMask .|. shiftMask  , xK_F11        ), spawn "mpc --host $HOME/.mpd/socket volume +5")
