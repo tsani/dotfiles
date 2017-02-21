@@ -23,6 +23,7 @@ mpd &
 trywallpaper "835.png" "stallman.png" "ycombinator.png" "sofybakni.jpg" &
 steam_wishlist_watcher.sh &
 redshift &
+zeno &
 dunst &
 (   which xautolock slock >/dev/null &&
     xautolock -time 15 -locker slock -notify 30 \
