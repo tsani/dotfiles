@@ -1,5 +1,5 @@
 URxvt.perl-ext-common: default,matcher
-URxvt.url-launcher: /usr/bin/x-www-browser
+URxvt.url-launcher: /usr/bin/vimb
 URxvt.matcher.button: 1
 URxvt*depth: 32
 URxvt*font: xft:Envy Code R:size=9,xft:Symbola:size=9
