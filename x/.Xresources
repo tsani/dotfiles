@@ -2,10 +2,10 @@ URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/x-www-browser
 URxvt.matcher.button: 1
 URxvt*depth: 32
-URxvt*font: xft:Envy Code R:size=10,xft:Symbola:size=10
-URxvt*boldFont: xft:Envy Code R:bold:size=10
-URxvt*italicFont: xft:Envy Code R:italic:size=10
-URxvt*boldItalicFont: xft:Envy Code R:bold:italic:size=10
+URxvt*font: xft:Envy Code R:size=9,xft:Symbola:size=9
+URxvt*boldFont: xft:Envy Code R:bold:size=9
+URxvt*italicFont: xft:Envy Code R:italic:size=9
+URxvt*boldItalicFont: xft:Envy Code R:bold:italic:size=9
 URxvt*scrollBar: false
 
 XTerm*background: black
