@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec $BROWSER "https://${1}.stackexchange.com/"
