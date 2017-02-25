@@ -14,6 +14,8 @@
     stap = stash --patch
     resp = reset --patch
     ci = commit
+    cia = commit --amend
+    ciam = commit --amend -C HEAD
     s = status
     b = branch
     l = log --graph --oneline --decorate=short
