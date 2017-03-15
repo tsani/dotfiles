@@ -54,11 +54,6 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " Enable Neocomplete
 let g:neocomplete#enable_at_startup = 1
 
-" terminal buffer settings
-if has("nvim")
-    autocmd TermOpen * setf terminal
-endif
-
 " Search using ag
 set grepprg=ag\ --nogroup\ --filename
 
@@ -119,6 +114,7 @@ set colorcolumn=+1
 " Turn on the WiLd menu
 set wildmenu
 set wildmode=longest:full
+set completeopt=longest,menuone
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc,*.hi
@@ -237,13 +233,17 @@ if has("nvim")
     " Fast close terminal window
     tmap <C-\><C-q> <C-\><C-n>:q<CR>
 
-    " Automatically enter insert mode when entering a terminal buffer
+    "" Automatically enter insert mode when entering a terminal buffer
+    "" Turns out that I don't really like this behaviour, so I've commented it
+    "" out. For completeness, I keep it in the file though.
     " autocmd WinEnter * call InsertTerminal()
 
     " Reset terminal size
     " Remark: we have to go to normal mode *twice* due to the WinEnter
     " autocommand that invokes InsertTerminal() (above)
     tmap <C-_> <C-\><C-n>:sp<CR><C-\><C-n>:q<CR>
+
+    autocmd TermOpen * setf terminal
 endif
 
 function! InsertTerminal()
@@ -429,7 +429,7 @@ autocmd BufWrite *.hs :call DeleteTrailingWS()
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
 " Open grep the word under the cursor.
-nnoremap <leader>g viwy:silent grep! <C-R>0<CR>:cope<CR>:redraw!<CR>
+nnoremap <leader>g viw"gy:silent grep! <C-R>g<CR>:cope<CR>:redraw!<CR>
 
 " Vimgreps in the current file
 map <leader><space> :grep  <C-R>%<C-A><right><right><right><right><right>
@@ -536,7 +536,6 @@ function! HasPaste()
 endfunction
 
 " Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
    let l:currentBufNum = bufnr("%")
    let l:alternateBufNum = bufnr("#")
@@ -555,7 +554,25 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+command! Bclose call <SID>BufcloseCloseIt()
 
+" Search for the ... arguments separated with whitespace (if no '!'),
+" or with non-word characters (if '!' added to command).
+function! SearchMultiLine(bang, ...)
+  if a:0 > 0
+    let sep = (a:bang) ? '\_W\+' : '\_s\+'
+    let @/ = join(a:000, sep)
+  endif
+endfunction
+command! -bang -nargs=* -complete=tag S call SearchMultiLine(<bang>0, <f-args>)|normal! /<C-R>/<CR>
+" e.g. `:S hello world` finds the string 'hello world' with the space being
+" *any* whitespace character, including newlines. The function SearchMultiLine
+" joins all the arguments (so the strings 'hello' and 'world') with the regex
+" fragment '\_W\+' meaning 'one or more whitespace characters including
+" newlines'. This forms a complete regex, which is saved to the register named
+" '/'. Then, using 'normal!', the search is executed by typing a slash and
+" typing out the contents of the register into the search line and hitting
+" return.
 
 """"""""""""""""""""'""""""""""""""""""""""""""""""""""""""
 " => Haskell Mode
@@ -575,12 +592,6 @@ let g:haddock_docdir = "/home/tsani/.cabal/share/doc"
 
 " Write current buffer as root.
 command! Sw w !sudo tee % > /dev/null
-
-" Use regular ex command prompt with semicolon instead of colon
-nnoremap ; :
-"
-" Quickly open command window
-nnoremap : q:i
 
 try
 " vim-commentary defines these, but it turns out they're actually deprecated,
