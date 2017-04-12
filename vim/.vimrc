@@ -20,6 +20,12 @@ autocmd BufNewFile,BufRead *.min setf minilang
 " Tutch
 autocmd BufNewFile,BufRead *.tut setf tutch
 
+" PRISM
+autocmd BufRead,BufNewFile *.prism setfiletype prismmodel
+autocmd BufRead,BufNewFile *.[pns]m setfiletype prismmodel
+autocmd BufRead,BufNewFile *.smg setfiletype prismmodel
+autocmd BufRead,BufNewFile *.props setfiletype prismproperty
+autocmd BufRead,BufNewFile *.pctl setfiletype prismproperty
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Quickfix list hacking
