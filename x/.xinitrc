@@ -23,7 +23,7 @@ dunst &
 (   which xautolock slock >/dev/null &&
     xautolock -time 15 -locker slock -notify 30 \
         -notifier 'notify-send "slock" "screen will soon lock"' -detectsleep
-)
+) &
 
 # run the window manager
 if which ssh-agent >/dev/null ; then
