@@ -42,7 +42,7 @@ browserHome = "http://jerrington.me/"
 myModMask       = mod4Mask
 
 -- Default workspaces
-myWorkspaces    = sort [ "shell", "irc", "code", "web", "music" ]
+myWorkspaces    = [ "irc", "web", "code", "shell", "music" ]
 
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor  = "#222255"
