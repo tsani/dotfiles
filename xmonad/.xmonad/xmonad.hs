@@ -158,9 +158,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- Deincrement the number of windows in the master area
     , ((modMask                , xK_period     ), sendMessage (IncMasterN (-1)))
 
-    -- toggle the status bar gap
-    -- TODO, update this binding with avoidStruts , ((modMask              , xK_b     ),
-
     -- Restart xmonad
     , ((modMask                , xK_q          ), restart "xmonad" True)
     -- Quit xmonad
