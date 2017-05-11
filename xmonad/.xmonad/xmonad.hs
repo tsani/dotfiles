@@ -213,7 +213,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- Layouts:
 
 myLayout = workspaceDir "~" $ smartBorders $ smartSpacing 5 $
-           Full ||| (avoidStruts tiled)
+           Full ||| (avoidStrutsOn [U] tiled)
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -281,11 +281,11 @@ myLogHook h = dynamicLogWithPP tsaniPP { ppOutput = hPutStrLn h }
 
 myUrgencyHook = dzenUrgencyHook
 
-myDzenCommand = "dzen2 -p -x 0 -w " ++ show width where
+myDzenCommand = "dzen2 -dock -p -x 0 -w " ++ show width where
     width = myScreenWidth * 2 `div` 3
 
 myConkyCommand = concat
-    [ "conky | dzen2"
+    [ "conky | dzen2 -dock"
     , " -x ", show offset
     , " -w ", show width
     , " -ta r"
@@ -302,8 +302,7 @@ main = do
     myDzen <- spawnPipe myDzenCommand
     myConky <- spawnPipe myConkyCommand
     xmonad
-      $ withUrgencyHook myUrgencyHook
-        $ ewmh defaultConfig
+      $ docks $ withUrgencyHook myUrgencyHook $ ewmh defaultConfig
         -- simple stuff
         { terminal           = myTerminal
         , focusFollowsMouse  = True
@@ -323,4 +322,4 @@ main = do
         , manageHook         = myManageHook
         , logHook            = myLogHook myDzen
         , startupHook        = myStartupHook
-    }
+        }
