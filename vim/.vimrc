@@ -20,6 +20,9 @@ autocmd BufNewFile,BufRead *.min setf minilang
 " Tutch
 autocmd BufNewFile,BufRead *.tut setf tutch
 
+" K
+autocmd BufNewFile,BufRead *.k setf k
+
 " PRISM
 autocmd BufRead,BufNewFile *.prism setfiletype prismmodel
 autocmd BufRead,BufNewFile *.[pns]m setfiletype prismmodel
