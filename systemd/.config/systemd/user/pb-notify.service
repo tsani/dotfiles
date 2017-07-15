@@ -4,3 +4,6 @@ Description=Pushbullet notifications
 [Service]
 ExecStart=/usr/bin/pb-notify
 EnvironmentFile=/home/tsani/.pb-notify-env
+
+[Install]
+WantedBy=multi-user.target
