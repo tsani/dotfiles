@@ -194,7 +194,7 @@ set listchars=tab:>\ ,trail:-,nbsp:+
 " Enable syntax highlighting
 syntax enable
 
-set background=dark
+set background=light
 colorscheme solarized
 
 " Set extra options when running in GUI mode
