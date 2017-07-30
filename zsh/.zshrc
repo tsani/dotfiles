@@ -90,3 +90,6 @@ fi
 test -f ~/.pystartup && export PYTHONSTARTUP="$HOME/.pystartup"
 
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+export GPG_TTY=$(tty)
+export HIST_IGNORE_SPACE=1
