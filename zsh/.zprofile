@@ -1,4 +1,4 @@
-export PATH=/usr/bin/vendor_perl:$HOME/bin:$HOME/.gem/ruby/2.2.0/bin:$HOME/.cabal/bin:/opt/android-sdk/platform-tools:$PATH
+export PATH=$HOME/.local/bin:/usr/bin/vendor_perl:$HOME/bin:$HOME/.gem/ruby/2.2.0/bin:$HOME/.cabal/bin:/opt/android-sdk/platform-tools:$PATH
 which vimb > /dev/null && export BROWSER=vimb || export BROWSER=firefox
 
 if which nvim > /dev/null ; then
