@@ -9,9 +9,17 @@
 
 set -e
 
-test -n "$NVIM_LISTEN_ADDRESS" && which nvr > /dev/null && exec nvr --remote $@
+if test -n "$NVIM_LISTEN_ADDRESS" ; then
+    if which nvr > /dev/null ; then
+        exec nvr --remote $@
+    else
+        echo 'e: NVIM_LISTEN_ADDRESS is set but nvr is not installed'
+        sleep 1
+    fi
+fi
 test -n "$EDITOR" && exec $EDITOR $@
 which vim >/dev/null && exec vim $@
+which vi >/dev/null && exec vi $@
 which nano >/dev/null && exec nano $@
 
 echo 'no editors installed' >&2
