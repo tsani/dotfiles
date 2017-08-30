@@ -73,5 +73,5 @@ if test -z "$TARGET" ; then
     TARGET="$(echo "$SOURCE" | sed 's/ /+/g')"
 fi
 
-rsync -v "$SOURCE" "j:www/files/$TARGET" >&2
+rsync -v "$SOURCE" "j:www/$TARGET" >&2
 echo "https://files.jerrington.me/$TARGET" | dest
