@@ -62,18 +62,18 @@ mpd_music_dir = ~/music
 ## are some problems with it.
 ##
 #
-visualizer_output_name = Visualizer feed
+#visualizer_output_name = Visualizer feed
 #
 ##
 ## If you set format to 44100:16:2, make it 'yes'.
 ##
-visualizer_in_stereo = yes
+#visualizer_in_stereo = yes
 #
 ##
 ## Multiply received samples by given value. Very
 ## useful for proper visualization of quiet music.
 ##
-visualizer_sample_multiplier = 0.5
+#visualizer_sample_multiplier = 0.5
 #
 ##
 ## Note: Below parameter defines how often ncmpcpp
@@ -92,7 +92,7 @@ visualizer_sample_multiplier = 0.5
 #
 ## Available values: spectrum, wave.
 ##
-visualizer_type = wave
+#visualizer_type = wave
 #
 #visualizer_look = ●▮
 #
