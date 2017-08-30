@@ -17,7 +17,7 @@ done
 PLATFORM="$(uname)"
 if [ "$PLATFORM" = "Linux" ] ; then
     openf() {
-        /usr/bin/xdg-open "$@" &!
+        /usr/bin/xdg-open "$@" &
     }
 elif [ "$PLATFORM" = "Darwin" ] ; then
     openf() {
