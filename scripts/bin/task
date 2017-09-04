@@ -1,0 +1,78 @@
+#!/bin/bash
+
+set -e
+
+if test -z "$TASKBIN" ; then
+    TASKBIN="/usr/bin/task"
+fi
+
+SYNC_TIMEOUT=60
+LAST_SYNC="$HOME/.task-last-sync"
+
+isdirty() {
+    task-git status --porcelain | grep -qP '^\s+M'
+}
+
+commit() {
+    task-git commit -am "$1"
+}
+
+now() {
+    date -u +%s
+}
+
+update-last-sync() {
+    now > "$LAST_SYNC"
+}
+
+last-sync() {
+    if test -e "$LAST_SYNC"; then
+        cat "$LAST_SYNC"
+    else
+        echo 0
+    fi
+}
+
+do-sync() {
+    task-git fetch
+    read behind ahead < <(
+        task-git rev-list --left-right --count origin/master...master)
+
+    if [ "$behind" -eq 0 -a "$ahead" -gt 0 ] ; then
+        task-git push
+    elif [ $behind -gt 0 -a $ahead -eq 0 ] ; then
+        task-git merge --ff-only
+    elif [ $behind -gt 0 -a $ahead -gt 0 ] ; then
+        task-git rebase origin/master && task-git push
+    fi
+
+    update-last-sync
+}
+
+case "$1" in
+    "bump")
+        if test -n "$2" ; then
+            msg="$2"
+        else
+            msg="bump"
+        fi
+        commit "$msg"
+        ;;
+    "sync")
+        if isdirty ; then
+            echo 'sync: work tree is dirty' >&2
+            exit 1
+        fi
+
+        do-sync
+        ;;
+    *)
+        $TASKBIN "$@"
+        if isdirty ; then
+            commit "$*"
+        fi
+        if [ $(( $(now) - $(last-sync) )) -gt 60 ] ; then
+            do-sync
+        fi
+        ;;
+esac
