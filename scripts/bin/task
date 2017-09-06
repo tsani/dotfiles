@@ -33,12 +33,18 @@ last-sync() {
     fi
 }
 
-do-sync() {
+sync-tasks() {
     task-git fetch
     read behind ahead < <(
         task-git rev-list --left-right --count origin/master...master)
 
-    if [ "$behind" -eq 0 -a "$ahead" -gt 0 ] ; then
+    if [ $behind -eq 0 -a $ahead -eq 0 ] ; then
+        # this guard allows us to factor out the update-last-sync call to the
+        # end, so it only runs if a write was made to git.
+        # Concretely, doing only read tasks does not update the last-sync time,
+        # and will not cause network traffic to be generated.
+        return 0
+    elif [ $behind -eq 0 -a $ahead -gt 0 ] ; then
         task-git push
     elif [ $behind -gt 0 -a $ahead -eq 0 ] ; then
         task-git merge --ff-only
@@ -64,7 +70,11 @@ case "$1" in
             exit 1
         fi
 
-        do-sync
+        sync-tasks
+        ;;
+    "git")
+        shift
+        exec task-git "$@"
         ;;
     *)
         $TASKBIN "$@"
@@ -72,7 +82,7 @@ case "$1" in
             commit "$*"
         fi
         if [ $(( $(now) - $(last-sync) )) -gt 60 ] ; then
-            do-sync
+            sync-tasks
         fi
         ;;
 esac
