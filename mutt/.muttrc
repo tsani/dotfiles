@@ -1,0 +1,103 @@
+##### Paths ###################################################################
+
+set folder = ~/.mail
+set alias_file = ~/.mutt/alias
+source $alias_file
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+set certificate_file = ~/.mutt/certificates
+set mailcap_path = ~/.mutt/mailcap
+set tmpdir = ~/.mutt/temp
+
+##### HTML emails #############################################################
+
+auto_view text/html
+alternative_order text/enriched text/plain text/html text
+
+##### Accounts ################################################################
+
+folder-hook 'account.jerrington' 'source ~/.mutt/account.jerrington'
+folder-hook 'account.mcgill' 'source ~/.mutt/account.mcgill'
+
+source ~/.mutt/account.jerrington
+
+# Macros for switching accounts
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/account.jerrington<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/account.mcgill<enter><change-folder>!<enter>'
+
+##### General settings ########################################################
+
+set mbox_type = Maildir
+
+##### Nicer defaults ##########################################################
+
+set wait_key = no
+set timeout = 3
+set mail_check = 0
+# set markers = no
+unset move
+set delete
+unset confirmappend
+set quit
+unset mark_old
+set beep_new
+set pipe_decode
+set thorough_search
+
+##### Sidebar #################################################################
+
+# set sidebar_delim= "  |"
+set sidebar_visible = yes
+set sidebar_width = 20
+macro index,pager <up> "<sidebar-prev>" "previous folder in sidebar"
+macro index,pager <down> "<sidebar-next>" "next folder in sidebar"
+macro index,pager <right> "<sidebar-open>" "open selected sidebar folder"
+color sidebar_new color221 color233
+set status_chars = " *%A"
+set status_format = "───────────────────[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+##### Vim keybindings #########################################################
+
+# Moving around
+bind attach,browser,index       gg  first-entry
+bind attach,browser,index       G   last-entry
+bind pager                      gg  top
+bind pager                      G   bottom
+bind pager                      k   previous-line
+bind pager                      j   next-line
+
+# Scrolling
+bind attach,browser,pager,index \CF next-page
+bind attach,browser,pager,index \CB previous-page
+bind attach,browser,pager,index \Cu half-up
+bind attach,browser,pager,index \Cd half-down
+bind browser,pager              \Ce next-line
+bind browser,pager              \Cy previous-line
+bind index                      \Ce next-line
+bind index                      \Cy previous-line
+
+bind pager,index                dd  delete-message
+
+# Mail & Reply
+bind index                      \Cm list-reply # Doesn't work currently
+
+# Threads
+bind browser,pager,index        N   search-opposite
+bind pager,index                dT  delete-thread
+bind pager,index                dt  delete-subthread
+bind pager,index                gt  next-thread
+bind pager,index                gT  previous-thread
+bind index                      za  collapse-thread
+bind index                      zA  collapse-all # Missing :folddisable/foldenable
+
+bind attach,browser,index,pager \Co exit
+
+##### Other keybindings #######################################################
+
+bind index,pager                \Cg group-reply
+
+macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+
+##### Colours #################################################################
+
+source ~/.mutt-colorscheme
