@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if test -z "$TASKDIR" ; then
-    TASKDIR="$HOME/.task"
-fi
-
-exec git -C "$TASKDIR" "$@"

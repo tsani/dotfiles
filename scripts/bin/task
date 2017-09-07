@@ -1,13 +1,124 @@
 #!/bin/bash
 
+#
+# Basic info
+# ----------
+#
+# This is a wrapper script for the taskwarrior command-line tool.
+#
+# Usage of this script requires that your task directory (typically ~/.task;
+# overridable by the $TASKDIR variable) be a git repository. This repo is dead
+# simple: it must be checked out on its master branch, which must be set up
+# with a remote tracking branch called origin/master.
+#
+# Setup
+# -----
+#
+# ### First time use
+#
+# First, create a nonempty ~/.task directory using /usr/bin/task.
+# Then, proceed to setup the git integration:
+#
+# $ task init
+#
+# Follow further instructions to set up the git remote as output by this
+# command.
+#
+# ### Adding a new device
+#
+# If your git repository is already set up, then it simply suffices to clone
+# it.
+#
+# $ git clone <your-remote> ~/.task
+#
+# Usage
+# -----
+#
+# Just use this command like you'd normally use `task`; unless a special
+# function of the wrapper is invoked, all command-line arguments are simply
+# forwarded to the system's task binary.
+# Whenever a command leaves the task directory in a dirty state, this script
+# will commit all changes with a commit message constructed from the command
+# line that caused the changes.
+# Every now and then, this script will sync with the git remote named origin.
+# This sync performs a git fetch and proceeds as follows:
+#   * if the local branch is ahead the remote branch, then a push is performed;
+#   * if the remote branch is ahead of the local branch, then a merge is
+#     performed;
+#   * if the branches are divergent, then a rebase is performed.
+#       * if the rebase succeeds, then a push is performed.
+#   * else, nothing happens.
+# Finally, the last-sync-time is updated. The last sync time is stored in the
+# file $TASK_LAST_SYNC.
+#
+# "Every now and then" is a wishy-washy way of saying the following:
+#   * Every time an operation is performed on the git repository, the
+#     last-sync-time is compared with the current time. If these times differ
+#     by more than $TASK_SYNC_TIMEOUT, then a sync is performed, which updates
+#     the last-sync-time.
+#
+# Special functions
+# -----------------
+#
+# This script provides the following "special" commands, which are interpreted
+# by the script itself instead of by the underlying task program:
+#   * `bump`
+#     Creates a commit with the message made by joining all remaining
+#     command-line arguments, if any; else, the message is "bump".
+#     This subcommand is useful should the tree become dirty somehow, e.g. by
+#     using the underlying task program directly instead of via the wrapper.
+#     If this wrapper leaves the directory in a dirty state, please file a bug
+#     report!
+#  * `sync`
+#    Forcibly performs a sync operation, skipping the last-sync-time check. The
+#    last-sync-time is still updated once the sync completes.
+#  * `git`
+#    Performs an arbitrary git command on the task repo.
+#    Normally, use of this command is unnecessary, but maybe you want to do
+#    something funky using git stash, or you want to change the remote URL.
+#  * `init`
+#    Used for initial setup to create a git repository in the task directory
+#    and add everything to it.
+
 set -e
+
+die() {
+    echo "$@" >&2 || true
+    exit 1
+}
 
 if test -z "$TASKBIN" ; then
     TASKBIN="/usr/bin/task"
 fi
 
-SYNC_TIMEOUT=60
-LAST_SYNC="$HOME/.task-last-sync"
+if ! test -x "$TASKBIN" ; then
+    echo "$TASKBIN does not exist." \
+        "Please set \$TASKBIN or install taskwarrior." \
+        >&2
+    exit 1
+fi
+
+if test -z "$TASKDIR" ; then
+    TASKDIR="$HOME/.task"
+fi
+
+if test -z "$TASK_SYNC_TIMEOUT" ; then
+    TASK_SYNC_TIMEOUT=60
+fi
+
+if test -z "$TASK_LAST_SYNC" ; then
+    TASK_LAST_SYNC="$HOME/.task-last-sync"
+fi
+
+if ! test -e "$TASK_LAST_SYNC" ; then
+    echo "0" > "$TASK_LAST_SYNC" ||
+        die "wrapper: can't create sync time file ${TASK_LAST_SYNC}." \
+            "Please point \$TASK_LAST_SYNC to a read/writable file."
+fi
+
+task-git() {
+    git -C "$TASKDIR" "$@"
+}
 
 isdirty() {
     task-git status --porcelain | grep -qP '^\s+M'
@@ -22,12 +133,12 @@ now() {
 }
 
 update-last-sync() {
-    now > "$LAST_SYNC"
+    now > "$TASK_LAST_SYNC"
 }
 
 last-sync() {
-    if test -e "$LAST_SYNC"; then
-        cat "$LAST_SYNC"
+    if test -e "$TASK_LAST_SYNC"; then
+        cat "$TASK_LAST_SYNC"
     else
         echo 0
     fi
@@ -55,34 +166,53 @@ sync-tasks() {
     update-last-sync
 }
 
+sync-if-needed() {
+    if [ $(( $(now) - $(last-sync) )) -gt $TASK_SYNC_TIMEOUT ] ; then
+        sync-tasks
+    fi
+}
+
 case "$1" in
-    "bump")
-        if test -n "$2" ; then
-            msg="$2"
-        else
+    "commit"|"bump"|"ci")
+        shift
+        msg="$*"
+        if test -z "$msg" ; then
             msg="bump"
         fi
         commit "$msg"
+        sync-if-needed
         ;;
     "sync")
         if isdirty ; then
-            echo 'sync: work tree is dirty' >&2
-            exit 1
+            die "sync: fatal: work tree is dirty." \
+                "Please use 'task bump' to commit unsaved changes first."
         fi
 
         sync-tasks
         ;;
     "git")
         shift
-        exec task-git "$@"
+        task-git "$@"
         ;;
+    "init")
+        task-git add .
+        commit "init"
+        echo "Next, add a git remote, and set up remote tracking:"
+        echo "\$ task git remote add origin <your-remote>"
+        echo "\$ task git branch -u origin/master master"
+        echo "and try out \`task sync\`\!"
     *)
+        if isdirty ; then
+            die "fatal: task repo is dirty." \
+                "Please use 'task bump' to commit unsaved changes first."
+        fi
+
         $TASKBIN "$@"
+
         if isdirty ; then
             commit "$*"
         fi
-        if [ $(( $(now) - $(last-sync) )) -gt 60 ] ; then
-            sync-tasks
-        fi
+
+        sync-if-needed
         ;;
 esac
