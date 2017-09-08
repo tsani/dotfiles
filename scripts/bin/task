@@ -201,6 +201,7 @@ case "$1" in
         echo "\$ task git remote add origin <your-remote>"
         echo "\$ task git branch -u origin/master master"
         echo "and try out \`task sync\`\!"
+        ;;
     *)
         if isdirty ; then
             die "fatal: task repo is dirty." \
