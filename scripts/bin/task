@@ -128,6 +128,14 @@ commit() {
     task-git commit -am "$1"
 }
 
+bump() {
+    msg="$*"
+    if test -z "$msg" ; then
+        msg="bump"
+    fi
+    commit "$msg"
+}
+
 now() {
     date -u +%s
 }
@@ -175,11 +183,7 @@ sync-if-needed() {
 case "$1" in
     "commit"|"bump"|"ci")
         shift
-        msg="$*"
-        if test -z "$msg" ; then
-            msg="bump"
-        fi
-        commit "$msg"
+        bump
         sync-if-needed
         ;;
     "sync")
@@ -211,7 +215,7 @@ case "$1" in
         $TASKBIN "$@"
 
         if isdirty ; then
-            commit "$*"
+            bump "$@"
         fi
 
         sync-if-needed
