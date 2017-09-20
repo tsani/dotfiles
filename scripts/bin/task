@@ -212,7 +212,17 @@ case "$1" in
                 "Please use 'task bump' to commit unsaved changes first."
         fi
 
+        # we execute the command that the user wants to run followed by a
+        # simple status check, because task sometimes effects modifications
+        # during a conceptually read-only operation.
+        # For example, if the user executes "task done 23", then task 23
+        # remains in the pending queue, but is marked "completed". It's only
+        # after the *next* command is executed is a cleanup performed on the
+        # pending queue to move completed tasks into the completed queue.
+        # Without the systematic second execution, we wind up with a lot of
+        # "bump" commits.
         $TASKBIN "$@"
+        $TASKBIN >/dev/null 2>&1
 
         if isdirty ; then
             bump "$@"
