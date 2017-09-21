@@ -59,6 +59,7 @@ set status_format = "───────────────────[%
 ##### Vim keybindings #########################################################
 
 # Moving around
+bind attach,browser,pager,index g   noop
 bind attach,browser,index       gg  first-entry
 bind attach,browser,index       G   last-entry
 bind pager                      gg  top
@@ -76,6 +77,7 @@ bind browser,pager              \Cy previous-line
 bind index                      \Ce next-line
 bind index                      \Cy previous-line
 
+bind pager,index                d   noop
 bind pager,index                dd  delete-message
 
 # Mail & Reply
