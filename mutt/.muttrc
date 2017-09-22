@@ -6,7 +6,7 @@ source $alias_file
 set header_cache = ~/.mutt/cache/headers
 set message_cachedir = ~/.mutt/cache/bodies
 set certificate_file = ~/.mutt/certificates
-set mailcap_path = ~/.mutt/mailcap
+set mailcap_path = ~/.mailcap
 set tmpdir = ~/.mutt/temp
 
 ##### HTML emails #############################################################
