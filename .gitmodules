@@ -73,3 +73,6 @@
 [submodule "mutt/.mutt"]
 	path = mutt/.mutt
 	url = jerrington.me:mutt.git
+[submodule "mbsync"]
+	path = mbsync
+	url = jerrington.me:mbsync.git
