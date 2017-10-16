@@ -76,3 +76,6 @@
 [submodule "mbsync"]
 	path = mbsync
 	url = jerrington.me:mbsync.git
+[submodule "other/mutt-ical"]
+	path = other/mutt-ical
+	url = https://github.com/tsani/mutt-ical
