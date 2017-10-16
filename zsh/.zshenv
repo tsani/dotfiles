@@ -7,3 +7,5 @@ export PATH=$HOME/bin:$HOME/.cabal/bin:/usr/lib/smlnj/bin:$PATH
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
+
+export VIMB_USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:50.0) Gecko/50.0 Firefox/50.0"
