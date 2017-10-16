@@ -7,7 +7,10 @@ NOTIFY_SFX_PATH=$(NOTIFY_SFX_DIR)/notify-sfx.wav
 NOTIFY_SFX_URL=https://files.jerrington.me/notify-sfx.wav
 
 .PHONY: all
-all: vimproc ssh $(NOTIFY_SFX_PATH)
+all: vimproc ssh $(NOTIFY_SFX_PATH) scripts/bin/mutt-ical.py
+
+scripts/bin/mutt-ical.py: other/mutt-ical/mutt-ical.py
+	ln -sf ../../$< $@
 
 scripts/bin/browsers: scripts/bin/browsers.hs
 	$(GHC) $(GHCFLAGS) $<
