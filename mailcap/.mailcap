@@ -1,1 +1,3 @@
 text/html; elinks -dump %s; nametemplate=%s.html; copiousoutput
+text/calendar; mutt-ical.py -i -e "jacob.errington@mail.mcgill.ca" %s
+application/ics; mutt-ical.py -i -e "jacob.errington@mail.mcgill.ca" %s
