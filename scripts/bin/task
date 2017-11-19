@@ -212,6 +212,12 @@ case "$1" in
                 "Please use 'task bump' to commit unsaved changes first."
         fi
 
+        # Do a sync *before* executing the command so that if we change
+        # computers, we pull in the stuff that's on the remote before modifying
+        # any files with task commands.
+        # This prevents having to resolve merges by hand.
+        sync-if-needed
+
         # we execute the command that the user wants to run followed by a
         # simple status check, because task sometimes effects modifications
         # during a conceptually read-only operation.
