@@ -2,7 +2,7 @@
 Description=Pushbullet notifications
 
 [Service]
-ExecStart=/usr/bin/pb-notify
+ExecStart=/home/tsani/.local/bin/pb-notify
 EnvironmentFile=/home/tsani/.pb-notify-env
 
 [Install]
