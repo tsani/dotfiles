@@ -2,3 +2,9 @@ remove Lock = Caps_Lock
 keysym Escape = Caps_Lock
 keysym Caps_Lock = Escape
 add Lock = Caps_Lock
+
+! Give windows key Mod4 powers (needed by xmonad!)
+add Mod4 = Super_L
+
+keysym Up = Up Page_Up
+keysym Down = Down Page_Down
