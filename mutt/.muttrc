@@ -44,6 +44,11 @@ set beep_new
 set pipe_decode
 set thorough_search
 
+# sort mailbox into threads with most recently updated threads at the bottom
+
+set sort = threads
+set sort_aux = last-date-received
+
 ##### Sidebar #################################################################
 
 # set sidebar_delim= "  |"
