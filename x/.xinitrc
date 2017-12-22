@@ -2,8 +2,7 @@
 
 xrdb -merge $HOME/.Xresources &
 xmodmap "$HOME/.Xmodmap" &
-
-# start some nice programs
+xset -b &
 hsetroot -solid '#002b36' &
 xsetroot -cursor_name left_ptr &
 xset -b -dpms s off s noblank &

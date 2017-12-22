@@ -399,7 +399,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- Layouts:
 
 myLayout = workspaceDir "~" $ smartBorders $ smartSpacing 5 $
-           Full ||| (avoidStrutsOn [U] tiled)
+            (avoidStrutsOn [U] $ Full ||| tiled)
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
