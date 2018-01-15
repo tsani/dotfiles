@@ -19,6 +19,7 @@ steam_wishlist_watcher.sh &
 redshift &
 zeno &
 xsetroot -cursor_name left_ptr &
+xset -b &
 dunst &
 (   which xautolock slock >/dev/null &&
     xautolock -time 15 -locker slock -notify 30 \
