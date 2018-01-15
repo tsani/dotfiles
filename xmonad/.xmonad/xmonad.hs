@@ -300,7 +300,7 @@ myConkyCommand = concat
 main = do
     myDzen <- spawnPipe myDzenCommand
     myConky <- spawnPipe myConkyCommand
-    xmonad
+    launch
       $ docks $ withUrgencyHook myUrgencyHook $ ewmh defaultConfig
         -- simple stuff
         { terminal           = myTerminal
