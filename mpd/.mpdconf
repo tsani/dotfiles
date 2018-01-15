@@ -1,0 +1,21 @@
+# See: /usr/share/doc/mpd/mpdconf.example
+
+pid_file "~/.mpd/mpd.pid"
+db_file "~/.mpd/mpd.db"
+state_file "~/.mpd/mpdstate"
+playlist_directory "~/.mpd/playlists"
+
+bind_to_address "~/.mpd/socket"
+
+auto_update "yes"
+
+zeroconf_enabled "yes"
+zeroconf_name "Music Player"
+
+music_directory "~/.mpd/music"
+
+audio_output {
+    type "pulse"
+    name "Local Pulseaudio Daemon"
+}
+
