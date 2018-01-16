@@ -32,9 +32,6 @@ myTerminal      = "urxvt"
 -- Width of the window border in pixels.
 myBorderWidth   = 2
 
--- Home page to open when launching a web browser
-browserHome = "http://jerrington.me/"
-
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
 -- ("right alt"), which does not conflict with emacs keybindings. The
@@ -77,11 +74,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launch gmrun
     , ((modMask .|. shiftMask  , xK_p          ), spawn "gmrun")
+
+    -- change xmonad working directory
     , ((modMask                , xK_equal      ), changeDir defaultXPConfig)
 
-    , ((modMask                , xK_backslash  ), spawn $ intercalate " " ["xdg-open", browserHome])
-    , ((modMask .|. shiftMask  , xK_backslash  ), spawn $ "dmenu_google")
-    , ((modMask .|. shiftMask  , xK_Return     ), spawn $ "dmenu_google -x")
+    , ((modMask                , xK_backslash  ), spawn "$BROWSER")
+    , ((modMask .|. shiftMask  , xK_backslash  ), spawn "dmenu_google")
+    , ((modMask .|. shiftMask  , xK_Return     ), spawn "dmenu_google -x")
 
     -- Lock the screen.
     , ((modMask .|. shiftMask  , xK_z          ), spawn "slock")
