@@ -37,7 +37,7 @@ import XMonad.Util.Run
 -- 1 is the VGA port, usually on the left.
 -- 2 is the displayport, usually on the right.
 screenIds :: [Int]
-screenIds = [ 1, 0, 2 ]
+screenIds = [ 0, 1, 2 ]
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -255,7 +255,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                , xK_F8         ), spawn "$HOME/bin/volume toggle")
 
     -- Kill the screen backlight.
-    , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
+    , ((modMask                , xK_F4         ), spawn "sleep 1 ; xset dpms force off")
+
+    -- Backlight controls.
+    , ((modMask                , xK_F9         ), spawn "xbacklight -dec 10")
+    , ((modMask                , xK_F10        ), spawn "xbacklight -inc 10")
 
     -- Music controls
     , ((modMask                , xK_F3         ), spawn "mpc-prev")
