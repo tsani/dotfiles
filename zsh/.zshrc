@@ -93,3 +93,6 @@ source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 export GPG_TTY=$(tty)
 export HIST_IGNORE_SPACE=1
+
+# OPAM configuration
+. /home/tsani/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
