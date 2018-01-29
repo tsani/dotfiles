@@ -69,7 +69,7 @@ done
 
 test -z "$SOURCE" && die "No target file to share."
 if test -z "$TARGET" ; then
-    SOURCE_NAME="$(basename $SOURCE)"
+    SOURCE_NAME="$(basename "$SOURCE")"
     TARGET="$(echo "$SOURCE" | sed 's/ /+/g')"
 fi
 
