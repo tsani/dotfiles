@@ -82,3 +82,6 @@
 [submodule "tpb"]
 	path = tpb
 	url = https://github.com/tsani/tpb.git
+[submodule "Beluga"]
+	path = Beluga
+	url = https://github.com/Beluga-lang/Beluga.git
