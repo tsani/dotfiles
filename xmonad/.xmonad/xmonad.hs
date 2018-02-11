@@ -57,7 +57,7 @@ spawnDmenu = do
             , " -y ", show dy
             , " -w ", show dw
             , " -l ", show (dh `div` 20)
-            , " -r -p '$ '"
+            , " -p '$ '"
             ]
     spawn s
 
