@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 # Universal editing script.
+# Will open files in a graphical emacs instance, if running X.
 # Will open files in a controlling neovim instance, if available.
 # Failing that, will open with $EDITOR, if available.
 # Failing that, will open with vim, if installed.
@@ -8,6 +9,10 @@
 # Failing that, abort with an error message.
 
 set -e
+
+if test -n "$DISPLAY" ; then
+    exec emacsclient -nc $@
+fi
 
 if test -n "$NVIM_LISTEN_ADDRESS" ; then
     if which nvr > /dev/null ; then
