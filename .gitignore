@@ -4,6 +4,7 @@
 /vim/.vim/view/
 *.o
 *.hi
+*~
 /scripts/bin/browsers
 /ssh/.ssh/config
 /dunst/.local/
