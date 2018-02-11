@@ -69,3 +69,8 @@ URxvt*color14: S_base1
 !! white dark/light
 URxvt*color7: S_base2
 URxvt*color15: S_base3
+
+
+Emacs*toolBar: 0
+Emacs*menuBar: 0
+Emacs*scrollBar: 0
