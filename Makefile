@@ -29,6 +29,8 @@ vimproc:
 ssh:
 	make -C ssh
 
+.PHONY: notify
+notify: $(NOTIFY_SFX_PATH)
 $(NOTIFY_SFX_PATH):
 	mkdir -p "$(NOTIFY_SFX_DIR)"
 	wget "$(NOTIFY_SFX_URL)" -O $@
