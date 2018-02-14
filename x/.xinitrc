@@ -1,12 +1,11 @@
 #!/usr/bin/zsh -l
 
 function trywallpaper () {
-    while (( $# ))
-    do
-        test -e ~/.wallpaper/$1 && hsetroot -center ~/.wallpaper/$1 && return 0
-        shift
-    done
+    if ! test -e ~/.wallpaper ; then
+        return 0
+    fi
 
+    find ~/.wallpaper -type f | shuf | head -n 1 | xargs hsetroot -center ||
     hsetroot -solid black
 }
 
@@ -14,21 +13,17 @@ xrdb -merge $HOME/.Xresources &
 xmodmap "$HOME/.Xmodmap" &
 
 # start some nice programs
-trywallpaper "835.png" "stallman.png" "ycombinator.png" "sofybakni.jpg" &
-steam_wishlist_watcher.sh &
-redshift &
-zeno &
+trywallpaper &
 xsetroot -cursor_name left_ptr &
 xset -b &
-dunst &
-(   which xautolock slock >/dev/null &&
-    xautolock -time 15 -locker slock -notify 30 \
-        -notifier 'notify-send "slock" "screen will soon lock"' -detectsleep
-) &
 
-# run the window manager
-if which ssh-agent >/dev/null ; then
-    exec ssh-agent xmonad
-else
-    exec xmonad
-fi
+# await startup processes to collect their deaths
+wait
+
+# start background programs
+redshift &
+dunst &
+
+which ssh-agent >/dev/null && eval $(ssh-agent -s)
+
+exec $HOME/.local/bin/xmonad
