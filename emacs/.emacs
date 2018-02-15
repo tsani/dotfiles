@@ -63,8 +63,13 @@
 
 ;;;;; LOADING PACKAGES ;;;;;
 
-(load "/home/tsani/dotfiles/Beluga/tools/beluga-mode.el")
-(load "/home/tsani/.opam/system/share/emacs/site-lisp/tuareg-site-file")
+(defun load-if-exists (path)
+  "Loads a file only if it exists."
+  (when (file-exists-p path) (load path)))
+
+(let ((home (getenv "HOME")))
+  (load-if-exists (concat home "/dotfiles/Beluga/tools/beluga-mode.el"))
+  (load-if-exists (concat home "/.opam/system/share/emacs/site-lisp/tuareg-site-file")))
 
 (add-hook 'haskell-mode-hook 'intero-mode)
 
