@@ -138,3 +138,13 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
+
+
+;;;;; AUTO-SAVING AND BACKUPS ;;;;;
+
+(setq backup-directory-alist `(("." . "~/.saves"))
+      backup-by-copying t
+      kept-new-versions 10
+      kept-old-version 0
+      delete-old-versions t
+      version-control t)
