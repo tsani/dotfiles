@@ -116,6 +116,10 @@ if ! test -e "$TASK_LAST_SYNC" ; then
             "Please point \$TASK_LAST_SYNC to a read/writable file."
 fi
 
+warn() {
+    echo "Warning: $@" >&2
+}
+
 task-git() {
     git -C "$TASKDIR" "$@"
 }
@@ -216,7 +220,7 @@ case "$1" in
         # computers, we pull in the stuff that's on the remote before modifying
         # any files with task commands.
         # This prevents having to resolve merges by hand.
-        sync-if-needed
+        sync-if-needed || warn "unable to sync task repo"
 
         # we execute the command that the user wants to run followed by a
         # simple status check, because task sometimes effects modifications
@@ -234,6 +238,6 @@ case "$1" in
             bump "$@"
         fi
 
-        sync-if-needed
+        sync-if-needed || true
         ;;
 esac
