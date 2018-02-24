@@ -21,8 +21,8 @@
     (quote
      ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(package-selected-packages
-    (quote
-     (csharp-mode rudel yaml-mode frames-only-mode solarized-theme solaized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
+   (quote
+    (helm-ag chsarp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -61,6 +61,8 @@
 (use-package solarized-theme
   :ensure t)
 (use-package csharp-mode
+  :ensure t)
+(use-package helm-ag
   :ensure t)
 
 ;;;;; LOADING PACKAGES ;;;;;
