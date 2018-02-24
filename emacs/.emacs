@@ -73,7 +73,7 @@
 
 (let ((home (getenv "HOME")))
   (load-if-exists (concat home "/dotfiles/Beluga/tools/beluga-mode.el"))
-  (load-if-exists (concat home "/.opam/system/share/emacs/site-lisp/tuareg-site-file")))
+  (load-if-exists (concat home "/.opam/system/share/emacs/site-lisp/tuareg-site-file.el")))
 
 (add-hook 'haskell-mode-hook 'intero-mode)
 
