@@ -122,8 +122,10 @@
 (setq c-basic-offset 2)
 (setq c-default-style "linux")
 
-(add-hook 'before-save-hook
-          'delete-trailing-whitespace)
+; A nice idea, but unless it's my own code, this ends up creating
+; spurious whitespace changes in other people's code.
+;; (add-hook 'before-save-hook
+;;           'delete-trailing-whitespace)
 
 ;;;;; INTEGRATIONS ;;;;;
 
