@@ -18,11 +18,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+    (quote
+     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(package-selected-packages
-   (quote
-    (rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
+    (quote
+     (csharp-mode rudel yaml-mode frames-only-mode solarized-theme solaized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -59,6 +59,8 @@
     (global-set-key [f8] 'neotree-toggle)
   :ensure t)
 (use-package solarized-theme
+  :ensure t)
+(use-package csharp-mode
   :ensure t)
 
 ;;;;; LOADING PACKAGES ;;;;;
