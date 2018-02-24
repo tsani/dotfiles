@@ -117,7 +117,9 @@
 (setq-default
   indent-tabs-mode nil
   tab-width 2)
-(setq indent-line-function 'insert-tab)
+; (setq indent-line-function 'insert-tab)
+(setq c-basic-offset 2)
+(setq c-default-style "linux")
 
 (add-hook 'before-save-hook
           'delete-trailing-whitespace)
