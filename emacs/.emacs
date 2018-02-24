@@ -155,3 +155,11 @@
       kept-old-version 0
       delete-old-versions t
       version-control t)
+
+;;;;; HACKS ;;;;;
+
+;; Tuareg is currently broken:
+;; https://github.com/ocaml/tuareg/issues/162
+;; The workaround is to define my own `tuareg-abbrev-hook` function
+;; that does nothing.
+(defun tuareg-abbrev-hook ())
