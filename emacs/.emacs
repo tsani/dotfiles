@@ -127,6 +127,13 @@
 ;; (add-hook 'before-save-hook
 ;;           'delete-trailing-whitespace)
 
+;;;;; AUTO-SCROLLING ;;;;;
+
+; Do not center point in window when scrolling.
+(setq scroll-conservatively 1)
+; Leave a margin of 7 lines when scrolling.
+(setq scroll-margin 7)
+
 ;;;;; INTEGRATIONS ;;;;;
 
 (setq vc-follow-symlinks t)
