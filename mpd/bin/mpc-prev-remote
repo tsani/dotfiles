@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 if test -z "$MPD_LABCODERS" ; then
     echo 'no labcoders mpd host configured'
