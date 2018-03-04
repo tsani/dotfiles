@@ -20,10 +20,6 @@ xset -b &
 # await startup processes to collect their deaths
 wait
 
-# start background programs
-redshift &
-dunst &
-
 which ssh-agent >/dev/null && eval $(ssh-agent -s)
 
 exec $HOME/.local/bin/xmonad
