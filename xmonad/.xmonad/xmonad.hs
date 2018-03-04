@@ -86,26 +86,22 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask  , xK_z          ), spawn "slock")
 
     -- Volume controls
-    , ((modMask                , xK_F8         ), spawn "$HOME/bin/volume toggle")
-    , ((modMask                , xK_F9         ), spawn "$HOME/bin/volume -5%")
-    , ((modMask                , xK_F10        ), spawn "$HOME/bin/volume +5%")
-    , ((modMask .|. shiftMask  , xK_F9         ), spawn "mpc --host $HOME/.mpd/socket volume -5")
-    , ((modMask .|. shiftMask  , xK_F10        ), spawn "mpc --host $HOME/.mpd/socket volume +5")
+    , ((modMask                , xK_F6         ), spawn "$HOME/bin/volume toggle")
+    , ((modMask                , xK_F7         ), spawn "$HOME/bin/volume -5%")
+    , ((modMask                , xK_F8         ), spawn "$HOME/bin/volume +5%")
+    , ((modMask .|. shiftMask  , xK_F7         ), spawn "mpc --host $HOME/.mpd/socket volume -5")
+    , ((modMask .|. shiftMask  , xK_F8         ), spawn "mpc --host $HOME/.mpd/socket volume +5")
 
     -- Kill the screen backlight.
     , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
 
-    -- Backlight controls.
-    , ((modMask                , xK_F6         ), spawn "xbacklight -dec 10")
-    , ((modMask                , xK_F7         ), spawn "xbacklight -inc 10")
-
     -- Music controls
-    , ((modMask                , xK_Page_Up    ), spawn "mpc-prev")
-    , ((modMask                , xK_Page_Down  ), spawn "mpc-next")
-    , ((modMask .|. shiftMask  , xK_Page_Up    ), spawn "mpc-prev-remote")
-    , ((modMask .|. shiftMask  , xK_Page_Down  ), spawn "mpc-next-remote")
-    , ((modMask                , xK_Pause      ), spawn "mpc --host $HOME/.mpd/socket toggle")
-    , ((modMask .|. shiftMask  , xK_Pause      ), spawn "mpc-toggle")
+    , ((modMask                , xK_F3         ), spawn "mpc-prev")
+    , ((modMask                , xK_F4         ), spawn "mpc-next")
+    , ((modMask .|. shiftMask  , xK_F3         ), spawn "mpc-prev-remote")
+    , ((modMask .|. shiftMask  , xK_F4         ), spawn "mpc-next-remote")
+    , ((modMask                , xK_F5         ), spawn "mpc --host $HOME/.mpd/socket toggle")
+    , ((modMask .|. shiftMask  , xK_F5         ), spawn "mpc-toggle")
     , ((modMask                , xK_Scroll_Lock), spawn "nowplaying.sh")
 
     -- close focused window; only deletes a copy
