@@ -9,7 +9,7 @@
     #
     # for a complete reference see http://developer.gnome.org/pango/stable/PangoMarkupFormat.html
     # If markup is not allowed, those tags will be stripped out of the message.
-    allow_markup = yes
+    markup = no
 
     # The format of the message. Possible variables are:
     #   %a  appname
@@ -83,7 +83,7 @@
     #
     # If this option is set to mouse or keyboard, the monitor option will be
     # ignored.
-    follow = keyboard
+    follow = none
 
     # should a notification popped up from history be sticky or
     # timeout as if it would normally do.
@@ -125,7 +125,7 @@
 
 [frame]
     width = 2
-    color = "#aaaaaa"
+    color = "#447744"
 
 [shortcuts]
     # shortcuts are specified as [modifier+][modifier+]...key
@@ -149,18 +149,18 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the '#' and following  would be interpreted as a comment.
-    background = "#000000"
-    foreground = "#888888"
+    background = "#eeeeff"
+    foreground = "#000000"
     timeout = 10
 
 [urgency_normal]
-    background = "#000000"
-    foreground = "#cccccc"
+    background = "#ffffff"
+    foreground = "#000000"
     timeout = 10
 
 [urgency_critical]
-    background = "#000000"
-    foreground = "#ff4444"
+    background = "#ffffff"
+    foreground = "#ff1212"
     timeout = 0
 
 
