@@ -1,0 +1,10 @@
+[Unit]
+Description=Cross infinitely many points in finite time.
+After=display-manager.target
+
+[Service]
+ExecStart=%h/.local/bin/zeno
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=default.target
