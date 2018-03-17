@@ -3,7 +3,6 @@ LOCAL_ZSHENV="$HOME/.zshenv-local"
 # Source machine-dependent configuration if any
 test -e "$LOCAL_ZSHENV" && source "$LOCAL_ZSHENV"
 
-export PATH=$HOME/bin:/usr/lib/smlnj/bin:$HOME/.stack/programs/x86_64-linux/ghc-nopie-8.0.2/bin:$PATH
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
