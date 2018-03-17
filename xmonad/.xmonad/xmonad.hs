@@ -86,11 +86,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask  , xK_z          ), spawn "slock")
 
     -- Volume controls
-    , ((modMask                , xK_F6         ), spawn "$HOME/bin/volume toggle")
-    , ((modMask                , xK_F7         ), spawn "$HOME/bin/volume -5%")
-    , ((modMask                , xK_F8         ), spawn "$HOME/bin/volume +5%")
-    , ((modMask .|. shiftMask  , xK_F7         ), spawn "mpc --host $HOME/.mpd/socket volume -5")
-    , ((modMask .|. shiftMask  , xK_F8         ), spawn "mpc --host $HOME/.mpd/socket volume +5")
+    , ((modMask                , xK_F6         ), spawn "$HOME/bin/volume -5%")
+    , ((modMask                , xK_F7         ), spawn "$HOME/bin/volume +5%")
+    , ((modMask .|. shiftMask  , xK_F6         ), spawn "mpc --host $HOME/.mpd/socket volume -5")
+    , ((modMask .|. shiftMask  , xK_F7         ), spawn "mpc --host $HOME/.mpd/socket volume +5")
+    , ((modMask                , xK_F8         ), spawn "$HOME/bin/volume toggle")
 
     -- Kill the screen backlight.
     , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
