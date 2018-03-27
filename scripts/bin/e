@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 # Universal editing script.
 # Will open files in a graphical emacs instance, if running X.
@@ -11,7 +11,7 @@
 set -e
 
 if test -n "$DISPLAY" ; then
-    exec emacsclient -nc $@
+    exec emacsclient -c $@
 fi
 
 if test -n "$NVIM_LISTEN_ADDRESS" ; then
