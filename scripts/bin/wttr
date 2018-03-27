@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if test -n "$1" ; then
+    LOCATION="$1"
+else
+    LOCATION="montreal"
+fi
+
+exec curl "http://wttr.in/$LOCATION"
