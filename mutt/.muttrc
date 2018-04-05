@@ -18,12 +18,15 @@ alternative_order text/enriched text/plain text/html text
 
 folder-hook 'account.jerrington' 'source ~/.mutt/account.jerrington'
 folder-hook 'account.mcgill' 'source ~/.mutt/account.mcgill'
+folder-hook 'account.gmail' 'source ~/.mutt/account.gmail'
 
+# default account is Jerrington
 source ~/.mutt/account.jerrington
 
 # Macros for switching accounts
 macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/account.jerrington<enter><change-folder>!<enter>'
 macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/account.mcgill<enter><change-folder>!<enter>'
+macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/account.gmail<enter><change-folder>!<enter>'
 
 ##### General settings ########################################################
 
