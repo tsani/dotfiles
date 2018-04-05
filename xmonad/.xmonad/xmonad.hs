@@ -1,3 +1,12 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards #-}
+
+import Network.HTTP.Types.URI
+import Network.URI
+import Data.List ( sort, intercalate )
+import qualified Data.Map as M
+import qualified Data.Text as T
+import qualified Data.Text.Encoding as T
 import System.Exit
 import System.IO(hPutStrLn)
 
@@ -16,12 +25,8 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.WorkspaceDir
 import XMonad.Prompt
-import XMonad.Util.Run(spawnPipe)
-
 import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
-
-import Data.List ( sort, intercalate )
+import XMonad.Util.Run(spawnPipe)
 
 myScreenWidth   = 1680
 
@@ -45,21 +50,96 @@ myWorkspaces    = [ "irc", "web", "code", "shell", "music" ]
 myNormalBorderColor  = "#222255"
 myFocusedBorderColor = "#DD0000"
 
+-- | A rectangle: x, y, w, h.
+type Rect = (Int, Int, Int, Int)
+
+-- | Gets a nice rectangle for spawning dmenu.
+dmenuDim :: X Rect
+dmenuDim = do
+  d <- gets (screenRect . W.screenDetail . W.current . windowset)
+  let (w, h) = (rect_width dim, rect_height dim)
+  let (dw, dh) = (w `div` 3, h `div` 3)
+  let (dx, dy) = (w `div` 3, h `div` 3)
+  pure (dx, dy, dw, dh)
+
+data DmenuSettings =
+  DmenuSettings
+  { dsProgramName :: String
+  -- ^ The name of the dmenu program to run, typically @"dmenu"@ or @"dmenu_run"@.
+  , dsSpawnRect :: Rect
+  -- ^ The location to spawn dmenu at.
+  , dsPrompt :: String
+  -- ^ The prompt to display.
+  , dsInput :: Bool
+  -- ^ Does dmenu read stdin for choices?
+  , dsLines :: DmenuLineCount
+  -- ^ How many lines of choices does dmenu display?
+  }
+
+data DmenuLineCount
+  = FromHeight
+  | Fixed Int
+  | Unspecified
+
+dmenuCommand :: DmenuSettings -> String
+dmenuCommand DmenuSettings{..} = concat
+  [ dsProgramName
+  , "-dim 0.3 -fn 'DejaVu'"
+  , " -x ", show x
+  , " -y ", show y
+  , " -w ", show w
+  , ls
+  , " -p '", dsPrompt, "'"
+  ]
+  where
+    (x, y, w, h) = spawnRect
+    input = if dsInput then "" else "-noinput"
+    ls = case dsLines of
+      FromHeight -> "-l " ++ show (h `div` 20)
+      Unspecified -> ""
+      Fixed n -> "-l " ++ show n
+
 spawnDmenu :: X ()
 spawnDmenu = do
-    dim <- gets (screenRect . W.screenDetail . W.current . windowset)
-    let (w, h) = (rect_width dim, rect_height dim)
-    let (dw, dh) = (w `div` 3, h `div` 3)
-    let (dx, dy) = (w `div` 3, h `div` 3)
-    let s = concat
-            [ "dmenu_run -dim 0.3 -fn 'DejaVu'"
-            , " -x ", show dx
-            , " -y ", show dy
-            , " -w ", show dw
-            , " -l ", show (dh `div` 20)
-            , " -p '$ '"
-            ]
-    spawn s
+  dim <- dmenuDim
+  spawn $ dmenuCommand DmenuSettings
+    { dsProgramName = "dmenu_run"
+    , dsSpawnRect = dim
+    , dsPrompt = "$ "
+    , dsLines = FromHeight
+    , dsInput = True
+    }
+
+-- | Constructs a URI for performing a web search of the given string.
+searchURI :: String -> ShowS
+searchURI q = uriToString id $ URI
+  { uriScheme = "https"
+  , uriAuthority = Just URIAuth
+    { uriUserInfo = ""
+    , uriRegName = "duckduckgo.com"
+    , uriPort = ""
+    }
+  , uriPath = ""
+  , uriQuery = out $ renderQuery False [("q", Just $ t q)]
+  }
+  where
+    out = T.unpack . T.decodeUtf8
+    t = T.encodeUtf8 . T.pack
+
+-- spawns dmenu for performing a web search with the given prompt
+spawnDmenuWeb :: String -> X ()
+spawnDmenuWeb p = do
+  s <- mkSettings <$> dmenuDim
+
+  where
+    mkSettings dim = DmenuSettings
+      { dsProgramName = "dmenu"
+      , dsSpawnRect = dim
+      , dsPrompt = p
+      , dsLines = Fixed 0
+      , dsInput = False
+      }
+
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -76,7 +156,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask  , xK_p          ), spawn "gmrun")
 
     -- change xmonad working directory
-    , ((modMask                , xK_equal      ), changeDir defaultXPConfig)
+    , ((modMask                , xK_equal      ), changeDir def)
 
     , ((modMask                , xK_backslash  ), spawn "$BROWSER")
     , ((modMask .|. shiftMask  , xK_backslash  ), spawn "dmenu_google")
