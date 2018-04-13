@@ -22,7 +22,7 @@
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(package-selected-packages
    (quote
-    (idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
+    (highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -65,6 +65,12 @@
 (use-package helm-ag
   :ensure t)
 (use-package idris-mode
+  :ensure t)
+(use-package highlight-parentheses
+  :init
+  ((setq hl-paren-colors '("black"))
+   (setq hl-paren-background-colors '("red" "orange" "yellow" "green" "blue" "violet")
+   (setq hl-paren-delay 0.05)))
   :ensure t)
 
 ;;;;; LOADING PACKAGES ;;;;;
@@ -125,6 +131,12 @@
 (setq c-default-style "linux")
 
 (setq-default require-final-newline t)
+
+(define-globalized-minor-mode global-highlight-parentheses-mode
+  highlight-parentheses-mode
+  (lambda ()
+    (highlight-parentheses-mode t)))
+(global-highlight-parentheses-mode t)
 
 ; A nice idea, but unless it's my own code, this ends up creating
 ; spurious whitespace changes in other people's code.
