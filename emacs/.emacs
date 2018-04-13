@@ -67,10 +67,10 @@
 (use-package idris-mode
   :ensure t)
 (use-package highlight-parentheses
-  :init
-  ((setq hl-paren-colors '("black"))
-   (setq hl-paren-background-colors '("red" "orange" "yellow" "green" "blue" "violet")
-   (setq hl-paren-delay 0.05)))
+  :config
+  (setq hl-paren-colors '("black"))
+  (setq hl-paren-background-colors '("red" "orange" "yellow" "green" "blue" "violet"))
+  (setq hl-paren-delay 0.05)
   :ensure t)
 
 ;;;;; LOADING PACKAGES ;;;;;
