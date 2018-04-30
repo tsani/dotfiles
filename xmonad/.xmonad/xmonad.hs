@@ -85,11 +85,11 @@ data DmenuLineCount
 dmenuCommand :: DmenuSettings -> String
 dmenuCommand DmenuSettings{..} = concat
   [ dsProgramName
-  , "-dim 0.3 -fn 'DejaVu'"
+  , " -dim 0.3 -fn 'DejaVu'"
   , " -x ", show x
   , " -y ", show y
   , " -w ", show w
-  , ls
+  , " " ++ ls
   , " -p '", dsPrompt, "'"
   ]
   where
