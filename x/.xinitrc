@@ -5,8 +5,8 @@ function trywallpaper () {
         return 0
     fi
 
-    find ~/.wallpaper -type f | shuf | head -n 1 | xargs hsetroot -center ||
-    hsetroot -solid black
+    find ~/.wallpaper -type f | shuf | head -n 1 | xargs feh --bg-center ||
+    feh -solid black
 }
 
 xrdb -merge $HOME/.Xresources &

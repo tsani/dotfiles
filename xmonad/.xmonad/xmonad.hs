@@ -7,6 +7,7 @@ import Data.List ( sort, intercalate )
 import qualified Data.Map as M
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
+import Data.Word ( Word32 )
 import System.Exit
 import System.IO(hPutStrLn)
 
@@ -47,17 +48,17 @@ myModMask       = mod4Mask
 myWorkspaces    = [ "irc", "web", "code", "shell", "music" ]
 
 -- Border colors for unfocused and focused windows, respectively.
-myNormalBorderColor  = "#222255"
-myFocusedBorderColor = "#DD0000"
+myNormalBorderColor  = solarizedBlue
+myFocusedBorderColor = solarizedRed
 
 -- | A rectangle: x, y, w, h.
-type Rect = (Int, Int, Int, Int)
+type Rect = (Word32, Word32, Word32, Word32)
 
 -- | Gets a nice rectangle for spawning dmenu.
 dmenuDim :: X Rect
 dmenuDim = do
   d <- gets (screenRect . W.screenDetail . W.current . windowset)
-  let (w, h) = (rect_width dim, rect_height dim)
+  let (w, h) = (rect_width d, rect_height d)
   let (dw, dh) = (w `div` 3, h `div` 3)
   let (dx, dy) = (w `div` 3, h `div` 3)
   pure (dx, dy, dw, dh)
@@ -92,7 +93,7 @@ dmenuCommand DmenuSettings{..} = concat
   , " -p '", dsPrompt, "'"
   ]
   where
-    (x, y, w, h) = spawnRect
+    (x, y, w, h) = dsSpawnRect
     input = if dsInput then "" else "-noinput"
     ls = case dsLines of
       FromHeight -> "-l " ++ show (h `div` 20)
@@ -129,8 +130,7 @@ searchURI q = uriToString id $ URI
 -- spawns dmenu for performing a web search with the given prompt
 spawnDmenuWeb :: String -> X ()
 spawnDmenuWeb p = do
-  s <- mkSettings <$> dmenuDim
-
+  spawn =<< dmenuCommand . mkSettings <$> dmenuDim
   where
     mkSettings dim = DmenuSettings
       { dsProgramName = "dmenu"
@@ -338,24 +338,39 @@ myManageHook = manageDocks <+> composeAll
 myStartupHook = return ()
 
 tsaniPP :: PP
-tsaniPP = defaultPP
-    { ppHiddenNoWindows = pad
-    , ppHidden  = dzenColor "black"  tsaniBlue . pad
-    , ppCurrent = dzenColor "yellow" tsaniBlue . pad
-    , ppUrgent  = dzenColor "red"    "yellow"  . pad
-    , ppSep     = pad "|"
-    , ppWsSep   = ""
-    , ppLayout  = const ""
-    , ppTitle   = shorten 70
-    , ppOrder   = reverse
-    }
-    where tsaniBlue = "#7c98ff"
+tsaniPP =
+  def
+  { ppHiddenNoWindows = dzenColor fgMain bg . pad
+  , ppHidden  = dzenColor fgMain bg . pad
+  , ppCurrent = dzenColor solarizedRed bg . pad
+  , ppUrgent  = dzenColor solarizedMagenta bg . pad
+  , ppSep     = dzenColor fgMain bg $ pad "|"
+  , ppVisible = dzenColor solarizedBlue bg . pad
+  , ppWsSep   = ""
+  , ppLayout  = const ""
+  , ppTitle   = dzenColor fgMain bg . shorten 70
+  , ppOrder   = reverse
+  }
+  where
+    bg = solarizedBase03
+    fgMain = solarizedBase0
+    fgSecondary = solarizedBase01
+    fgEmph = solarizedBase1
 
 myLogHook h = dynamicLogWithPP tsaniPP { ppOutput = hPutStrLn h }
 
 myUrgencyHook = dzenUrgencyHook
 
-myDzenCommand = "dzen2 -dock -p -x 0 -w " ++ show width where
+singleQuotes s = "'" ++ s ++ "'"
+
+myDzenCommand =
+  intercalate " "
+  [ "dzen2"
+  , "-dock", "-p", "-x 0"
+  , "-w"
+  , show width
+  ]
+  where
     width = myScreenWidth * 2 `div` 3
 
 myConkyCommand = concat
@@ -376,7 +391,7 @@ main = do
     myDzen <- spawnPipe myDzenCommand
     myConky <- spawnPipe myConkyCommand
     launch
-      $ docks $ withUrgencyHook myUrgencyHook $ ewmh defaultConfig
+      $ docks $ withUrgencyHook myUrgencyHook $ ewmh def
         -- simple stuff
         { terminal           = myTerminal
         , focusFollowsMouse  = True
@@ -397,3 +412,21 @@ main = do
         , logHook            = myLogHook myDzen
         , startupHook        = myStartupHook
         }
+
+-- Colors
+solarizedBase03 = "#002b36"
+solarizedBase02 = "#073642"
+solarizedBase01 = "#586e75"
+solarizedBase00 = "#657b83"
+solarizedBase0 = "#839496"
+solarizedBase1 = "#93a1a1"
+solarizedBase2 = "#eee8d5"
+solarizedBase3 = "#fdf6e3"
+solarizedYellow = "#b58900"
+solarizedOrange = "#cb4b16"
+solarizedRed = "#dc322f"
+solarizedMagenta = "#d33682"
+solarizedViolet = "#6c71c4"
+solarizedBlue = "#268bd2"
+solarizedCyan = "#2aa198"
+solarizedGreen = "#859900"

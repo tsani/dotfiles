@@ -1,3 +1,20 @@
+#define S_base03 #002b36
+#define S_base02 #073642
+#define S_base01 #586e75
+#define S_base00 #657b83
+#define S_base0 #839496
+#define S_base1 #93a1a1
+#define S_base2 #eee8d5
+#define S_base3 #fdf6e3
+#define S_yellow #b58900
+#define S_orange #cb4b16
+#define S_red #dc322f
+#define S_magenta #d33682
+#define S_violet #6c71c4
+#define S_blue #268bd2
+#define S_cyan #2aa198
+#define S_green #859900
+
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/vimb
 URxvt.matcher.button: 1
@@ -11,7 +28,9 @@ URxvt*scrollBar: false
 XTerm*background: black
 XTerm*foreground: grey
 
-dzen2.font: xft:DejaVu Sans Mono:size=8
+dzen2.font: xft:Envy Code R:size=9
+dzen2.foreground: S_base0
+dzen2.background: S_base03
 
 Xft.dpi: 96
 Xft.antialias: true
@@ -23,28 +42,12 @@ URxvt.urgentOnBell:         true
 URxvt.cursorColor:          #657b83
 URxvt.intensityStyles: false
 
-#define S_base03 #002b36
-#define S_base02 #073642
-#define S_base01 #586e75
-#define S_base00 #657b83
-#define S_base0 #839496
-#define S_base1 #93a1a1
-#define S_base2 #eee8d5
-#define S_base3 #fdf6e3
 URxvt*background: S_base3
 URxvt*foreground: S_base00
 URxvt*fadeColor: S_base3
 URxvt*cursorColor: S_base01
 URxvt*pointerColorBackground:S_base1
 URxvt*pointerColorForeground:S_base01
-#define S_yellow #b58900
-#define S_orange #cb4b16
-#define S_red #dc322f
-#define S_magenta #d33682
-#define S_violet #6c71c4
-#define S_blue #268bd2
-#define S_cyan #2aa198
-#define S_green #859900
 !! black dark/light
 URxvt*color0: S_base02
 URxvt*color8: S_base03
