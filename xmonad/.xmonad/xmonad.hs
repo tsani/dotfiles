@@ -250,10 +250,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Dynamic workspace management
     , ((modMask .|. shiftMask  , xK_BackSpace  ), removeWorkspace)
-    , ((modMask                , xK_b          ), selectWorkspace defaultXPConfig)
-    , ((modMask .|. shiftMask  , xK_b          ), withWorkspace defaultXPConfig (windows . W.shift))
-    , ((modMask .|. controlMask, xK_b          ), withWorkspace defaultXPConfig (windows . copy))
-    , ((modMask                , xK_a          ), renameWorkspace defaultXPConfig)
+    , ((modMask                , xK_b          ), selectWorkspace def)
+    , ((modMask .|. shiftMask  , xK_b          ), withWorkspace def (windows . W.shift))
+    , ((modMask .|. controlMask, xK_b          ), withWorkspace def (windows . copy))
+    , ((modMask                , xK_a          ), renameWorkspace def)
     ]
 
     --
