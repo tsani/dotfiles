@@ -387,7 +387,7 @@ myDzenCommand screenWidth =
   , show width
   ]
   where
-    width = screenWidth * 2 `div` 3
+    width = screenWidth * 3 `div` 5
 
 myConkyCommand screenWidth = concat
     [ "conky | dzen2 -dock"
@@ -395,8 +395,8 @@ myConkyCommand screenWidth = concat
     , " -w ", show width
     , " -ta r"
     ] where
-        width = screenWidth * 1 `div` 3
-        offset = screenWidth * 2 `div` 3
+        width = screenWidth * 2 `div` 5
+        offset = screenWidth * 3 `div` 5
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
