@@ -3,8 +3,12 @@
 
 import Network.HTTP.Types.URI
 import Network.URI
-import Data.List ( sort, intercalate )
+import Control.Concurrent ( forkIO )
+import Control.Concurrent.Chan
+import Control.Monad ( forever )
+import Data.List ( sort, sortBy, intercalate )
 import qualified Data.Map as M
+import Data.Ord ( comparing )
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import Data.Word ( Word32 )
@@ -29,8 +33,6 @@ import XMonad.Prompt
 import qualified XMonad.StackSet as W
 import XMonad.Util.Run(spawnPipe)
 
-myScreenWidth   = 1680
-
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 myTerminal      = "urxvt"
@@ -54,10 +56,19 @@ myFocusedBorderColor = solarizedRed
 -- | A rectangle: x, y, w, h.
 type Rect = (Word32, Word32, Word32, Word32)
 
+getLeftmostScreenRect :: X Rectangle
+getLeftmostScreenRect = do
+  ws <- gets windowset
+  let screenRects = screenRect . W.screenDetail <$> W.current ws : W.visible ws
+  pure $ head (sortBy (comparing rect_x) screenRects)
+
+getCurrentScreenRect :: X Rectangle
+getCurrentScreenRect = gets (screenRect . W.screenDetail . W.current . windowset)
+
 -- | Gets a nice rectangle for spawning dmenu.
 dmenuDim :: X Rect
 dmenuDim = do
-  d <- gets (screenRect . W.screenDetail . W.current . windowset)
+  d <- getCurrentScreenRect
   let (w, h) = (rect_width d, rect_height d)
   let (dw, dh) = (w `div` 3, h `div` 3)
   let (dx, dy) = (w `div` 3, h `div` 3)
@@ -333,9 +344,14 @@ myManageHook = manageDocks <+> composeAll
 -- Perform an arbitrary action each time xmonad starts or is restarted
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
 -- per-workspace layout choices.
---
--- By default, do nothing.
-myStartupHook = return ()
+myStartupHook chan = do
+  w <- rect_width <$> getLeftmostScreenRect
+  myConky <- spawnPipe (myConkyCommand w)
+  io $ forkIO $ do
+    myDzen <- spawnPipe (myDzenCommand w)
+    forever $ do
+      hPutStrLn myDzen =<< readChan chan
+  pure ()
 
 tsaniPP :: PP
 tsaniPP =
@@ -357,13 +373,13 @@ tsaniPP =
     fgSecondary = solarizedBase01
     fgEmph = solarizedBase1
 
-myLogHook h = dynamicLogWithPP tsaniPP { ppOutput = hPutStrLn h }
+myLogHook chan = dynamicLogWithPP tsaniPP { ppOutput = writeChan chan }
 
 myUrgencyHook = dzenUrgencyHook
 
 singleQuotes s = "'" ++ s ++ "'"
 
-myDzenCommand =
+myDzenCommand screenWidth =
   intercalate " "
   [ "dzen2"
   , "-dock", "-p", "-x 0"
@@ -371,16 +387,16 @@ myDzenCommand =
   , show width
   ]
   where
-    width = myScreenWidth * 2 `div` 3
+    width = screenWidth * 2 `div` 3
 
-myConkyCommand = concat
+myConkyCommand screenWidth = concat
     [ "conky | dzen2 -dock"
     , " -x ", show offset
     , " -w ", show width
     , " -ta r"
     ] where
-        width = myScreenWidth * 1 `div` 3
-        offset = myScreenWidth * 2 `div` 3
+        width = screenWidth * 1 `div` 3
+        offset = screenWidth * 2 `div` 3
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -388,8 +404,7 @@ myConkyCommand = concat
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-    myDzen <- spawnPipe myDzenCommand
-    myConky <- spawnPipe myConkyCommand
+    chan <- newChan
     launch
       $ docks $ withUrgencyHook myUrgencyHook $ ewmh def
         -- simple stuff
@@ -409,8 +424,8 @@ main = do
         -- hooks, layouts
         , layoutHook         = myLayout
         , manageHook         = myManageHook
-        , logHook            = myLogHook myDzen
-        , startupHook        = myStartupHook
+        , logHook            = myLogHook chan
+        , startupHook        = myStartupHook chan
         }
 
 -- Colors
