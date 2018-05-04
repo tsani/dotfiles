@@ -356,7 +356,7 @@ myStartupHook chan = do
 tsaniPP :: PP
 tsaniPP =
   def
-  { ppHiddenNoWindows = dzenColor fgMain bg . pad
+  { ppHiddenNoWindows = const ""
   , ppHidden  = dzenColor fgMain bg . pad
   , ppCurrent = dzenColor solarizedRed bg . pad
   , ppUrgent  = dzenColor solarizedMagenta bg . pad
