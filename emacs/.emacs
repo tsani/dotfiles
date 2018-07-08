@@ -20,9 +20,10 @@
  '(custom-safe-themes
    (quote
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(evil-shift-width 2)
  '(package-selected-packages
    (quote
-    (highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
+    (omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -72,6 +73,8 @@
   (setq hl-paren-background-colors '("red" "orange" "yellow" "green" "blue" "violet"))
   (setq hl-paren-delay 0.05)
   :ensure t)
+(use-package omnisharp
+  :ensure t)
 
 ;;;;; LOADING PACKAGES ;;;;;
 
@@ -84,6 +87,11 @@
   (load-if-exists (concat home "/.opam/system/share/emacs/site-lisp/tuareg-site-file.el")))
 
 (add-hook 'haskell-mode-hook 'intero-mode)
+(add-hook 'csharp-mode-hook 'omnisharp-mode)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-omnisharp))
+(add-hook 'csharp-mode-hook #'company-mode)
+(add-hook 'csharp-mode-hook #'flycheck-mode)
 
 (evil-mode t)
 
