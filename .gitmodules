@@ -43,21 +43,9 @@
 [submodule "irssi/.irssi/scripts/irssi-notifier"]
 	path = irssi/.irssi/scripts/irssi-notifier
 	url = https://github.com/paddykontschak/irssi-notifier.git
-[submodule "apollo"]
-	path = apollo
-	url = https://github.com/tsani/apollo.git
-[submodule "mutt/.mutt"]
-	path = mutt/.mutt
-	url = jerrington.me:mutt.git
-[submodule "mbsync"]
-	path = mbsync
-	url = jerrington.me:mbsync.git
 [submodule "other/mutt-ical"]
 	path = other/mutt-ical
 	url = https://github.com/tsani/mutt-ical
-[submodule "tpb"]
-	path = tpb
-	url = https://github.com/tsani/tpb.git
 [submodule "Beluga"]
 	path = Beluga
 	url = https://github.com/Beluga-lang/Beluga.git
