@@ -1,7 +1,6 @@
 [user]
-    email = git@mail.jerrington.me
-    name = Jacob Errington
-    signingkey = 80DEFC21AB8F2075E2DA992472972E4BCF267228
+    email = ejmayhew@gmail.com
+    name = Eric Mayhew
 [push]
     default = simple
 [color]

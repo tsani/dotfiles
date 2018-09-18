@@ -1,9 +1,0 @@
-[Unit]
-Description=Pushbullet notifications
-
-[Service]
-ExecStart=%h/.local/bin/pb-notify
-EnvironmentFile=%h/.pb-notify-env
-
-[Install]
-WantedBy=multi-user.target

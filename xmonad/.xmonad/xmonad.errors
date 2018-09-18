@@ -1,0 +1,50 @@
+
+xmonad.hs:80:61: warning: [-Wdeprecations]
+    In the use of ‘defaultXPConfig’ (imported from XMonad.Prompt):
+    Deprecated: "Use def (from Data.Default, and re-exported from XMonad.Prompt) instead."
+   |
+80 |     , ((modMask                , xK_equal      ), changeDir defaultXPConfig)
+   |                                                             ^^^^^^^^^^^^^^^
+
+xmonad.hs:178:67: warning: [-Wdeprecations]
+    In the use of ‘defaultXPConfig’ (imported from XMonad.Prompt):
+    Deprecated: "Use def (from Data.Default, and re-exported from XMonad.Prompt) instead."
+    |
+178 |     , ((modMask                , xK_b          ), selectWorkspace defaultXPConfig)
+    |                                                                   ^^^^^^^^^^^^^^^
+
+xmonad.hs:179:65: warning: [-Wdeprecations]
+    In the use of ‘defaultXPConfig’ (imported from XMonad.Prompt):
+    Deprecated: "Use def (from Data.Default, and re-exported from XMonad.Prompt) instead."
+    |
+179 |     , ((modMask .|. shiftMask  , xK_b          ), withWorkspace defaultXPConfig (windows . W.shift))
+    |                                                                 ^^^^^^^^^^^^^^^
+
+xmonad.hs:180:65: warning: [-Wdeprecations]
+    In the use of ‘defaultXPConfig’ (imported from XMonad.Prompt):
+    Deprecated: "Use def (from Data.Default, and re-exported from XMonad.Prompt) instead."
+    |
+180 |     , ((modMask .|. controlMask, xK_b          ), withWorkspace defaultXPConfig (windows . copy))
+    |                                                                 ^^^^^^^^^^^^^^^
+
+xmonad.hs:181:67: warning: [-Wdeprecations]
+    In the use of ‘defaultXPConfig’ (imported from XMonad.Prompt):
+    Deprecated: "Use def (from Data.Default, and re-exported from XMonad.Prompt) instead."
+    |
+181 |     , ((modMask                , xK_a          ), renameWorkspace defaultXPConfig)
+    |                                                                   ^^^^^^^^^^^^^^^
+
+xmonad.hs:266:11: warning: [-Wdeprecations]
+    In the use of ‘defaultPP’ (imported from XMonad.Hooks.DynamicLog):
+    Deprecated: "Use def (from Data.Default, and re-exported by XMonad.Hooks.DynamicLog) instead."
+    |
+266 | tsaniPP = defaultPP
+    |           ^^^^^^^^^
+
+xmonad.hs:304:54: warning: [-Wdeprecations]
+    In the use of ‘defaultConfig’
+    (imported from XMonad, but defined in XMonad.Config):
+    Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
+    |
+304 |       $ docks $ withUrgencyHook myUrgencyHook $ ewmh defaultConfig
+    |                                                      ^^^^^^^^^^^^^
