@@ -1,25 +1,31 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 
-import Network.HTTP.Types.URI
-import Network.URI
+import Codec.Binary.UTF8.String (encodeString)
 import Control.Concurrent ( forkIO )
 import Control.Concurrent.Chan
 import Control.Monad ( forever )
-import Data.List ( sort, sortBy, intercalate )
+import Data.Char (toLower)
+import Data.List ( sort, sortBy, intercalate, isPrefixOf )
 import qualified Data.Map as M
 import Data.Ord ( comparing )
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import Data.Word ( Word32 )
+import Network.HTTP.Types.URI
+import Network.URI
+import System.Directory (getDirectoryContents)
+import System.Environment (getEnv)
 import System.Exit
 import System.IO(hPutStrLn)
+import System.Posix.Files (getFileStatus, isDirectory)
 
 import XMonad
 import XMonad.Core
 import XMonad.Actions.CycleWS
-import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.CopyWindow ( copy, kill1 )
+import XMonad.Actions.DynamicWorkspaces
+import XMonad.Actions.SpawnOn
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.ManageDocks
@@ -30,8 +36,9 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.WorkspaceDir
 import XMonad.Prompt
+import XMonad.Prompt.Shell
 import qualified XMonad.StackSet as W
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.Run
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -66,6 +73,8 @@ getCurrentScreenRect :: X Rectangle
 getCurrentScreenRect = gets (screenRect . W.screenDetail . W.current . windowset)
 
 -- | Gets a nice rectangle for spawning dmenu.
+-- The algorithm splits the screen of the current workspace into a 3x3
+-- grid, and returns the rectangle of the center middle cell.
 dmenuDim :: X Rect
 dmenuDim = do
   d <- getCurrentScreenRect
@@ -114,7 +123,7 @@ dmenuCommand DmenuSettings{..} = concat
 spawnDmenu :: X ()
 spawnDmenu = do
   dim <- dmenuDim
-  spawn $ dmenuCommand DmenuSettings
+  spawnHere $ dmenuCommand DmenuSettings
     { dsProgramName = "dmenu_run"
     , dsSpawnRect = dim
     , dsPrompt = "$ "
@@ -151,6 +160,67 @@ spawnDmenuWeb p = do
       , dsInput = False
       }
 
+basicPrompt :: XPConfig
+basicPrompt = def
+  { font = "xft:Envy Code R:size=9"
+  , fgColor = "#839496"
+  , bgColor = "#002b36"
+  , fgHLight = "#268bd2"
+  , borderColor = "#586e75"
+  , bgHLight = "#073642"
+  , maxComplRows = Just 12
+  , position = CenteredAt 0.5 0.5
+  }
+
+-- | Representation of a XPrompt instance as a record.
+data SomePrompt = SomePrompt
+  { _showXPrompt :: String
+  , _nextCompletion :: String -> [String] -> String
+  , _completionToCommand :: String -> String
+  , _commandToComplete :: String -> String
+  , _completionFunction :: ComplFunction
+  , _modeAction :: String -> String -> X ()
+  }
+
+instance XPrompt SomePrompt where
+  showXPrompt SomePrompt{..} = _showXPrompt
+  nextCompletion SomePrompt{..} = _nextCompletion
+  commandToComplete SomePrompt{..} = _commandToComplete
+  completionToCommand SomePrompt{..} = _completionToCommand
+  completionFunction SomePrompt{..} = _completionFunction
+  modeAction SomePrompt{..} = _modeAction
+
+instance Default SomePrompt where
+  def = SomePrompt
+    { _showXPrompt = ""
+    , _nextCompletion = getNextOfLastWord (def :: SomePrompt)
+    , _commandToComplete = getLastWord
+    , _completionToCommand = id
+    , _completionFunction = const (pure $ ["Completions could not be loaded."])
+    , _modeAction = const (const (pure ()))
+    }
+
+myShellPrompt :: SomePrompt
+myShellPrompt = def
+  { _showXPrompt = "$ "
+  , _completionToCommand = escape
+  }
+
+escape :: String -> String
+escape []       = ""
+escape (x:xs)
+    | isSpecialChar x = '\\' : x : escape xs
+    | otherwise       = x : escape xs
+
+type Predicate = String -> String -> Bool
+
+isSpecialChar :: Char -> Bool
+isSpecialChar =  flip elem (" &\\@\"'#?$*()[]{};" :: String)
+
+runMyShellPrompt :: XPConfig -> X ()
+runMyShellPrompt c = do
+  cmds <- io getCommands
+  mkXPrompt myShellPrompt c (getShellCompl cmds $ searchPredicate c) spawnHere
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -158,18 +228,18 @@ spawnDmenuWeb p = do
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launch a terminal
-    [ ((modMask                , xK_Return     ), spawn $ XMonad.terminal conf)
+    [ ((modMask                , xK_Return     ), spawnHere $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modMask                , xK_p          ), spawnDmenu)
+    , ((modMask                , xK_p          ), runMyShellPrompt basicPrompt)
 
     -- launch gmrun
-    , ((modMask .|. shiftMask  , xK_p          ), spawn "gmrun")
+    , ((modMask .|. shiftMask  , xK_p          ), spawnHere "gmrun")
 
     -- change xmonad working directory
     , ((modMask                , xK_equal      ), changeDir def)
 
-    , ((modMask                , xK_backslash  ), spawn "$BROWSER")
+    , ((modMask                , xK_backslash  ), spawnHere "$BROWSER")
     , ((modMask .|. shiftMask  , xK_backslash  ), spawn "dmenu_google")
     , ((modMask .|. shiftMask  , xK_Return     ), spawn "dmenu_google -x")
 
@@ -261,9 +331,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Dynamic workspace management
     , ((modMask .|. shiftMask  , xK_BackSpace  ), removeWorkspace)
-    , ((modMask                , xK_b          ), selectWorkspace def)
-    , ((modMask .|. shiftMask  , xK_b          ), withWorkspace def (windows . W.shift))
-    , ((modMask .|. controlMask, xK_b          ), withWorkspace def (windows . copy))
+    , ((modMask                , xK_b          ), selectWorkspace basicPrompt)
+    , ((modMask .|. shiftMask  , xK_b          ), withWorkspace basicPrompt (windows . W.shift))
+    , ((modMask .|. controlMask, xK_b          ), withWorkspace basicPrompt (windows . copy))
     , ((modMask                , xK_a          ), renameWorkspace def)
     ]
 
@@ -327,7 +397,7 @@ myLayout = workspaceDir "~" $ smartBorders $ smartSpacing 5 $
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = manageDocks <+> composeAll
+myManageHook = manageSpawn <+> manageDocks <+> composeAll
     [ className =? "MPlayer"                              --> doFloat
     , className =? "Gimp"                                 --> doFloat
     , className =? "org-spoutcraft-launcher-Main"         --> doFloat
