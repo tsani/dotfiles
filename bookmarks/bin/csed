@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec xdg-open "http://socialstudies.cs.mcgill.ca/csedcourse/index.html"
