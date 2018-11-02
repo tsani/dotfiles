@@ -21,6 +21,7 @@
    (quote
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(evil-shift-width 2)
+ '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
     (omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
@@ -29,7 +30,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(beluga-holes ((t (:background "pink" :slant italic)))))
 
 (setq package-enable-at-startup nil)
 
@@ -78,13 +79,15 @@
 
 ;;;;; LOADING PACKAGES ;;;;;
 
-(defun load-if-exists (path)
-  "Loads a file only if it exists."
-  (when (file-exists-p path) (load path)))
+(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
+;; ## end of OPAM user-setup addition for emacs / base ## keep this line
 
-(let ((home (getenv "HOME")))
-  (load-if-exists (concat home "/dotfiles/Beluga/tools/beluga-mode.el"))
-  (load-if-exists (concat home "/.opam/system/share/emacs/site-lisp/tuareg-site-file.el")))
+(let ((home (getenv "HOME"))
+      (dirs
+       '("/projects/Beluga/tools/emacs"
+         "/.opam/system/share/emacs/site-lisp")))
+  (dolist (path dirs)
+    (add-to-list 'load-path (concat home path))))
 
 (add-hook 'haskell-mode-hook 'intero-mode)
 (add-hook 'csharp-mode-hook 'omnisharp-mode)
@@ -168,9 +171,10 @@
 (load-theme 'solarized-light)
 (setq show-paren-delay 0)
 (show-paren-mode 1)
-(set-default-font "Envy Code R-10")
+(setq jake-preferred-font "DejaVu Sans Mono-10")
+(set-default-font jake-preferred-font)
 (add-to-list 'default-frame-alist
-             '(font . "Envy Code R-10"))
+             `(font . ,jake-preferred-font))
 (add-to-list 'default-frame-alist
              '(vertical-scroll-bars . nil))
 (tool-bar-mode -1)
@@ -194,3 +198,4 @@
 ;; The workaround is to define my own `tuareg-abbrev-hook` function
 ;; that does nothing.
 (defun tuareg-abbrev-hook ())
+;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
