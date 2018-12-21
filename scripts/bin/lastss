@@ -1,3 +1,5 @@
 #!/bin/bash
 
-echo "$HOME/screenshots/$(ls -t ~/screenshots | head -n 1)"
+N="${1:-1}"
+
+echo "$HOME/screenshots/$(ls -t ~/screenshots | tail -n +$N | head -n 1)"
