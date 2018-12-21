@@ -1,3 +1,4 @@
 set download-path=~/downloads
 set webinspector=true
 set home-page=https://jerrington.me/
+set editor-command=e %s
