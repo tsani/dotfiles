@@ -19,16 +19,16 @@ URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/vimb
 URxvt.matcher.button: 1
 URxvt*depth: 32
-URxvt*font: xft:mononoki:size=9,xft:Symbola:size=9
-URxvt*boldFont: xft:mononoki:bold:size=9
-URxvt*italicFont: xft:mononoki:italic:size=9
-URxvt*boldItalicFont: xft:mononoki:bold:italic:size=9
+URxvt*font: xft:mononoki:size=14,xft:Symbola:size=14
+URxvt*boldFont: xft:mononoki:bold:size=14
+URxvt*italicFont: xft:mononoki:italic:size=14
+URxvt*boldItalicFont: xft:mononoki:bold:italic:size=14
 URxvt*scrollBar: false
 
 XTerm*background: black
 XTerm*foreground: grey
 
-dzen2.font: xft:mononoki:size=9
+dzen2.font: xft:mononoki:size=14
 dzen2.foreground: S_base0
 dzen2.background: S_base03
 
