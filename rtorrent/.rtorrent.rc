@@ -1,9 +1,18 @@
+method.insert = system.startup_time, value|const, (system.time)
 
-log.open_file = "rtorrent", ~/torrents/rtorrent.log
-log.add_output = "debug", "rtorrent" 
+method.insert = cfg.basedir, private|const|string, (cat, "/home/tsani/torrents/")
+method.insert = cfg.incomplete, private|const|string, (cat, (cfg.basedir), "incomplete/")
+method.insert = cfg.complete, private|const|string, (cat, (cfg.basedir), "complete/")
+method.insert = cfg.logdir, private|const|string, (cat, (cfg.basedir), "log/")
+method.insert = cfg.logfile, private|const|string, (cat, (cfg.logdir), (system.startup_time), ".log")
+method.insert = cfg.watch, private|const|string, (cat, (cfg.basedir), ".watch/")
+method.insert = cfg.session, private|const|string, (cat, (cfg.basedir), ".session/")
 
-session = ~/torrents/.session
-directory = ~/torrents/incomplete
+method.insert = d.data_path, simple,\
+"if=(d.is_multi_file),\
+  (cat, (d.directory), /),\
+  (cat, (d.directory), /, (d.name))"
+method.insert = d.session_file, simple, "cat=(session.path), (d.hash), .torrent"
 
 ratio.enable=
 # upload 200% (3x)
@@ -13,14 +22,20 @@ ratio.max.set=2000
 # 200M is the threshold between min and max. If I upload more than 200M, then min is used, else max is used
 ratio.upload.set=200M
 
+session.path.set = (cat, (cfg.session))
+directory.default.set = (cat, (cfg.incomplete))
+log.execute = (cat, (cfg.logdir), "execute.log")
+execute.nothrow = sh, -c, (cat, "echo >", (session.path), "rtorrent.pid", " ", (system.pid))
+
+encoding.add = utf8
+system.umask.set = 0027
+system.cwd.set = (directory.default)
+
 port_range = 60125-64125
 port_random = yes
 encryption = allow_incoming,try_outgoing,enable_retry
 
-schedule = watch_directory_1,10,10,"load_start=~/torrents/.watch/*.torrent,d.set_custom1=~/torrents/complete"
-
-system.method.set_key = event.download.finished,move_complete,"d.set_directory=$d.get_custom1= ;execute=mv,-u,$d.get_base_path=,$d.get_custom1="
+schedule2 = watch_start,10,10,((load.start_verbose, (cat, (cfg.watch), "*.torrent")))
 
 dht_port = 63425
 dht = auto
-peer_exchange = yes
