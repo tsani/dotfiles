@@ -24,7 +24,8 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode))))
+    (proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode)))
+ '(proof-multiple-frames-enable t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -76,6 +77,8 @@
   :ensure t)
 (use-package omnisharp
   :ensure t)
+(use-package proof-general
+  :ensure t)
 
 ;;;;; LOADING PACKAGES ;;;;;
 
@@ -84,10 +87,15 @@
 
 (let ((home (getenv "HOME"))
       (dirs
-       '("/projects/Beluga/tools/emacs"
-         "/.opam/system/share/emacs/site-lisp")))
+       '("/projects/Beluga/tools"
+         "/projects/Beluga/tools/emacs"
+         "/.opam/system/share/emacs/site-lisp"
+         "/projects/agda/src/data/emacs-mode")))
   (dolist (path dirs)
     (add-to-list 'load-path (concat home path))))
+
+(require 'beluga-mode)
+(require 'agda2-mode)
 
 (add-hook 'haskell-mode-hook 'intero-mode)
 (add-hook 'csharp-mode-hook 'omnisharp-mode)
