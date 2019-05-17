@@ -48,11 +48,19 @@
 (use-package markdown-mode
   :ensure t)
 (use-package company
+  :init
+  (define-key company-active-map (kbd "C-w") nil)
   :ensure t)
 (use-package helm
   :ensure t)
 (use-package evil
   :init
+  ;; makes evil cooperate with proof general
+  ;; specifically, switching to normal mode after typing certain keys
+  ;; will trigger autocomplete / snippet insertion unless this is set.
+  (setq evil-want-abbrev-expand-on-insert-exit nil)
+
+  ;; so that C-u will scroll up, as in Vim
   (setq evil-want-C-u-scroll t)
   :ensure t)
 (use-package intero
@@ -198,6 +206,8 @@
       kept-old-version 0
       delete-old-versions t
       version-control t)
+
+(define-key evil-normal-state-map (kbd "C-p") 'universal-argument)
 
 ;;;;; HACKS ;;;;;
 
