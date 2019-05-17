@@ -6,7 +6,7 @@ import Control.Concurrent ( forkIO )
 import Control.Concurrent.Chan
 import Control.Monad ( forever )
 import Data.Char (toLower)
-import Data.List ( sort, sortBy, intercalate, isPrefixOf )
+import Data.List ( sort, sortBy, intercalate, isPrefixOf, elemIndex, findIndex )
 import qualified Data.Map as M
 import Data.Ord ( comparing )
 import qualified Data.Text as T
@@ -39,6 +39,12 @@ import XMonad.Prompt
 import XMonad.Prompt.Shell
 import qualified XMonad.StackSet as W
 import XMonad.Util.Run
+
+-- this is how the physical screen IDs end up layed out, from left to right.
+-- 0 is the laptop monitor, and is typically in the middle.
+-- 1 is the VGA port, usually on the left.
+-- 2 is the displayport, usually on the right.
+screenIds = [ 1, 0, 2 ]
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -335,6 +341,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask  , xK_b          ), withWorkspace basicPrompt (windows . W.shift))
     , ((modMask .|. controlMask, xK_b          ), withWorkspace basicPrompt (windows . copy))
     , ((modMask                , xK_a          ), renameWorkspace def)
+
+    -- relative multihead movement
+    , ((modMask .|. shiftMask   , xK_h          ), viewScreenLeft)
+    , ((modMask .|. shiftMask   , xK_l          ), viewScreenRight)
+    , ((modMask .|. shiftMask .|. controlMask  , xK_h          ), shiftScreenLeft)
+    , ((modMask .|. shiftMask .|. controlMask  , xK_l          ), shiftScreenRight)
     ]
 
     --
@@ -343,8 +355,30 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     --
     ++
     [((m .|. modMask .|. shiftMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_l, xK_h] [0..]
+        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, controlMask)]]
+
+-- | Transforms the windowset by performing an action on the workspace
+-- of a screen relative to the currently focused one.
+screenRelative :: Int -> (WorkspaceId -> WindowSet -> WindowSet) -> X ()
+screenRelative k f = do
+  -- enumerate all the windows, and then find the one we're currently in
+  ws <- gets windowset
+  let allScreens = W.screens ws
+  let n = length allScreens
+  let S currentScreenId = W.screen $ W.current ws
+  case
+    findIndex (currentScreenId ==) screenIds >>=
+    \idx -> elemIndex (k + idx `mod` n) screenIds
+    of
+    Nothing -> pure ()
+    Just newIdx ->
+      screenWorkspace (S newIdx) >>= flip whenJust (windows . f)
+
+viewScreenLeft = screenRelative (-1) W.view
+viewScreenRight = screenRelative 1 W.view
+shiftScreenLeft = screenRelative (-1) W.shift
+shiftScreenRight = screenRelative 1 W.shift
 
 
 ------------------------------------------------------------------------
