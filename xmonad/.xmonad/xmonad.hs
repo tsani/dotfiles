@@ -244,7 +244,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask  , xK_Return     ), spawn "dmenu_google -x")
 
     -- Lock the screen.
-    , ((modMask .|. shiftMask  , xK_z          ), spawn "slock")
+    , ((modMask .|. shiftMask  , xK_z          ), spawn "i3lock -c 002b36")
 
     -- Volume controls
     , ((modMask                , xK_F6         ), spawn "$HOME/bin/volume -5%")
