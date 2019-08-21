@@ -23,7 +23,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (auctex proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode)))
+    (proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree intero helm markdown-mode use-package evil-visual-mark-mode)))
  '(proof-multiple-frames-enable t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -45,10 +45,6 @@
 (use-package frames-only-mode
   :ensure t)
 (use-package markdown-mode
-  :ensure t)
-(use-package company
-  :init
-  (define-key company-active-map (kbd "C-w") nil)
   :ensure t)
 (use-package helm
   :ensure t)
@@ -91,6 +87,8 @@
   :ensure auctex
   :config
   (setq TeX-auto-save t))
+(use-package company
+  :ensure t)
 
 ;;;;; LOADING PACKAGES ;;;;;
 
@@ -112,23 +110,32 @@
 
 (add-hook 'haskell-mode-hook 'intero-mode)
 (add-hook 'csharp-mode-hook 'omnisharp-mode)
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-omnisharp))
-(add-hook 'csharp-mode-hook #'company-mode)
 (add-hook 'csharp-mode-hook #'flycheck-mode)
-
+(add-hook 'agda2-mode-hook
+          (lambda () (define-key evil-normal-state-map (kbd "g d") 'agda2-goto-definition-keyboard)))
+(add-hook 'merlin-mode-hook
+          (lambda () (define-key evil-normal-state-map (kbd "g d") 'merlin-locate)))
 (evil-mode t)
 
 (push "/home/tsani/.opam/system/share/emacs/site-lisp" load-path)
 (autoload 'merlin-mode "merlin" nil t nil)
 (add-hook 'tuareg-mode-hook 'merlin-mode t)
 
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'merlin-company-backend))
-(add-hook 'merlin-mode-hook 'company-mode)
-
 (helm-mode 1)
 (frames-only-mode 1)
+(setq focus-follows-mouse t)
+;; ^ so emacs will warp the mouse when using a frame-select command
+
+;; So company will use C-RET to select an option instead of RET.
+;; This default behaviour is cancer.
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "C-<return>") #'company-complete-selection)
+  (define-key company-active-map (kbd "C-RET") #'company-complete-selection)
+  (define-key company-active-map (kbd "<return>") nil)
+  (define-key company-active-map (kbd "RET") nil)
+  (define-key company-active-map (kbd "C-w") nil)
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
 ;;;;; KEYBINDINGS ;;;;;
 
