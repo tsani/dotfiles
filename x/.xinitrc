@@ -7,6 +7,7 @@ xmodmap "$HOME/.Xmodmap" &
 hsetroot -solid '#002b36' &
 xsetroot -cursor_name left_ptr &
 xset -b &
+setxkbmap -option compose:ralt &
 
 # await startup processes to collect their deaths
 wait
