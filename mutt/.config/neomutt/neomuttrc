@@ -111,3 +111,7 @@ macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 ##### Colours #################################################################
 
 source ~/.mutt-colorscheme
+
+##### GPG #####
+
+source ~/.config/neomutt/gpg.rc
