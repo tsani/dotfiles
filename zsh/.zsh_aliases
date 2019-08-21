@@ -18,6 +18,7 @@ alias f="urxvt &!" # useful for opening a new shell in the same directory
 alias gap='git add -p'
 alias gf='git fetch'
 alias ocaml='rlwrap ocaml'
+alias sctl=systemctl
 
 
 grs() {
