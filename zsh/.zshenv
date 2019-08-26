@@ -16,4 +16,3 @@ which vimb > /dev/null && export BROWSER=vimb || export BROWSER=firefox
 
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/bin/vendor_perl:HOME/.gem/ruby/2.2.0/bin:$HOME/.cabal/bin:/opt/android-sdk/platform-tools:$PATH
 export EDITOR=e
-

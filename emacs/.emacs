@@ -201,7 +201,7 @@
 (load-theme 'solarized-light)
 (setq show-paren-delay 0)
 (show-paren-mode 1)
-(setq jake-preferred-font "DejaVu Sans Mono-10")
+(setq jake-preferred-font "mononoki-10")
 (set-default-font jake-preferred-font)
 (add-to-list 'default-frame-alist
              `(font . ,jake-preferred-font))
