@@ -2,16 +2,14 @@
 
 (require 'package)
 
-(add-to-list 'package-archives
-  '("org" . "http://orgmode.org/elpa/"))
 
+(package-initialize)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.org/packages/"))
 
 (add-to-list 'package-archives
   '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
-(package-initialize)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -19,12 +17,13 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+    ("d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(debug-on-error nil)
  '(evil-shift-width 2)
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode)))
+    (auctex proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree company-mode intero helm markdown-mode use-package evil-visual-mark-mode)))
  '(proof-multiple-frames-enable t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -87,11 +86,17 @@
   :ensure t)
 (use-package proof-general
   :ensure t)
+(use-package auctex
+  :defer t
+  :ensure auctex
+  :config
+  (setq TeX-auto-save t))
 
 ;;;;; LOADING PACKAGES ;;;;;
 
 (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
+;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
 
 (let ((home (getenv "HOME"))
       (dirs
@@ -157,6 +162,15 @@
 (setq c-basic-offset 2)
 (setq c-default-style "linux")
 
+(defun jake-c-setup-indent ()
+  (message "setting up indentation!")
+  (c-set-style "bsd")
+  (setq tab-width 2)
+  (setq substatement-open 0)
+  (setq-default c-basic-offset 2)
+  (setq c-basic-offset 2))
+(add-hook 'csharp-mode-hook 'jake-c-setup-indent)
+
 (setq-default require-final-newline t)
 
 (define-globalized-minor-mode global-highlight-parentheses-mode
@@ -197,7 +211,6 @@
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 
-
 ;;;;; AUTO-SAVING AND BACKUPS ;;;;;
 
 (setq backup-directory-alist `(("." . "~/.saves"))
@@ -216,4 +229,3 @@
 ;; The workaround is to define my own `tuareg-abbrev-hook` function
 ;; that does nothing.
 (defun tuareg-abbrev-hook ())
-;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
