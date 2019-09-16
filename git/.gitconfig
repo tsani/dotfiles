@@ -12,6 +12,7 @@
 [alias]
     shove = push -f
     co = checkout
+    cob = checkout -b
     cop = checkout --patch
     stap = stash --patch
     resp = reset --patch
