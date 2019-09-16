@@ -12,5 +12,7 @@ setxkbmap -option compose:ralt &
 # await startup processes to collect their deaths
 wait
 
+systemctl --user import-environment DISPLAY
+
 which ssh-agent >/dev/null && eval $(ssh-agent -s)
 exec $HOME/.local/bin/xmonad
