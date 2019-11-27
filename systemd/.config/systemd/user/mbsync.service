@@ -5,6 +5,5 @@ After=network.target network-online.target dbus.socket
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/mbsync -Va
-ExecStartPost=/home/tsani/bin/notify-mail.sh
-StandardOutput=syslog
+StandardOutput=null
 StandardError=syslog
