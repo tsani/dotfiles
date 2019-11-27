@@ -1,1 +1,1 @@
-COMMAND vimb %s
+COMMAND open %s
