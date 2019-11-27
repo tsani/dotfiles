@@ -16,12 +16,19 @@ alternative_order text/enriched text/plain text/html text
 
 ##### Accounts ################################################################
 
-folder-hook 'account.jerrington' 'source ~/.mutt/account.jerrington'
-folder-hook 'account.mcgill' 'source ~/.mutt/account.mcgill'
-folder-hook 'account.gmail' 'source ~/.mutt/account.gmail'
-
 # default account is Jerrington
 source ~/.mutt/account.jerrington
+
+# Load all mailboxes immediately
+named-mailboxes \
+    J\ inbox +jerrington/INBOX \
+    J\ sent +jerrington/Sent \
+    J\ junk +jerrington/Junk
+
+named-mailboxes \
+    M\ inbox +mcgill/INBOX \
+    M\ sent +mcgill/Sent \
+    M\ junk +mcgill/Junk\ Email
 
 # Macros for switching accounts
 macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/account.jerrington<enter><change-folder>!<enter>'
@@ -55,6 +62,8 @@ set sort_aux = last-date-received
 ##### Sidebar #################################################################
 
 # set sidebar_delim= "  |"
+set mail_check_stats
+set sidebar_format = "%B%* %?N?%N/%S?"
 set sidebar_visible = yes
 set sidebar_width = 20
 macro index,pager <up> "<sidebar-prev>" "previous folder in sidebar"
