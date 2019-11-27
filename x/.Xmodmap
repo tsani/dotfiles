@@ -9,4 +9,4 @@ add Mod4 = Super_L
 keysym Up = Up Page_Up
 keysym Down = Down Page_Down
 
-keycode 108 = Multi_key
+keysym Menu = Multi_key
