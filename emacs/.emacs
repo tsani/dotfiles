@@ -21,10 +21,14 @@
     ("d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(debug-on-error nil)
  '(evil-shift-width 2)
+ '(haskell-compile-cabal-build-command "stack build --ghc-options=-ferror-spans")
+ '(haskell-compile-ignore-cabal nil)
  '(inhibit-startup-screen t)
+ '(lsp-ui-doc-enable t)
+ '(lsp-ui-flycheck-enable t)
  '(package-selected-packages
    (quote
-    (proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree intero helm markdown-mode use-package evil-visual-mark-mode)))
+    (lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode)))
  '(proof-multiple-frames-enable t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -43,6 +47,26 @@
 (eval-when-compile
   (require 'use-package))
 
+(use-package haskell-mode
+  :init
+  (add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)
+  (add-hook 'haskell-mode-hook #'lsp)
+  :bind
+  (:map haskell-mode-map
+        ("C-c C-c" . haskell-compile)
+        ("C-c C-h" . hoogle)
+        ("C-c C-l" . haskell-process-load-file)
+        ("C-c C-n" . haskell-goto-next-error)
+        ("C-c C-p" . haskell-goto-prev-error)
+        )
+  :ensure t)
+(use-package lsp-mode
+  :ensure t)
+(use-package lsp-ui
+  :ensure t)
+(use-package lsp-haskell
+  :after lsp
+  :ensure t)
 (use-package frames-only-mode
   :ensure t)
 (use-package markdown-mode
@@ -58,8 +82,6 @@
 
   ;; so that C-u will scroll up, as in Vim
   (setq evil-want-C-u-scroll t)
-  :ensure t)
-(use-package intero
   :ensure t)
 (use-package neotree
   :init
@@ -109,7 +131,6 @@
 (require 'beluga-mode)
 (require 'agda2-mode)
 
-(add-hook 'haskell-mode-hook 'intero-mode)
 (add-hook 'csharp-mode-hook 'omnisharp-mode)
 (add-hook 'csharp-mode-hook #'flycheck-mode)
 (add-hook 'agda2-mode-hook
@@ -126,6 +147,8 @@
 (frames-only-mode 1)
 (setq focus-follows-mouse t)
 ;; ^ so emacs will warp the mouse when using a frame-select command
+
+(setq lsp-haskell-process-path-hie "hie-wrapper")
 
 ;; So company will use C-RET to select an option instead of RET.
 ;; This default behaviour is cancer.
