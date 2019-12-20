@@ -1,12 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 
-import Codec.Binary.UTF8.String (encodeString)
 import Control.Concurrent ( forkIO )
 import Control.Concurrent.Chan
 import Control.Monad ( forever )
-import Data.Char (toLower)
-import Data.List ( sort, sortBy, intercalate, isPrefixOf, elemIndex, findIndex )
+import Data.List ( sortBy, intercalate, elemIndex, findIndex )
 import qualified Data.Map as M
 import Data.Ord ( comparing )
 import qualified Data.Text as T
@@ -14,22 +12,16 @@ import qualified Data.Text.Encoding as T
 import Data.Word ( Word32 )
 import Network.HTTP.Types.URI
 import Network.URI
-import System.Directory (getDirectoryContents)
-import System.Environment (getEnv)
 import System.Exit
 import System.IO(hPutStrLn)
-import System.Posix.Files (getFileStatus, isDirectory)
 
 import XMonad
-import XMonad.Core
 import XMonad.Actions.CycleWS
 import XMonad.Actions.CopyWindow ( copy, kill1 )
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.SpawnOn
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
@@ -44,26 +36,29 @@ import XMonad.Util.Run
 -- 0 is the laptop monitor, and is typically in the middle.
 -- 1 is the VGA port, usually on the left.
 -- 2 is the displayport, usually on the right.
+screenIds :: [Int]
 screenIds = [ 1, 0, 2 ]
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
-myTerminal      = "urxvt"
+myTerminal :: String
+myTerminal = "urxvt"
 
 -- Width of the window border in pixels.
-myBorderWidth   = 2
+myBorderWidth :: Word32
+myBorderWidth = 2
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
 -- ("right alt"), which does not conflict with emacs keybindings. The
 -- "windows key" is usually mod4Mask.
-myModMask       = mod4Mask
+myModMask = mod4Mask
 
 -- Default workspaces
-myWorkspaces    = [ "irc", "web", "code", "shell", "music" ]
+myWorkspaces = [ "irc", "web", "code", "shell", "music" ]
 
 -- Border colors for unfocused and focused windows, respectively.
-myNormalBorderColor  = solarizedBlue
+myNormalBorderColor = solarizedBlue
 myFocusedBorderColor = solarizedRed
 
 -- | A rectangle: x, y, w, h.
@@ -487,8 +482,8 @@ myDzenCommand screenWidth =
   intercalate " "
   [ "dzen2"
   , "-dock", "-p", "-x 0"
-  , "-w"
-  , show width
+  , "-w", show width
+  , " -fn mononoki:size=10"
   ]
   where
     width = screenWidth * 3 `div` 5
