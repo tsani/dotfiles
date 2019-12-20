@@ -18,24 +18,29 @@
  '(beluga-interpreter-name "/home/tsani/projects/Beluga/bin/beluga")
  '(custom-safe-themes
    (quote
-    ("d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+    ("c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(debug-on-error nil)
+ '(doc-view-resolution 300)
  '(evil-shift-width 2)
  '(haskell-compile-cabal-build-command "stack build --ghc-options=-ferror-spans")
  '(haskell-compile-ignore-cabal nil)
+ '(helm-completion-style (quote helm-fuzzy))
  '(inhibit-startup-screen t)
+ '(lsp-enable-snippet nil)
+ '(lsp-prefer-flymake nil)
  '(lsp-ui-doc-enable t)
  '(lsp-ui-flycheck-enable t)
  '(package-selected-packages
    (quote
-    (lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode)))
+    (yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode)))
  '(proof-multiple-frames-enable t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(beluga-holes ((t (:background "pink" :slant italic)))))
+ '(beluga-holes ((t (:background "pink" :slant italic))))
+ '(lsp-ui-doc-background ((t (:background "gray91")))))
 
 (setq package-enable-at-startup nil)
 
@@ -83,6 +88,10 @@
   ;; so that C-u will scroll up, as in Vim
   (setq evil-want-C-u-scroll t)
   :ensure t)
+(use-package latex-extra
+  :ensure t)
+(use-package yasnippet
+  :ensure t)
 (use-package neotree
   :init
     (global-set-key [f8] 'neotree-toggle)
@@ -112,6 +121,9 @@
   (setq TeX-auto-save t))
 (use-package company
   :ensure t)
+(use-package flycheck
+  :config
+  (add-hook 'haskell-mode-hook #'flycheck-mode))
 
 ;;;;; LOADING PACKAGES ;;;;;
 
@@ -173,6 +185,14 @@
     (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
     (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
 
+;;;;; DOCVIEW MODE ;;;;;
+
+(with-eval-after-load 'doc-view
+  (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
+  (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
+  (define-key doc-view-mode-map (kbd "C-u") 'doc-view-previous-page)
+  (define-key doc-view-mode-map (kbd "C-d") 'doc-view-next-page))
+
 ;;;;; TEXT MODE ;;;;;
 ; Options that influence the writing of text.
 
@@ -212,15 +232,15 @@
 
 ; A nice idea, but unless it's my own code, this ends up creating
 ; spurious whitespace changes in other people's code.
-;; (add-hook 'before-save-hook
-;;           'delete-trailing-whitespace)
+(add-hook 'before-save-hook
+          'delete-trailing-whitespace)
 
 ;;;;; AUTO-SCROLLING ;;;;;
 
 ; Do not center point in window when scrolling.
 (setq scroll-conservatively 1)
 ; Leave a margin of 7 lines when scrolling.
-(setq scroll-margin 7)
+(setq scroll-margin 5)
 
 ;;;;; INTEGRATIONS ;;;;;
 
