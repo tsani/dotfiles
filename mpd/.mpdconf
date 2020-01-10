@@ -19,3 +19,8 @@ audio_output {
     name "Local Pulseaudio Daemon"
 }
 
+audio_output {
+    type "fifo"
+    name "FIFO"
+    path "/tmp/mpd.fifo"
+}
