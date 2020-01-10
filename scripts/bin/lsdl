@@ -1,7 +1,8 @@
 #!/bin/bash
 
 if test -z "$DOWNLOAD_DIR" ; then
-    DOWNLOAD_DIR="$HOME/downloads"
+    echo "\$DOWNLOAD_DIR unspecified" >&2
+    exit 1
 fi
 
 N=10
