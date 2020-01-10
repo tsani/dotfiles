@@ -7,7 +7,7 @@
 [color]
     ui = auto
 [core]
-    excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore.global
     editor = emacsclient -c
 [alias]
     shove = push -f
