@@ -106,7 +106,7 @@ data DmenuLineCount
 dmenuCommand :: DmenuSettings -> String
 dmenuCommand DmenuSettings{..} = concat
   [ dsProgramName
-  , " -dim 0.3 -fn 'DejaVu'"
+  , " -dim 0.3 -fn 'mononoki'"
   , " -x ", show x
   , " -y ", show y
   , " -w ", show w
@@ -163,7 +163,7 @@ spawnDmenuWeb p = do
 
 basicPrompt :: XPConfig
 basicPrompt = def
-  { font = "xft:Envy Code R:size=9"
+  { font = "xft:mononoki:size=9"
   , fgColor = "#839496"
   , bgColor = "#002b36"
   , fgHLight = "#268bd2"
