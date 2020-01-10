@@ -16,6 +16,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(beluga-interpreter-name "/home/tsani/projects/Beluga/bin/beluga")
+ '(compilation-read-command nil)
  '(custom-safe-themes
    (quote
     ("c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
@@ -30,6 +31,7 @@
  '(lsp-prefer-flymake nil)
  '(lsp-ui-doc-enable t)
  '(lsp-ui-flycheck-enable t)
+ '(merlin-type-after-locate t)
  '(package-selected-packages
    (quote
     (yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode)))
@@ -143,17 +145,53 @@
 (require 'beluga-mode)
 (require 'agda2-mode)
 
-(add-hook 'csharp-mode-hook 'omnisharp-mode)
-(add-hook 'csharp-mode-hook #'flycheck-mode)
+
+(defun jake-goto-definition (&rest arg-list)
+  "Overridden by hooks and integrated with evil to get customizable
+goto-definition behaviours."
+  nil)
+(make-variable-buffer-local 'jake-goto-definition)
+
+(defun jake-dune-compile ()
+  "Compiles using dune in the directory of the dune-project file, if
+one can be found in any parent directory. Otherwise simply invokes
+compile"
+  (interactive)
+  (if-let ( (dir (locate-dominating-file "." "dune-project")) )
+      (let ( (default-directory dir) )
+        (call-interactively #'compile))
+    (compile)))
+
+; (add-hook 'csharp-mode-hook 'omnisharp-mode)
+; (add-hook 'csharp-mode-hook #'flycheck-mode)
 (add-hook 'agda2-mode-hook
-          (lambda () (define-key evil-normal-state-map (kbd "g d") 'agda2-goto-definition-keyboard)))
+          (lambda ()
+            (evil-define-key 'normal agda2-mode-map
+              "gd" 'agda2-goto-definition-keyboard)))
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
+(add-hook 'tuareg-mode-hook
+          (lambda ()
+            (evil-define-key
+              'normal
+              tuareg-mode-map
+              (kbd "C-c C-c")
+              'jake-dune-compile)
+            (setq compile-command "dune build ")))
 (add-hook 'merlin-mode-hook
-          (lambda () (define-key evil-normal-state-map (kbd "g d") 'merlin-locate)))
+          (lambda ()
+            (evil-define-key
+              'normal
+              merlin-mode-map
+              "gd"
+              'merlin-locate)))
+; (add-hook 'lsp-mode-hook
+;           (lambda ()
+;             (evil-define-key 'normal lsp-mode-map
+;               "g d" 'lsp-find-definition)))
 (evil-mode t)
 
 (push "/home/tsani/.opam/system/share/emacs/site-lisp" load-path)
 (autoload 'merlin-mode "merlin" nil t nil)
-(add-hook 'tuareg-mode-hook 'merlin-mode t)
 
 (helm-mode 1)
 (frames-only-mode 1)
