@@ -16,24 +16,29 @@ alternative_order text/enriched text/plain text/html text
 
 ##### Accounts ################################################################
 
-# default account is Jerrington
-source ~/.mutt/account.jerrington
+# default account is McGill
+source ~/.mutt/account.mcgill
 
-# Load all mailboxes immediately
-named-mailboxes \
-    J\ inbox +jerrington/INBOX \
-    J\ sent +jerrington/Sent \
-    J\ junk +jerrington/Junk
-
+#Load all mailboxes immediately
 named-mailboxes \
     M\ inbox +mcgill/INBOX \
     M\ sent +mcgill/Sent \
     M\ junk +mcgill/Junk\ Email
 
+named-mailboxes \
+    G\ inbox +migadu/INBOX \
+    G\ sent +migadu/Sent \
+    G\ junk +migadu/Junk
+
+named-mailboxes \
+    Old\ inbox +jerrington/INBOX \
+    Old\ sent +jerrington/Sent \
+    Old\ junk +jerrington/Junk
+
 # Macros for switching accounts
-macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/account.jerrington<enter><change-folder>!<enter>'
-macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/account.mcgill<enter><change-folder>!<enter>'
-macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/account.gmail<enter><change-folder>!<enter>'
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/account.mcgill<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/account.migadu<enter><change-folder>!<enter>'
+macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/account.jerrington<enter><change-folder>!<enter>'
 
 ##### General settings ########################################################
 
