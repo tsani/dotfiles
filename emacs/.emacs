@@ -31,11 +31,16 @@
  '(lsp-prefer-flymake nil)
  '(lsp-ui-doc-enable t)
  '(lsp-ui-flycheck-enable t)
+ '(lua-indent-level 2)
+ '(lua-prefix-key "C-c")
  '(merlin-type-after-locate t)
  '(package-selected-packages
    (quote
-    (yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode)))
- '(proof-multiple-frames-enable t))
+    (lua-mode company evil yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode)))
+ '(proof-multiple-frames-enable t)
+ '(tramp-remote-path
+   (quote
+    (tramp-own-remote-path tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -54,6 +59,8 @@
 (eval-when-compile
   (require 'use-package))
 
+(use-package lua-mode
+  :ensure t)
 (use-package haskell-mode
   :init
   (add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)
@@ -176,7 +183,7 @@ compile"
               tuareg-mode-map
               (kbd "C-c C-c")
               'jake-dune-compile)
-            (setq compile-command "dune build ")))
+            (setq compile-command "opam exec dune build ")))
 (add-hook 'merlin-mode-hook
           (lambda ()
             (evil-define-key
