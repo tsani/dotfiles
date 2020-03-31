@@ -2,7 +2,7 @@
 Description=Mailbox synchronization timer
 
 [Timer]
-OnCalendar=minutely
+OnCalendar=*:0/15
 Persistent=true
 Unit=mbsync.service
 
