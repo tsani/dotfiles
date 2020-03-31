@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -eu
+
+exec xclip -sel clip -t "$(file -b --mime-type "$1")" "$1"

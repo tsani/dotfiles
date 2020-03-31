@@ -1,3 +1,6 @@
 #!/bin/bash
 
+set -eu
+
 /usr/bin/scrot -e 'mv $f ~/screenshots' $@
+xclip-load "$(lastss)"
