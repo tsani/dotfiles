@@ -211,6 +211,22 @@ compile"
               merlin-mode-map
               "gd"
               'merlin-locate)))
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (evil-define-operator evil-LaTeX-fill-and-move (beg end)
+              (cl-letf (((symbol-function #'fill-region) #'LaTeX-fill-region-as-paragraph))
+                (evil-fill-and-move beg end)))
+
+            (evil-define-operator evil-LaTeX-fill (beg end)
+              (cl-letf (((symbol-function #'fill-region) #'LaTeX-fill-region))
+                (evil-fill beg end)))
+
+            ;; TODO use [remap evil-fill ...] ... instead?
+            (evil-define-key 'normal LaTeX-mode-map "gq"
+              #'evil-LaTeX-fill-and-move)
+            (evil-define-key 'normal LaTeX-mode-map "gw"
+              #'evil-LaTeX-fill)))
+
 ; (add-hook 'lsp-mode-hook
 ;           (lambda ()
 ;             (evil-define-key 'normal lsp-mode-map
