@@ -1,0 +1,6 @@
+#!/bin/bash
+
+time="$1"
+text="$2"
+
+echo "notify-send '$text'" | at now + $time
