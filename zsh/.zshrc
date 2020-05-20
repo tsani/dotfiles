@@ -80,13 +80,6 @@ source $HOME/.zsh_aliases
 NEOMAN="$HOME/.vim/bundle/neoman.vim/scripts/neovim.zsh"
 test -e "$NEOMAN" && source "$NEOMAN"
 
-command -v fortune >/dev/null 2>&1 && fortune
-if test -e ~/todo.txt
-then
-    echo
-    cat ~/todo.txt
-fi
-
 test -f ~/.pystartup && export PYTHONSTARTUP="$HOME/.pystartup"
 
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
