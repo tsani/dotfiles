@@ -72,6 +72,9 @@ URxvt*color14: S_base1
 URxvt*color7: S_base2
 URxvt*color15: S_base3
 
+!! Make Ctrl+L clear the scrollback
+URxvt.keysym.Control-l: command:\033c
+
 
 Emacs*toolBar: 0
 Emacs*menuBar: 0
