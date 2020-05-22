@@ -3,4 +3,4 @@
 time="$1"
 text="$2"
 
-echo "notify-send '$text'" | at now + $time
+echo "notify-send --category reminder 'Reminder' '$text'" | at now + $time

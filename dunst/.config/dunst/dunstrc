@@ -1,5 +1,5 @@
 [global]
-    font = Monospace 12
+    font = DejaVu 12
 
     # allow a small subset of html markup:
     # <b>bold</b>
@@ -124,8 +124,8 @@
     browser = /usr/bin/firefox
 
 [frame]
-    width = 2
-    color = "#447744"
+    width = 1
+    color = "#7f7f7f"
 
 [shortcuts]
     # shortcuts are specified as [modifier+][modifier+]...key
@@ -159,8 +159,8 @@
     timeout = 10
 
 [urgency_critical]
-    background = "#ffffff"
-    foreground = "#ff1212"
+    background = "#ffdddd"
+    foreground = "#ffffff"
     timeout = 0
 
 
@@ -198,6 +198,16 @@
 [sms-notification]
     appname = pb-notify
     script = play-notify-sfx.sh
+
+[discord]
+  appname = Discord
+  urgency = low
+
+[remindme]
+  category = reminder
+  background = "#333333"
+  foreground = "#ff7f7f"
+  script = play-notify-sfx.sh
 
 #[signed_on]
 #    appname = Pidgin
