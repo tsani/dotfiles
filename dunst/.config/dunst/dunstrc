@@ -208,6 +208,7 @@
   background = "#333333"
   foreground = "#ff7f7f"
   script = play-notify-sfx.sh
+  timeout = 0
 
 #[signed_on]
 #    appname = Pidgin
