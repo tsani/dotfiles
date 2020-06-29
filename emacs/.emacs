@@ -64,7 +64,7 @@
 (use-package haskell-mode
   :init
   (add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)
-  (add-hook 'haskell-mode-hook #'lsp)
+  ; (add-hook 'haskell-mode-hook #'lsp)
   :bind
   (:map haskell-mode-map
         ("C-c C-c" . haskell-compile)
