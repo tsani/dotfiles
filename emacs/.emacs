@@ -152,6 +152,12 @@
 (require 'beluga-mode)
 (require 'agda2-mode)
 
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-mozc/")
+(require 'mozc)
+(evil-define-key nil evil-normal-state-map
+  (kbd "C-c C-j") 'mozc-mode)
+(evil-define-key nil evil-insert-state-map
+  (kbd "C-c C-j") 'mozc-mode)
 
 (defun jake-goto-definition (&rest arg-list)
   "Overridden by hooks and integrated with evil to get customizable

@@ -14,5 +14,12 @@ wait
 
 systemctl --user import-environment DISPLAY
 
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+ibus-daemon -drx
+
+# $HOME/start_jack.sh
+
 which ssh-agent >/dev/null && eval $(ssh-agent -s)
 exec $HOME/.local/bin/xmonad

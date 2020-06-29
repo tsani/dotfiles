@@ -15,16 +15,6 @@
 #define S_cyan #2aa198
 #define S_green #859900
 
-URxvt.perl-ext-common: default,matcher
-URxvt.url-launcher: /usr/bin/firefox
-URxvt.matcher.button: 1
-URxvt*depth: 32
-URxvt*font: xft:mononoki:size=10,xft:Noto Color Emoji:size=10
-URxvt*boldFont: xft:mononoki:bold:size=10,xft:Noto Color Emoji:size=10
-URxvt*italicFont: xft:mononoki:italic:size=10,xft:Noto Color Emoji:size=10
-URxvt*boldItalicFont: xft:mononoki:bold:italic:size=10,xft:Noto Color Emoji:size=10
-URxvt*scrollBar: false
-
 XTerm*background: black
 XTerm*foreground: grey
 
@@ -36,6 +26,17 @@ Xft.antialias: true
 Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
+
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+URxvt*depth: 32
+URxvt*imFont: xft:IPAGothic:size=10
+URxvt*font: xft:mononoki:size=10,xft:Noto Color Emoji:size=10
+URxvt*boldFont: xft:mononoki:bold:size=10,xft:Noto Color Emoji:size=10
+URxvt*italicFont: xft:mononoki:italic:size=10,xft:Noto Color Emoji:size=10
+URxvt*boldItalicFont: xft:mononoki:bold:italic:size=10,xft:Noto Color Emoji:size=10
+URxvt*scrollBar: false
 
 URxvt.urgentOnBell:         true
 URxvt.cursorColor:          #657b83
