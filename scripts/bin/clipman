@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -eu
+
+# Creates a FIFO at $HOME/.clipboard and hooks xclip up to it.
+
+# kill other instances of clipman that might be running
+killall xclip > /dev/null 2>&1 || true
+
+TMP=$(mktemp clipman.XXXXXXX)
+
+rm -f $HOME/.clipboard
+mkfifo $HOME/.clipboard
+
+# This temp file is necessary to avoid starting xclip immediately.
+# As soon as xclip -i starts, it kills what's in the clipboard already.
+iter () {
+    cat $HOME/.clipboard > $TMP
+    xclip -i < $TMP
+}
+
+while iter ; do true ; done
