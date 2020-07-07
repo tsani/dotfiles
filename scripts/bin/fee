@@ -1,3 +1,10 @@
 #!/bin/bash
 
-exec find . -name "$1" -exec ee {} \;
+DIR="."
+
+if [ $# -ge 1 ] ; then
+    DIR="$1"
+    shift
+fi
+
+exec find "${DIR}" -name "$1" -exec ee {} \;
