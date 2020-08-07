@@ -5,10 +5,10 @@
 
 (package-initialize)
 (add-to-list 'package-archives
-  '("melpa" . "http://melpa.org/packages/"))
+  '("melpa" . "https://melpa.org/packages/"))
 
 (add-to-list 'package-archives
-  '("melpa-stable" . "http://stable.melpa.org/packages/"))
+  '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -36,11 +36,15 @@
  '(merlin-type-after-locate t)
  '(package-selected-packages
    (quote
-    (lua-mode company evil yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode)))
+    (zones web-mode lua-mode company evil yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode)))
  '(proof-multiple-frames-enable t)
  '(tramp-remote-path
    (quote
-    (tramp-own-remote-path tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin"))))
+    (tramp-own-remote-path tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin")))
+ '(web-mode-code-indent-offset 2)
+ '(web-mode-css-indent-offset 2)
+ '(web-mode-enable-auto-quoting nil)
+ '(web-mode-markup-indent-offset 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -60,6 +64,10 @@
   (require 'use-package))
 
 (use-package lua-mode
+  :ensure t)
+(use-package web-mode
+  :mode ("\\.jsx?$" . web-mode)
+  :config (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   :ensure t)
 (use-package haskell-mode
   :init
@@ -132,7 +140,13 @@
   :ensure t)
 (use-package flycheck
   :config
-  (add-hook 'haskell-mode-hook #'flycheck-mode))
+  (add-hook 'haskell-mode-hook #'flycheck-mode)
+  (setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(javascript-jshint json-jsonlist)))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  )
 
 ;;;;; LOADING PACKAGES ;;;;;
 
@@ -315,16 +329,20 @@ compile"
 
 ;;;;; AUTO-SAVING AND BACKUPS ;;;;;
 
-(setq backup-directory-alist `(("." . "~/.saves"))
+(setq backup-directory-alist `(("." . "~/.saves/"))
       backup-by-copying t
       kept-new-versions 10
       kept-old-version 0
       delete-old-versions t
       version-control t)
+(setq auto-save-file-name-transforms
+      `((".*" "~/.saves/" t)))
 
-(define-key evil-normal-state-map (kbd "C-p") 'universal-argument)
+(setq create-lockfiles nil) ;; unnecessary bc this is my own computer
 
 ;;;;; HACKS ;;;;;
+
+(define-key evil-normal-state-map (kbd "C-p") 'universal-argument)
 
 ;; Tuareg is currently broken:
 ;; https://github.com/ocaml/tuareg/issues/162
