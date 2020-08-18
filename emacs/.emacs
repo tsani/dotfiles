@@ -163,7 +163,7 @@
 
 ;;;;; LOADING PACKAGES ;;;;;
 
-(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
+; (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
 
@@ -176,15 +176,15 @@
   (dolist (path dirs)
     (add-to-list 'load-path (concat home path))))
 
-(require 'beluga-mode)
-(require 'agda2-mode)
+; (require 'beluga-mode)
+; (require 'agda2-mode)
 
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-mozc/")
-(require 'mozc)
-(evil-define-key nil evil-normal-state-map
-  (kbd "C-c C-j") 'mozc-mode)
-(evil-define-key nil evil-insert-state-map
-  (kbd "C-c C-j") 'mozc-mode)
+; (add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-mozc/")
+; (require 'mozc)
+; (evil-define-key nil evil-normal-state-map
+;   (kbd "C-c C-j") 'mozc-mode)
+; (evil-define-key nil evil-insert-state-map
+;   (kbd "C-c C-j") 'mozc-mode)
 
 (defun jake-goto-definition (&rest arg-list)
   "Overridden by hooks and integrated with evil to get customizable
@@ -330,9 +330,10 @@ compile"
 (load-theme 'solarized-light)
 (setq show-paren-delay 0)
 (show-paren-mode 1)
-(setq jake-preferred-font "mononoki-12")
-(add-to-list 'default-frame-alist
-             `(font . ,jake-preferred-font))
+; (setq jake-preferred-font "mononoki-12")
+; (set-default-font jake-preferred-font)
+; (add-to-list 'default-frame-alist
+;              `(font . ,jake-preferred-font))
 (add-to-list 'default-frame-alist
              '(vertical-scroll-bars . nil))
 (tool-bar-mode -1)
