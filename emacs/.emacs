@@ -318,7 +318,6 @@ compile"
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 (setq jake-preferred-font "mononoki-12")
-(set-default-font jake-preferred-font)
 (add-to-list 'default-frame-alist
              `(font . ,jake-preferred-font))
 (add-to-list 'default-frame-alist
@@ -326,6 +325,13 @@ compile"
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
+
+;; more crap to disable scrollbars
+(defun my/disable-scroll-bars (frame)
+  (modify-frame-parameters frame
+                           '((vertical-scroll-bars . nil)
+                             (horizontal-scroll-bars . nil))))
+(add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
 
 ;;;;; AUTO-SAVING AND BACKUPS ;;;;;
 
