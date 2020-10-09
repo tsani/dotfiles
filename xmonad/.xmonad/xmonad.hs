@@ -37,7 +37,7 @@ import XMonad.Util.Run
 -- 1 is the VGA port, usually on the left.
 -- 2 is the displayport, usually on the right.
 screenIds :: [Int]
-screenIds = [ 1, 0, 2 ]
+screenIds = [ 0, 1 ]
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
