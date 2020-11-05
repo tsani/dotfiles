@@ -35,5 +35,6 @@
     dc = diff --cached
     r = rebase
     ri = rebase -i
+    reabse = rebase
 [diff]
 	algorithm = patience
