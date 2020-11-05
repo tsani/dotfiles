@@ -15,5 +15,7 @@ export VIMB_USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:50.0) Gecko/50.0 Fire
 
 which vimb > /dev/null && export BROWSER=vimb || export BROWSER=firefox
 
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/bin/vendor_perl:HOME/.gem/ruby/2.2.0/bin:$HOME/.cabal/bin:/opt/android-sdk/platform-tools:$PATH
+export PATH="$(/usr/local/bin/brew --prefix)/opt/python/libexec/bin:$(/usr/local/bin/brew --prefix)/opt/coreutils/libexec/gnubin:$HOME/bin:$HOME/.local/bin:/usr/bin/vendor_perl:HOME/.gem/ruby/2.2.0/bin:$HOME/.cabal/bin:/opt/android-sdk/platform-tools:$PATH"
 export EDITOR=e
+
+export SSDNS_PASSWORD_CMD='pass show drw/main'
