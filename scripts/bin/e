@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/bash
 
 # Universal editing script.
 # Will open files in a graphical emacs instance, if running X.
