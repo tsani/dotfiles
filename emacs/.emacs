@@ -18,14 +18,13 @@
  '(beluga-interpreter-name "/home/tsani/projects/Beluga/bin/beluga")
  '(compilation-read-command nil)
  '(custom-safe-themes
-   (quote
-    ("c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+   '("c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default))
  '(debug-on-error nil)
  '(doc-view-resolution 300)
  '(evil-shift-width 2)
  '(haskell-compile-cabal-build-command "stack build --ghc-options=-ferror-spans")
  '(haskell-compile-ignore-cabal nil)
- '(helm-completion-style (quote helm-fuzzy))
+ '(helm-completion-style 'helm-fuzzy)
  '(inhibit-startup-screen t)
  '(lsp-enable-snippet nil)
  '(lsp-prefer-flymake nil)
@@ -34,17 +33,17 @@
  '(lua-indent-level 2)
  '(lua-prefix-key "C-c")
  '(merlin-type-after-locate t)
+ '(nrepl-use-ssh-fallback-for-remote-hosts t)
  '(package-selected-packages
-   (quote
-    (zones web-mode lua-mode company evil yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode)))
+   '(nginx-mode cider cider-mode clojure-mode zones web-mode lua-mode company evil yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode))
  '(proof-multiple-frames-enable t)
+ '(tramp-default-method "ssh")
  '(tramp-remote-path
-   (quote
-    (tramp-own-remote-path tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin")))
- '(web-mode-code-indent-offset 2)
- '(web-mode-css-indent-offset 2)
+   '(tramp-own-remote-path tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin"))
+ '(web-mode-code-indent-offset 4)
+ '(web-mode-css-indent-offset 4)
  '(web-mode-enable-auto-quoting nil)
- '(web-mode-markup-indent-offset 2))
+ '(web-mode-markup-indent-offset 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -63,11 +62,19 @@
 (eval-when-compile
   (require 'use-package))
 
+(use-package clojure-mode
+  :ensure t)
+(use-package cider
+  :ensure t)
+
 (use-package lua-mode
   :ensure t)
 (use-package web-mode
   :mode ("\\.jsx?$" . web-mode)
-  :config (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+  :mode ("\\.tsx?$" . web-mode)
+  ; :config
+  ; (setq web-mode-content-types-alist
+  ;       '(("jsx" . "\\.js[x]?\\'") ("tsx" . "\\.ts[x]?\\'")))
   :ensure t)
 (use-package haskell-mode
   :init
@@ -112,6 +119,8 @@
 (use-package neotree
   :init
     (global-set-key [f8] 'neotree-toggle)
+  :ensure t)
+(use-package nginx-mode
   :ensure t)
 (use-package solarized-theme
   :ensure t)
@@ -355,3 +364,6 @@ compile"
 ;; The workaround is to define my own `tuareg-abbrev-hook` function
 ;; that does nothing.
 (defun tuareg-abbrev-hook ())
+
+;; make frame opened by `ee` focused.
+(setq x-focus-frame nil)
