@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -o errexit -o pipefail
+
+if [[ $(uname) = "Darwin" ]] ; then
+    SED="gsed"
+    OPEN() {
+        if [[ -z "$1" ]] ; then return 1; fi
+        open "$1"
+    }
+else
+    SED="sed"
+    OPEN() {
+        if [[ -z "$1" ]] ; then return 1; fi
+        xdg-open "$1" >/dev/null 2>&1 &
+    }
+fi
+
+export -f OPEN
+
+"$SED" -n '/Create a pull request/ {!b; n; p}' \
+    | "$SED" 's/^remote:\s\+\(.*\)$/\1/' \
+    | xargs -I {} bash -c 'OPEN "$@"' _ {}
