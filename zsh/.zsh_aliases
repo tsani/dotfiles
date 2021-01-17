@@ -21,6 +21,7 @@ alias ocaml='rlwrap ocaml'
 alias sctl=systemctl
 alias dunst-off="notify-send DUNST_COMMAND_PAUSE"
 alias dunst-on="notify-send DUNST_COMMAND_RESUME"
+alias gmkpr='git p -u origin HEAD|&mkpr'
 
 grs() {
     git stash && git rebase $@ && git stash pop
