@@ -33,6 +33,7 @@
  '(lua-indent-level 2)
  '(lua-prefix-key "C-c")
  '(merlin-type-after-locate t)
+ '(nginx-indent-level 2)
  '(nrepl-use-ssh-fallback-for-remote-hosts t)
  '(package-selected-packages
    '(nginx-mode cider cider-mode clojure-mode zones web-mode lua-mode company evil yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode))
@@ -65,6 +66,9 @@
 (use-package clojure-mode
   :ensure t)
 (use-package cider
+  :ensure t)
+
+(use-package json-mode
   :ensure t)
 
 (use-package lua-mode
