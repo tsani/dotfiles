@@ -93,7 +93,9 @@ export HIST_IGNORE_SPACE=1
 # ASDF configuration
 . /usr/local/opt/asdf/asdf.sh
 
-# NVM configuration
+# # NVM configuration
 export NVM_DIR="$HOME/.nvm"
   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+#  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+## Disabling NVM completion because it makes escape -> slash not work
+## properly anymore
