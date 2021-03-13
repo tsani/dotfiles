@@ -91,7 +91,7 @@ export HIST_IGNORE_SPACE=1
 . /home/tsani/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # ASDF configuration
-. /usr/local/opt/asdf/asdf.sh
+test -e /usr/local/opt/asdf/asdf.sh && . /usr/local/opt/asdf/asdf.sh
 
 # # NVM configuration
 export NVM_DIR="$HOME/.nvm"
