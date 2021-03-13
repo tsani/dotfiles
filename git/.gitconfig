@@ -8,7 +8,7 @@
     ui = auto
 [core]
     excludesfile = ~/.gitignore.global
-    editor = emacsclient -c
+    editor = e
 [alias]
     shove = push -f
     co = checkout
