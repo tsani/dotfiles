@@ -16,8 +16,8 @@ alternative_order text/enriched text/plain text/html text
 
 ##### Accounts ################################################################
 
-# default account is McGill
-source ~/.mutt/account.mcgill
+# default account is Migadu
+source ~/.mutt/account.migadu
 
 #Load all mailboxes immediately
 named-mailboxes \
