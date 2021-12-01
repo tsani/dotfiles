@@ -74,11 +74,8 @@
 (use-package lua-mode
   :ensure t)
 (use-package web-mode
-  :mode ("\\.jsx?$" . web-mode)
-  :mode ("\\.tsx?$" . web-mode)
-  ; :config
-  ; (setq web-mode-content-types-alist
-  ;       '(("jsx" . "\\.js[x]?\\'") ("tsx" . "\\.ts[x]?\\'")))
+  :mode ("\\.(j|t)sx?$" . web-mode)
+  :config (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'") ("tsx" . "\\.js[x]?")))
   :ensure t)
 (use-package haskell-mode
   :init
