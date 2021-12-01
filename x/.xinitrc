@@ -19,6 +19,9 @@ export QT_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 ibus-daemon -drx
 
+# Make Qt applications honor the dpi setting configured in Xresources
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
 # $HOME/start_jack.sh
 
 which ssh-agent >/dev/null && eval $(ssh-agent -s)
