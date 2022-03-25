@@ -26,3 +26,22 @@ alias gmkpr='git p -u origin HEAD|&mkpr'
 grs() {
     git stash && git rebase $@ && git stash pop
 }
+
+epochms() {
+    while (( $# )) ; do
+        case ${#1} in
+            10) date -j -f '%s' "$1" '+%Y-%m-%d %H:%M:%S' ;;
+            13) date -j -f '%s' "$(echo "$1" | head -c 10)" '+%Y-%m-%d %H:%M:%S.'$(echo -n "$1" | tail -c 3) ;;
+            *) date -j -f '%Y-%m-%d %H:%M:%S' "$1" "+%s000" ;;
+        esac
+        shift
+    done
+}
+
+gh() {
+    local URL="$(jq -r .repository.url "${1:-package.json}")"
+    if [[ $URL =~ '^git@' ]] ; then
+      URL="$(echo "$URL" | sed 's/:/\//' | sed 's/git@/https:\/\//')"
+    fi
+    open "$URL"
+}

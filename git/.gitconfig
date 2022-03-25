@@ -37,3 +37,5 @@
     reabse = rebase
 [diff]
 	algorithm = patience
+[advice]
+  detachedHead = false

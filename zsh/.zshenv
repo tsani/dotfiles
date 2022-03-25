@@ -19,3 +19,4 @@ export PATH="$(/usr/local/bin/brew --prefix)/opt/python/libexec/bin:$(/usr/local
 export EDITOR=e
 
 export SSDNS_PASSWORD_CMD='pass show drw/main'
+. "$HOME/.cargo/env"
