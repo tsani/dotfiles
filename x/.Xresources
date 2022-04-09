@@ -21,7 +21,7 @@ XTerm*foreground: grey
 dzen2.foreground: S_base0
 dzen2.background: S_base03
 
-Xft.dpi: 140
+Xft.dpi: 96
 Xft.antialias: true
 Xft.rgba: rgb
 Xft.hinting: true
