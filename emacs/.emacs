@@ -15,36 +15,98 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"])
  '(beluga-interpreter-name "/home/tsani/projects/Beluga/bin/beluga")
+ '(compilation-message-face 'default)
  '(compilation-read-command nil)
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#657b83")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
  '(custom-safe-themes
-   '("c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default))
+   '("4c56af497ddf0e30f65a7232a8ee21b3d62a8c332c6b268c81e9ea99b11da0d3" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default))
  '(debug-on-error nil)
  '(doc-view-resolution 300)
  '(evil-shift-width 2)
+ '(fci-rule-color "#eee8d5")
  '(haskell-compile-cabal-build-command "stack build --ghc-options=-ferror-spans")
  '(haskell-compile-ignore-cabal nil)
  '(helm-completion-style 'helm-fuzzy)
+ '(highlight-changes-colors '("#d33682" "#6c71c4"))
+ '(highlight-parentheses-colors '("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900"))
+ '(highlight-symbol-colors
+   '("#efe5da4aafb2" "#cfc5e1add08c" "#fe53c9e7b34f" "#dbb6d3c3dcf4" "#e183dee1b053" "#f944cc6dae48" "#d360dac5e06a"))
+ '(highlight-symbol-foreground-color "#586e75")
+ '(highlight-tail-colors
+   '(("#eee8d5" . 0)
+     ("#b3c34d" . 20)
+     ("#6ccec0" . 30)
+     ("#74adf5" . 50)
+     ("#e1af4b" . 60)
+     ("#fb7640" . 70)
+     ("#ff699e" . 85)
+     ("#eee8d5" . 100)))
+ '(hl-bg-colors
+   '("#e1af4b" "#fb7640" "#ff6849" "#ff699e" "#8d85e7" "#74adf5" "#6ccec0" "#b3c34d"))
+ '(hl-fg-colors
+   '("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3"))
  '(inhibit-startup-screen t)
  '(lsp-enable-snippet nil)
  '(lsp-prefer-flymake nil)
+ '(lsp-ui-doc-border "#586e75")
  '(lsp-ui-doc-enable t)
  '(lsp-ui-flycheck-enable t)
  '(lua-indent-level 2)
  '(lua-prefix-key "C-c")
  '(merlin-type-after-locate t)
  '(nginx-indent-level 2)
+ '(nrepl-message-colors
+   '("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8" "#2aa198" "#d33682" "#6c71c4"))
  '(nrepl-use-ssh-fallback-for-remote-hosts t)
  '(package-selected-packages
    '(nginx-mode cider cider-mode clojure-mode zones web-mode lua-mode company evil yasnippet latex-extra lsp-haskell lsp-ui lsp-mode proof-general agda2-mode omnisharp highlight-parentheses highlight-parentheses-mode idris-mode helm-ag csharp-mode rudel yaml-mode frames-only-mode solarized-theme neotree helm markdown-mode use-package evil-visual-mark-mode))
+ '(pos-tip-background-color "#eee8d5")
+ '(pos-tip-foreground-color "#586e75")
  '(proof-multiple-frames-enable t)
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
+ '(term-default-bg-color "#fdf6e3")
+ '(term-default-fg-color "#657b83")
  '(tramp-default-method "ssh")
  '(tramp-remote-path
    '(tramp-own-remote-path tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin"))
+ '(vc-annotate-background nil)
+ '(vc-annotate-background-mode nil)
+ '(vc-annotate-color-map
+   '((20 . "#dc322f")
+     (40 . "#cb4466ec20b5")
+     (60 . "#c11679431550")
+     (80 . "#b58900")
+     (100 . "#a6ae8f7c0000")
+     (120 . "#9ed992380000")
+     (140 . "#96bf94d00000")
+     (160 . "#8e5497440000")
+     (180 . "#859900")
+     (200 . "#77689bfc4636")
+     (220 . "#6d449d475bfe")
+     (240 . "#5fc09ea47093")
+     (260 . "#4c69a01784aa")
+     (280 . "#2aa198")
+     (300 . "#303598e7affc")
+     (320 . "#2fa1947dbb9b")
+     (340 . "#2c889009c736")
+     (360 . "#268bd2")))
+ '(vc-annotate-very-old-color nil)
  '(web-mode-code-indent-offset 4)
  '(web-mode-css-indent-offset 4)
  '(web-mode-enable-auto-quoting nil)
- '(web-mode-markup-indent-offset 4))
+ '(web-mode-markup-indent-offset 4)
+ '(weechat-color-list
+   '(unspecified "#fdf6e3" "#eee8d5" "#a7020a" "#dc322f" "#5b7300" "#859900" "#866300" "#b58900" "#0061a8" "#268bd2" "#a00559" "#d33682" "#007d76" "#2aa198" "#657b83" "#839496"))
+ '(xterm-color-names
+   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
+ '(xterm-color-names-bright
+   ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -63,46 +125,12 @@
 (eval-when-compile
   (require 'use-package))
 
-(use-package clojure-mode
-  :ensure t)
-(use-package cider
-  :ensure t)
-
-(use-package json-mode
-  :ensure t)
-
-(use-package lua-mode
-  :ensure t)
-(use-package web-mode
-  :mode ("\\.(j|t)sx?$" . web-mode)
-  :config (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'") ("tsx" . "\\.js[x]?")))
-  :ensure t)
-(use-package haskell-mode
-  :init
-  (add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)
-  ; (add-hook 'haskell-mode-hook #'lsp)
-  :bind
-  (:map haskell-mode-map
-        ("C-c C-c" . haskell-compile)
-        ("C-c C-h" . hoogle)
-        ("C-c C-l" . haskell-process-load-file)
-        ("C-c C-n" . haskell-goto-next-error)
-        ("C-c C-p" . haskell-goto-prev-error)
-        )
-  :ensure t)
-(use-package lsp-mode
-  :ensure t)
-(use-package lsp-ui
-  :ensure t)
-(use-package lsp-haskell
-  :after lsp
-  :ensure t)
 (use-package frames-only-mode
   :ensure t)
-(use-package markdown-mode
-  :ensure t)
+
 (use-package helm
   :ensure t)
+
 (use-package evil
   :init
   ;; makes evil cooperate with proof general
@@ -113,50 +141,123 @@
   ;; so that C-u will scroll up, as in Vim
   (setq evil-want-C-u-scroll t)
   :ensure t)
-(use-package latex-extra
-  :ensure t)
-(use-package yasnippet
-  :ensure t)
-(use-package neotree
-  :init
-    (global-set-key [f8] 'neotree-toggle)
-  :ensure t)
-(use-package nginx-mode
-  :ensure t)
-(use-package solarized-theme
-  :ensure t)
-(use-package csharp-mode
-  :ensure t)
-(use-package helm-ag
-  :ensure t)
-(use-package idris-mode
-  :ensure t)
-(use-package highlight-parentheses
-  :config
-  (setq hl-paren-colors '("black"))
-  (setq hl-paren-background-colors '("red" "orange" "yellow" "green" "blue" "violet"))
-  (setq hl-paren-delay 0.05)
-  :ensure t)
-(use-package omnisharp
-  :ensure t)
-(use-package proof-general
-  :ensure t)
-(use-package auctex
-  :defer t
-  :ensure auctex
-  :config
-  (setq TeX-auto-save t))
-(use-package company
-  :ensure t)
-(use-package flycheck
-  :config
-  (add-hook 'haskell-mode-hook #'flycheck-mode)
-  (setq-default flycheck-disabled-checkers
-              (append flycheck-disabled-checkers
-                      '(javascript-jshint json-jsonlist)))
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (add-hook 'after-init-hook #'global-flycheck-mode)
-  )
+
+; (use-package solarized-theme
+;   :ensure t)
+
+; (use-package highlight-parentheses
+;   :config
+;   (setq hl-paren-colors '("black"))
+;   (setq hl-paren-background-colors '("red" "orange" "yellow" "green" "blue" "violet"))
+;   (setq hl-paren-delay 0.05)
+;   :ensure t)
+
+; (use-package clojure-mode
+;   :ensure t)
+; (use-package cider
+;   :ensure t)
+; 
+; (use-package json-mode
+;   :ensure t)
+; 
+; (use-package lua-mode
+;   :ensure t)
+; (use-package web-mode
+;   :mode ("\\.(j|t)sx?$" . web-mode)
+;   :config (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'") ("tsx" . "\\.js[x]?")))
+;   :ensure t)
+; (use-package haskell-mode
+;   :init
+;   (add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)
+;   ; (add-hook 'haskell-mode-hook #'lsp)
+;   :bind
+;   (:map haskell-mode-map
+;         ("C-c C-c" . haskell-compile)
+;         ("C-c C-h" . hoogle)
+;         ("C-c C-l" . haskell-process-load-file)
+;         ("C-c C-n" . haskell-goto-next-error)
+;         ("C-c C-p" . haskell-goto-prev-error)
+;         )
+;   :ensure t)
+; (use-package rustic
+;   :ensure
+;   :bind (:map rustic-mode-map
+;               ("M-j" . lsp-ui-imenu)
+;               ("M-?" . lsp-find-references)
+;               ("C-c C-c l" . flycheck-list-errors)
+;               ("C-c C-c a" . lsp-execute-code-action)
+;               ("C-c C-c r" . lsp-rename)
+;               ("C-c C-c q" . lsp-workspace-restart)
+;               ("C-c C-c Q" . lsp-workspace-shutdown)
+;               ("C-c C-c s" . lsp-rust-analyzer-status))
+;   :config
+;   (setq rustic-format-on-save t)
+;   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
+; (use-package cargo-mode
+;   :ensure t)
+; (use-package lsp-mode
+;   :ensure
+;   :commands lsp
+;   :custom
+;   (lsp-rust-analyzer-cargo-watch-command "clippy")
+;   (lsp-eldoc-render-all t)
+;   (lsp-idle-delay 0.6)
+;   (lsp-rust-analyzer-server-display-inlay-hints t)
+;   :config
+;   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+; (use-package lsp-ui
+;   :ensure t)
+; (use-package lsp-haskell
+;   :after lsp
+;   :ensure t)
+; (use-package markdown-mode
+;   :ensure t)
+; (use-package latex-extra
+;   :ensure t)
+; (use-package yasnippet
+;   :ensure t)
+; (use-package neotree
+;   :init
+;     (global-set-key [f8] 'neotree-toggle)
+;   :ensure t)
+; (use-package nginx-mode
+;   :ensure t)
+; (use-package csharp-mode
+;   :ensure t)
+; (use-package helm-ag
+;   :ensure t)
+; (use-package idris-mode
+;   :ensure t)
+; (use-package omnisharp
+;   :ensure t)
+; (use-package proof-general
+;   :ensure t)
+; (use-package auctex
+;   :defer t
+;   :ensure auctex
+;   :config
+;   (setq TeX-auto-save t))
+; (use-package company
+;   :ensure
+;   :custom
+;   (company-idle-delay 0.5)
+;   ;; (company-begin-commands nil) ;; uncomment to disable popup
+;   :bind
+;   (:map
+;    company-active-map
+; 	      ("C-n". company-select-next)
+; 	      ("C-p". company-select-previous)
+; 	      ("M-<". company-select-first)
+; 	      ("M->". company-select-last)))
+; (use-package flycheck
+;   :config
+;   (add-hook 'haskell-mode-hook #'flycheck-mode)
+;   (setq-default flycheck-disabled-checkers
+;               (append flycheck-disabled-checkers
+;                       '(javascript-jshint json-jsonlist)))
+;   (flycheck-add-mode 'javascript-eslint 'web-mode)
+;   (add-hook 'after-init-hook #'global-flycheck-mode)
+;   )
 
 ;;;;; LOADING PACKAGES ;;;;;
 
@@ -368,3 +469,11 @@ compile"
 
 ;; make frame opened by `ee` focused.
 (setq x-focus-frame nil)
+
+(defun rk/rustic-mode-hook ()
+  ;; so that run C-c C-c C-r works without having to confirm, but don't try to
+  ;; save rust buffers that are not file visiting. Once
+  ;; https://github.com/brotzeit/rustic/issues/253 has been resolved this should
+  ;; no longer be necessary.
+  (when buffer-file-name
+    (setq-local buffer-save-without-query t)))
