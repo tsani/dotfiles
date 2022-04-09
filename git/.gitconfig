@@ -38,3 +38,5 @@
     reabse = rebase
 [diff]
 	algorithm = patience
+[init]
+	defaultBranch = main
