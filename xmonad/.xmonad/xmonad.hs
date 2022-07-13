@@ -500,32 +500,33 @@ myConkyCommand screenWidth = concat
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 
+conf chan = docks $ withUrgencyHook myUrgencyHook $ ewmh def
+  -- simple stuff
+  { terminal           = myTerminal
+  , focusFollowsMouse  = True
+  , borderWidth        = myBorderWidth
+  , modMask            = myModMask
+  , workspaces         = myWorkspaces
+
+  , normalBorderColor  = myNormalBorderColor
+  , focusedBorderColor = myFocusedBorderColor
+
+  -- key bindings
+  , keys               = myKeys
+  , mouseBindings      = myMouseBindings
+
+  -- hooks, layouts
+  , layoutHook         = myLayout
+  , manageHook         = myManageHook
+  , logHook            = myLogHook chan
+  , startupHook        = myStartupHook chan
+  }
+
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
     chan <- newChan
-    launch
-      $ docks $ withUrgencyHook myUrgencyHook $ ewmh def
-        -- simple stuff
-        { terminal           = myTerminal
-        , focusFollowsMouse  = True
-        , borderWidth        = myBorderWidth
-        , modMask            = myModMask
-        , workspaces         = myWorkspaces
-
-        , normalBorderColor  = myNormalBorderColor
-        , focusedBorderColor = myFocusedBorderColor
-
-        -- key bindings
-        , keys               = myKeys
-        , mouseBindings      = myMouseBindings
-
-        -- hooks, layouts
-        , layoutHook         = myLayout
-        , manageHook         = myManageHook
-        , logHook            = myLogHook chan
-        , startupHook        = myStartupHook chan
-        }
+    launch (conf chan) =<< getDirectories
 
 -- Colors
 solarizedBase03 = "#002b36"
