@@ -18,6 +18,7 @@
 XTerm*background: black
 XTerm*foreground: grey
 
+dzen2.font: xft:DejaVu Sans Mono:size=8
 dzen2.foreground: S_base0
 dzen2.background: S_base03
 
