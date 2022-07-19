@@ -55,7 +55,7 @@ myBorderWidth = 2
 myModMask = mod4Mask
 
 -- Default workspaces
-myWorkspaces = [ "irc", "web", "code", "shell", "music" ]
+myWorkspaces = [ "shell", "ff", "w", "d", "s" ]
 
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor = solarizedBlue
