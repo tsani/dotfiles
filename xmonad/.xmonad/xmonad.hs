@@ -5,6 +5,7 @@ import Control.Concurrent ( forkIO )
 import Control.Concurrent.Chan
 import Control.Monad ( forever )
 import Data.List ( sortBy, intercalate, elemIndex, findIndex )
+import Data.IORef ( writeIORef, readIORef, newIORef )
 import qualified Data.Map as M
 import Data.Ord ( comparing )
 import qualified Data.Text as T
@@ -223,10 +224,15 @@ runMyShellPrompt c = do
   cmds <- io getCommands
   mkXPrompt myShellPrompt c (getShellCompl cmds $ searchPredicate c) spawnHere
 
+toggleMirror screenState = do
+  state <- readIORef screenState
+  spawn $ if state then "tv split" else "tv mirror"
+  writeIORef screenState (not state)
+
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+myKeys screenState conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launch a terminal
     [ ((modMask                , xK_Return     ), spawnHere $ XMonad.terminal conf)
@@ -256,6 +262,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Kill the screen backlight.
     , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
+
+    , ((modMask .|. controlMask , xK_space     ), io $ toggleMirror screenState )
 
     -- Music controls
     , ((modMask                , xK_F3         ), spawn "mpc-prev")
@@ -500,33 +508,34 @@ myConkyCommand screenWidth = concat
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 
-conf chan = docks $ withUrgencyHook myUrgencyHook $ ewmh def
-  -- simple stuff
-  { terminal           = myTerminal
-  , focusFollowsMouse  = True
-  , borderWidth        = myBorderWidth
-  , modMask            = myModMask
-  , workspaces         = myWorkspaces
-
-  , normalBorderColor  = myNormalBorderColor
-  , focusedBorderColor = myFocusedBorderColor
-
-  -- key bindings
-  , keys               = myKeys
-  , mouseBindings      = myMouseBindings
-
-  -- hooks, layouts
-  , layoutHook         = myLayout
-  , manageHook         = myManageHook
-  , logHook            = myLogHook chan
-  , startupHook        = myStartupHook chan
-  }
-
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
     chan <- newChan
-    launch (conf chan) =<< getDirectories
+    screenState <- newIORef True -- whether we're split or mirror
+    dirs <- getDirectories
+    (`launch` dirs)
+      $ docks $ withUrgencyHook myUrgencyHook $ ewmh def
+        -- simple stuff
+        { terminal           = myTerminal
+        , focusFollowsMouse  = True
+        , borderWidth        = myBorderWidth
+        , modMask            = myModMask
+        , workspaces         = myWorkspaces
+
+        , normalBorderColor  = myNormalBorderColor
+        , focusedBorderColor = myFocusedBorderColor
+
+        -- key bindings
+        , keys               = myKeys screenState
+        , mouseBindings      = myMouseBindings
+
+        -- hooks, layouts
+        , layoutHook         = myLayout
+        , manageHook         = myManageHook
+        , logHook            = myLogHook chan
+        , startupHook        = myStartupHook chan
+        }
 
 -- Colors
 solarizedBase03 = "#002b36"
