@@ -25,39 +25,15 @@
 [submodule "vim/.vim/bundle/vim-colors-solarized"]
 	path = vim/.vim/bundle/vim-colors-solarized
 	url = https://github.com/djeik/vim-colors-solarized.git
-[submodule "vim/.vim/bundle/neocomplete.vim"]
-	path = vim/.vim/bundle/neocomplete.vim
-	url = https://github.com/Shougo/neocomplete.vim.git
-[submodule "vim/.vim/bundle/neco-ghc"]
-	path = vim/.vim/bundle/neco-ghc
-	url = https://github.com/eagletmt/neco-ghc.git
-[submodule "vim/.vim/bundle/ghcmod-vim"]
-	path = vim/.vim/bundle/ghcmod-vim
-	url = https://github.com/eagletmt/ghcmod-vim.git
-[submodule "vim/.vim/bundle/vimproc.vim"]
-	path = vim/.vim/bundle/vimproc.vim
-	url = https://github.com/Shougo/vimproc.vim.git
 [submodule "vim/.vim/bundle/neomake"]
 	path = vim/.vim/bundle/neomake
 	url = https://github.com/benekastah/neomake.git
-[submodule "vim/.vim/bundle/idris-vim"]
-	path = vim/.vim/bundle/idris-vim
-	url = https://github.com/idris-hackers/idris-vim.git
-[submodule "vim/.vim/bundle/vimshell.vim"]
-	path = vim/.vim/bundle/vimshell.vim
-	url = https://github.com/Shougo/vimshell.vim.git
 [submodule "other/mutt-colors-solarized"]
 	path = other/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized.git
 [submodule "vim/.vim/bundle/tutch.vim"]
 	path = vim/.vim/bundle/tutch.vim
 	url = https://github.com/djeik/tutch.vim.git
-[submodule "vim/.vim/bundle/vim-coffee-script"]
-	path = vim/.vim/bundle/vim-coffee-script
-	url = https://github.com/kchmck/vim-coffee-script
-[submodule "vim/.vim/bundle/vim-go"]
-	path = vim/.vim/bundle/vim-go
-	url = https://github.com/fatih/vim-go
 [submodule "vim/.vim/bundle/neoman.vim"]
 	path = vim/.vim/bundle/neoman.vim
 	url = https://github.com/nhooyr/neoman.vim.git
