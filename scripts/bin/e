@@ -1,30 +1,3 @@
 #!/bin/bash
 
-# Universal editing script.
-# Will open files in a graphical emacs instance, if running X.
-# Will open files in a controlling neovim instance, if available.
-# Failing that, will open with $EDITOR, if available.
-# Failing that, will open with vim, if installed.
-# Failing that, will open with nano, if installed.
-# Failing that, abort with an error message.
-
-set -e
-
-if test -n "$DISPLAY" ; then
-    exec emacsclient -c $@
-fi
-
-if test -n "$NVIM_LISTEN_ADDRESS" ; then
-    if which nvr > /dev/null ; then
-        exec nvr --remote $@
-    else
-        echo 'e: NVIM_LISTEN_ADDRESS is set but nvr is not installed'
-        sleep 1
-    fi
-fi
-which vim >/dev/null && exec vim $@
-which vi >/dev/null && exec vi $@
-which nano >/dev/null && exec nano $@
-
-echo 'no editors installed' >&2
-exit 1
+exec vim "$@"

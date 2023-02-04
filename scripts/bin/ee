@@ -5,7 +5,7 @@ PLATFORM=$(uname)
 if [ "$PLATFORM" = "Darwin" ] ; then
     exec mvim "$@"
 elif [ "$PLATFORM" = "Linux" ] ; then
-    exec gvim "$@"
+    exec vim -g "$@"
 else
     echo "Unsupported platform $PLATFORM"
 fi
