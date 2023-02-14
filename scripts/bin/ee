@@ -1,3 +1,11 @@
 #!/bin/bash
 
-exec emacsclient -nc $@
+PLATFORM=$(uname)
+
+if [ "$PLATFORM" = "Darwin" ] ; then
+    exec mvim "$@"
+elif [ "$PLATFORM" = "Linux" ] ; then
+    exec gvim "$@"
+else
+    echo "Unsupported platform $PLATFORM"
+fi
