@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec ee ~/journal/journal.md
