@@ -168,6 +168,16 @@ au InsertLeave * :set relativenumber | set foldcolumn=0
 set list
 set listchars=tab:>\ ,trail:-,nbsp:+
 
+" gvim settings
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=e
+    set go-=m "menubar
+    set go-=T "toolbar
+    set go-=r "scrollbar
+    "set go=c
+    set t_Co=256
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -178,14 +188,6 @@ syntax enable
 
 set background=light
 colorscheme solarized
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions+=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
