@@ -37,6 +37,11 @@ URxvt*boldFont: xft:mononoki:bold:size=10,xft:Noto Color Emoji:size=10
 URxvt*italicFont: xft:mononoki:italic:size=10,xft:Noto Color Emoji:size=10
 URxvt*boldItalicFont: xft:mononoki:bold:italic:size=10,xft:Noto Color Emoji:size=10
 URxvt*scrollBar: false
+URxvt*scrollTtyOutput: false
+URxvt*secondaryScreen: true
+URxvt*secondaryScroll: true
+URxvt*geometry: 400x400
+!! ^ so that the prompt appears at the top of the screen following the 2 jan 2023 update
 
 URxvt.urgentOnBell:         true
 URxvt.cursorColor:          #657b83
