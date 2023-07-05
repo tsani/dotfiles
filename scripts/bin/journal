@@ -1,3 +1,4 @@
 #!/bin/bash
 
-exec ee ~/journal/journal.md
+cd ~/journal
+exec ee index.md
