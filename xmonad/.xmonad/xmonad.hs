@@ -343,7 +343,7 @@ myKeys screenState conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                , xK_b          ), selectWorkspace basicPrompt)
     , ((modMask .|. shiftMask  , xK_b          ), withWorkspace basicPrompt (windows . W.shift))
     , ((modMask .|. controlMask, xK_b          ), withWorkspace basicPrompt (windows . copy))
-    , ((modMask                , xK_a          ), renameWorkspace def)
+    , ((modMask                , xK_a          ), renameWorkspace basicPrompt)
 
     -- relative multihead movement
     , ((modMask .|. shiftMask   , xK_h          ), viewScreenLeft)
