@@ -270,6 +270,8 @@ set wrap
 " Break lines
 set linebreak
 
+" Disable double-space after a period when joining lines
+set nojoinspaces
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
