@@ -88,6 +88,8 @@ let maplocalleader = "\\"
 " Fast saving
 nnoremap <leader>w :w!<cr>
 
+" External application opening
+let g:netrw_browsex_viewer="cd %:h && xdg-open"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
