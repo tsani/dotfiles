@@ -8,10 +8,12 @@ hsetroot -solid '#002b36' &
 xsetroot -cursor_name left_ptr &
 xset -b -dpms s off s noblank &
 setxkbmap -option compose:ralt &
-xrandr --output DP-1 --mode 1920x1080 --same-as HDMI-0 --output HDMI-0 --primary &
+tv off
 
 # await startup processes to collect their deaths
 wait
+
+tv mirror
 
 systemctl --user import-environment DISPLAY
 

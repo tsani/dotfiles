@@ -38,7 +38,7 @@ import XMonad.Util.Run
 -- 1 is the VGA port, usually on the left.
 -- 2 is the displayport, usually on the right.
 screenIds :: [Int]
-screenIds = [ 0, 1 ]
+screenIds = [ 0, 1, 2 ]
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -378,10 +378,10 @@ screenRelative k f = do
     Just newIdx ->
       screenWorkspace (S newIdx) >>= flip whenJust (windows . f)
 
-viewScreenLeft = screenRelative (-1) W.view
-viewScreenRight = screenRelative 1 W.view
-shiftScreenLeft = screenRelative (-1) W.shift
-shiftScreenRight = screenRelative 1 W.shift
+viewScreenLeft = screenRelative (1) W.view
+viewScreenRight = screenRelative (-1) W.view
+shiftScreenLeft = screenRelative 1 W.shift
+shiftScreenRight = screenRelative (-1) W.shift
 
 
 ------------------------------------------------------------------------
