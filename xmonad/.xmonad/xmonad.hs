@@ -21,11 +21,12 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.CopyWindow ( copy, kill1 )
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.SpawnOn
-import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Layout.NoBorders
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
+import XMonad.Layout.NoBorders ( smartBorders )
 import XMonad.Layout.Spacing
 import XMonad.Layout.WorkspaceDir
 import XMonad.Prompt
@@ -39,6 +40,8 @@ import XMonad.Util.Run
 -- 2 is the displayport, usually on the right.
 screenIds :: [Int]
 screenIds = [ 0, 1, 2 ]
+
+myScreenWidth = 1920
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -224,15 +227,10 @@ runMyShellPrompt c = do
   cmds <- io getCommands
   mkXPrompt myShellPrompt c (getShellCompl cmds $ searchPredicate c) spawnHere
 
-toggleMirror screenState = do
-  state <- readIORef screenState
-  spawn $ if state then "tv split" else "tv mirror"
-  writeIORef screenState (not state)
-
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-myKeys screenState conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launch a terminal
     [ ((modMask                , xK_Return     ), spawnHere $ XMonad.terminal conf)
@@ -247,8 +245,6 @@ myKeys screenState conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                , xK_equal      ), changeDir def)
 
     , ((modMask                , xK_backslash  ), spawnHere "$BROWSER")
-    , ((modMask .|. shiftMask  , xK_backslash  ), spawn "dmenu_google")
-    , ((modMask .|. shiftMask  , xK_Return     ), spawn "dmenu_google -x")
 
     -- Lock the screen.
     , ((modMask .|. shiftMask  , xK_z          ), spawn "i3lock -c 002b36")
@@ -262,8 +258,6 @@ myKeys screenState conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Kill the screen backlight.
     , ((modMask                , xK_F5         ), spawn "sleep 1 ; xset dpms force off")
-
-    , ((modMask .|. controlMask , xK_space     ), io $ toggleMirror screenState )
 
     -- Music controls
     , ((modMask                , xK_F3         ), spawn "mpc-prev")
@@ -445,20 +439,73 @@ myManageHook = manageSpawn <+> manageDocks <+> composeAll
     , resource  =? "desktop_window"                       --> doIgnore
     ]
 
-------------------------------------------------------------------------
--- Startup hook
+startStatusBar =
+  pure (<>)
+  <*> pure (statusBarGeneric myConkyCommand (pure ()))
+  <*> statusBarPipe myDzenCommand (pure tsaniPP)
+  where
+    myDzenCommand =
+      intercalate " "
+      [ "dzen2"
+      , "-dock", "-p", "-x 0"
+      , "-w", show width
+      , " -fn mononoki:size=10"
+      ]
+      where
+        width = myScreenWidth * 3 `div` 5
 
--- Perform an arbitrary action each time xmonad starts or is restarted
--- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
--- per-workspace layout choices.
-myStartupHook chan = do
-  w <- rect_width <$> getLeftmostScreenRect
-  myConky <- spawnPipe (myConkyCommand w)
-  io $ forkIO $ do
-    myDzen <- spawnPipe (myDzenCommand w)
-    forever $ do
-      hPutStrLn myDzen =<< readChan chan
-  pure ()
+    myConkyCommand = concat
+        [ "conky | dzen2 -dock"
+        , " -x ", show offset
+        , " -w ", show width
+        , " -ta r"
+        ] where
+            width = myScreenWidth * 2 `div` 5
+            offset = myScreenWidth * 3 `div` 5
+
+main :: IO ()
+main = do
+    -- w <- rect_width <$> getLeftmostScreenRect
+    sb <- startStatusBar
+    dirs <- getDirectories
+    (`launch` dirs) . withSB sb . withUrgencyHook dzenUrgencyHook . ewmh . docks $ def
+        -- simple stuff
+        { terminal           = myTerminal
+        , focusFollowsMouse  = True
+        , borderWidth        = myBorderWidth
+        , modMask            = myModMask
+        , workspaces         = myWorkspaces
+
+        , normalBorderColor  = myNormalBorderColor
+        , focusedBorderColor = myFocusedBorderColor
+
+        -- key bindings
+        , keys               = myKeys
+        , mouseBindings      = myMouseBindings
+
+        -- hooks, layouts
+        , layoutHook         = myLayout
+        , manageHook         = myManageHook
+        , startupHook        = killAllStatusBars
+        }
+
+-- Colors
+solarizedBase03 = "#002b36"
+solarizedBase02 = "#073642"
+solarizedBase01 = "#586e75"
+solarizedBase00 = "#657b83"
+solarizedBase0 = "#839496"
+solarizedBase1 = "#93a1a1"
+solarizedBase2 = "#eee8d5"
+solarizedBase3 = "#fdf6e3"
+solarizedYellow = "#b58900"
+solarizedOrange = "#cb4b16"
+solarizedRed = "#dc322f"
+solarizedMagenta = "#d33682"
+solarizedViolet = "#6c71c4"
+solarizedBlue = "#268bd2"
+solarizedCyan = "#2aa198"
+solarizedGreen = "#859900"
 
 tsaniPP :: PP
 tsaniPP =
@@ -479,78 +526,3 @@ tsaniPP =
     fgMain = solarizedBase0
     fgSecondary = solarizedBase01
     fgEmph = solarizedBase1
-
-myLogHook chan = dynamicLogWithPP tsaniPP { ppOutput = writeChan chan }
-
-myUrgencyHook = dzenUrgencyHook
-
-singleQuotes s = "'" ++ s ++ "'"
-
-myDzenCommand screenWidth =
-  intercalate " "
-  [ "dzen2"
-  , "-dock", "-p", "-x 0"
-  , "-w", show width
-  , " -fn mononoki:size=10"
-  ]
-  where
-    width = screenWidth * 3 `div` 5
-
-myConkyCommand screenWidth = concat
-    [ "conky | dzen2 -dock"
-    , " -x ", show offset
-    , " -w ", show width
-    , " -ta r"
-    ] where
-        width = screenWidth * 2 `div` 5
-        offset = screenWidth * 3 `div` 5
-
-------------------------------------------------------------------------
--- Now run xmonad with all the defaults we set up.
-
--- Run xmonad with the settings you specify. No need to modify this.
---
-main = do
-    chan <- newChan
-    screenState <- newIORef True -- whether we're split or mirror
-    dirs <- getDirectories
-    (`launch` dirs)
-      $ docks $ withUrgencyHook myUrgencyHook $ ewmh def
-        -- simple stuff
-        { terminal           = myTerminal
-        , focusFollowsMouse  = True
-        , borderWidth        = myBorderWidth
-        , modMask            = myModMask
-        , workspaces         = myWorkspaces
-
-        , normalBorderColor  = myNormalBorderColor
-        , focusedBorderColor = myFocusedBorderColor
-
-        -- key bindings
-        , keys               = myKeys screenState
-        , mouseBindings      = myMouseBindings
-
-        -- hooks, layouts
-        , layoutHook         = myLayout
-        , manageHook         = myManageHook
-        , logHook            = myLogHook chan
-        , startupHook        = myStartupHook chan
-        }
-
--- Colors
-solarizedBase03 = "#002b36"
-solarizedBase02 = "#073642"
-solarizedBase01 = "#586e75"
-solarizedBase00 = "#657b83"
-solarizedBase0 = "#839496"
-solarizedBase1 = "#93a1a1"
-solarizedBase2 = "#eee8d5"
-solarizedBase3 = "#fdf6e3"
-solarizedYellow = "#b58900"
-solarizedOrange = "#cb4b16"
-solarizedRed = "#dc322f"
-solarizedMagenta = "#d33682"
-solarizedViolet = "#6c71c4"
-solarizedBlue = "#268bd2"
-solarizedCyan = "#2aa198"
-solarizedGreen = "#859900"
