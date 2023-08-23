@@ -46,6 +46,10 @@ command! -bang -nargs=1 Q cexpr<bang> system('$SHELL -c ' . shellescape(<q-args>
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Follow the current directory of the opened file
+" This is more intuitive from other editors
+set autochdir
+
 " Syntastic setup
 set statusline+=%#warningmsg#
 set statusline+=%*
@@ -89,7 +93,7 @@ let maplocalleader = "\\"
 nnoremap <leader>w :w!<cr>
 
 " External application opening
-let g:netrw_browsex_viewer="cd %:h && xdg-open"
+let g:netrw_browsex_viewer="cd %:h && open"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
