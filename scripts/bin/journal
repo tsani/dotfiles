@@ -1,4 +1,32 @@
 #!/bin/bash
 
-cd ~/journal
-exec ee index.md
+area() {
+    # Decides what area we're in. Only works on nonempty areas.
+    ls | head -n 1 | cut -d '.' -f1
+}
+
+alloc() {
+    # Finds the next available index in the current area directory and creates a directory with
+    # that index and name.
+    local max=0
+    for f in * ; do
+        local index=$(echo "$f" | cut -d '-' -f1 | cut -d '.' -f2)
+        if [ $index -gt $max ] ; then
+            max=$((index))
+        fi
+    done
+    local name="$(area).$(printf "%02d" $((max + 1)))-$1"
+    mkdir -v "$name"
+    echo "directory name stored to clipboard"
+    echo "$name" | xclip -i
+}
+
+case "$1" in
+    "alloc")
+        alloc "$2"
+        ;;
+    "")
+        cd ~/journal
+        exec ee index.md
+        ;;
+esac
