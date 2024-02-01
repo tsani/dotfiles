@@ -41,6 +41,9 @@ autocmd BufRead,BufNewFile *.pctl setfiletype prismproperty
 " plugin.
 command! -bang -nargs=1 Q cexpr<bang> system('$SHELL -c ' . shellescape(<q-args>))
 
+nnoremap <leader>cn :cn<return>
+nnoremap <leader>cp :cp<return>
+nnoremap <leader>yy :%y<return>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
