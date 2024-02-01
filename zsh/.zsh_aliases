@@ -22,7 +22,6 @@ alias sctl='sudo systemctl'
 alias usctl='systemctl --user'
 alias jctl='sudo journalctl'
 alias ujctl='journalctl --user'
-alias bt='bluetoothctl'
 alias s='systemctl suspend'
 
 grs() {
