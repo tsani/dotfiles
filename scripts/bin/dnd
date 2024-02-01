@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ "$1" = "" ] ; then
+  echo "say how long dumbo" >&2
+  exit 1
+fi
+
+dunstctl set-paused true
+at now + "$*" <<EOF
+dunstctl set-paused false
+EOF
