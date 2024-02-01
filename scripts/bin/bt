@@ -1,0 +1,23 @@
+#!/bin/bash
+
+HEADSET_MAC='4C:87:5D:CE:4D:46'
+BOOM_MAC='EC:81:93:58:6C:F4'
+
+[ $# -eq 0 ] && exec bluetoothctl
+
+case "$1" in
+    "off")
+        exec bluetoothctl power off
+        ;;
+    "headset")
+        bluetoothctl power on
+        exec bluetoothctl connect "$HEADSET_MAC"
+        ;;
+    "boom")
+        bluetoothctl power on
+        exec bluetoothctl connect "$BOOM_MAC"
+        ;;
+esac
+
+echo "unknown command $1" >&2
+exit 1
