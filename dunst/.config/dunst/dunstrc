@@ -318,6 +318,7 @@
     background = "#285577"
     foreground = "#ffffff"
     timeout = 10
+    script = "play-notify-sfx"
     # Icon for notifications with normal urgency, uncomment to enable
     #default_icon = /path/to/icon
 
