@@ -1,11 +1,18 @@
 #!/bin/bash
 
+die() {
+    echo "$@" >&2
+    exit 1
+}
+
 area() {
     # Decides what area we're in. Only works on nonempty areas.
     ls | head -n 1 | cut -d '.' -f1
 }
 
 alloc() {
+    [ -z "$1" ] && die "usage: journal alloc NAME"
+
     # Finds the next available index in the current area directory and creates a directory with
     # that index and name.
     local max=0
@@ -24,6 +31,10 @@ alloc() {
 case "$1" in
     "alloc")
         alloc "$2"
+        ;;
+    "main")
+        cd ~/journal
+        exec ee 10-19-administration/11-day-to-day/11.01-journal.md
         ;;
     "")
         cd ~/journal
