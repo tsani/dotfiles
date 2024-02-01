@@ -207,6 +207,7 @@ set ffs=unix,dos,mac
 " Show trailing whitespace as an error
 match Error /\s\+$/
 
+set guifont="Mononoki Nerd Font Mono":12
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
