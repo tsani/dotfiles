@@ -36,6 +36,10 @@ case "$1" in
         cd ~/journal
         exec ee 10-19-administration/11-day-to-day/11.01-journal.md
         ;;
+    "work")
+        cd ~/teaching
+        exec ee journal.md
+        ;;
     "")
         cd ~/journal
         exec ee index.md
