@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec sed -n '/^Host/s/^Host \(.*\)$/\1/p' < ~/.ssh/config
