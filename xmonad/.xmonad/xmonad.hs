@@ -344,6 +344,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask   , xK_l          ), viewScreenRight)
     , ((modMask .|. shiftMask .|. controlMask  , xK_h          ), shiftScreenLeft)
     , ((modMask .|. shiftMask .|. controlMask  , xK_l          ), shiftScreenRight)
+
+    -- screen rotation
+    , ((modMask                 , xK_period     ), spawn "xrandr --output eDP-1 --rotate normal")
+    , ((modMask .|. shiftMask   , xK_period     ), spawn "xrandr --output eDP-1 --rotate right")
     ]
 
     --
