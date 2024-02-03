@@ -18,7 +18,7 @@
 XTerm*background: black
 XTerm*foreground: grey
 
-dzen2.font: xft:DejaVu Sans Mono:size=8
+dzen2.font: xft:DejaVu Sans Mono:size=10
 dzen2.foreground: S_base0
 dzen2.background: S_base03
 
@@ -32,17 +32,13 @@ URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
 URxvt*depth: 32
-URxvt*imFont: xft:Noto Color Emoji:size=12
-URxvt*font: xft:Mononoki Nerd Font Mono:size=12,xft:Noto Color Emoji:size=12
-URxvt*boldFont: xft:Mononoki Nerd Font Mono:bold:size=12,xft:Noto Color Emoji:size=12
-URxvt*italicFont: xft:Mononoki Nerd Font Mono:italic:size=12,xft:Noto Color Emoji:size=12
-URxvt*boldItalicFont: xft:Mononoki Nerd Font Mono:bold:italic:size=12,xft:Noto Color Emoji:size=12
+URxvt*imFont: xft:IPAGothic:size=12
+URxvt*font: xft:DejaVu Sans Mono:size=12,xft:Noto Color Emoji:size=12
+URxvt*boldFont: xft:DejaVu Sans Mono:bold:size=12,xft:Noto Color Emoji:size=12
+URxvt*italicFont: xft:DejaVu Sans Mono:italic:size=12,xft:Noto Color Emoji:size=12
+URxvt*boldItalicFont: xft:DejaVu Sans Mono:bold:italic:size=12,xft:Noto Color Emoji:size=12
 URxvt*scrollBar: false
-URxvt*scrollTtyOutput: false
-URxvt*secondaryScreen: true
-URxvt*secondaryScroll: true
-URxvt*geometry: 400x400
-!! ^ so that the prompt appears at the top of the screen following the 2 jan 2023 update
+URxvt.geometry: 400x400
 
 URxvt.urgentOnBell:         true
 URxvt.cursorColor:          #657b83
