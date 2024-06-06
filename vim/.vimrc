@@ -51,7 +51,7 @@ nnoremap <leader>yy :%y<return>
 
 " Follow the current directory of the opened file
 " This is more intuitive from other editors
-set autochdir
+" set autochdir
 
 " Syntastic setup
 set statusline+=%#warningmsg#
