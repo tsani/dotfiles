@@ -35,3 +35,7 @@ fun () {
 }
 
 alias dunst-on='dunstctl set-paused false'
+
+latest () {
+    ls -t | head -n 1
+}
