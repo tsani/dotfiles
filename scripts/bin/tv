@@ -7,14 +7,23 @@ HD="1920x1080"
 UHD="3840x2160"
 
 case "$1" in
-    "mirror") exec xrandr --output "$TV" --mode "$HD" --same-as "$PC"
-        --output "$PC2" --mode "$HD" --primary "$PC" \
-        --output "$PC" --mode "$HD" --right-of "$PC" ;;
-    "split") exec xrandr --output "$TV" --mode "$HD" --left-of "$PC2" --mode "$HD" --primary \
-        --output "$PC2" --auto --left-of "$PC";;
-    "off") exec xrandr --output "$TV" --off \
-        --output "$PC2" --mode "$HD" --primary \
-        --output "$PC" --mode "$HD" --primary --right-of "$PC2"
+    "projector")
+        exec xrandr --output "$TV" --mode "$HD" --output "$PC" --off --output "$PC2" --off
+        ;;
+    "mirror")
+        exec xrandr --output "$TV" --mode "$HD" --same-as "$PC" \
+            --output "$PC2" --mode "$HD" \
+            --output "$PC" --mode "$HD" --right-of "$PC2" --primary
+        ;;
+    "split")
+        exec xrandr --output "$TV" --mode "$HD" --left-of "$PC2" --mode "$HD" --primary \
+            --output "$PC2" --auto --left-of "$PC"
+        ;;
+    "off")
+        exec xrandr --output "$TV" --off \
+            --output "$PC2" --mode "$HD" --primary \
+            --output "$PC" --mode "$HD" --primary --right-of "$PC2"
+        ;;
 esac
 
 echo "unknown command '$1'"
