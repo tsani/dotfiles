@@ -428,7 +428,7 @@ myLayout = workspaceDir "~" $ smartBorders $ smartSpacing 5 $
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = manageSpawn <+> manageDocks <+> composeAll
+myManageHook = manageSpawn <+> manageDocks <+> manageZoom <+> composeAll
     [ className =? "MPlayer"                              --> doFloat
     , className =? "Gimp"                                 --> doFloat
     , className =? "org-spoutcraft-launcher-Main"         --> doFloat
@@ -438,6 +438,22 @@ myManageHook = manageSpawn <+> manageDocks <+> composeAll
     , className =? "CaveStory+"                           --> doFloat
     , resource  =? "desktop_window"                       --> doIgnore
     ]
+
+manageZoom = composeAll
+  [ (className =? zoomClass) <&&> shouldFloat <$> title --> doFloat
+  , (className =? zoomClass) <&&> shouldFloat <$> title --> doSink
+  ]
+  where
+    zoomClass = "zoom"
+    tileTitles =
+      [ "Zoom Workplace - Free account"
+      , "Zoom Workplace - Licensed account"
+      , "Zoom"
+      , "Zoom Meeting"
+      ]
+    shouldFloat title = title `notElem` tileTitles
+    shouldSink title = title `elem` tileTitles
+    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
 startStatusBar =
   pure (<>)
