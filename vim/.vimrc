@@ -164,6 +164,7 @@ set mat=2
 set noerrorbells
 set novisualbell
 set t_vb=
+autocmd! GUIEnter * set vb t_vb=
 set tm=500
 
 " Line numbers: relative while in normal mode, no numbers in insert mode
