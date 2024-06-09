@@ -39,3 +39,20 @@ alias dunst-on='dunstctl set-paused false'
 latest () {
     ls -t | head -n 1
 }
+
+jj() {
+    # Changes directory, jumping to the one specified by the given JD code.
+    [ ! -d "$JOURNAL_DIR" ] && die "JOURNAL_DIR must be a directory"
+
+    cd "$JOURNAL_DIR"
+    cd "$(ls | grep "^${1:0:1}")" || die 'failed to enter area'
+    cd "$(ls | grep "^${1:0:2}")" || die 'failed to enter category'
+    ITEM="$(ls | grep "^$1")"
+    if [ -d "$ITEM" ] ; then
+        cd "$ITEM"
+    elif [ -f "$ITEM" ] ; then
+        ee "$ITEM"
+    else
+        # do nothing :)
+    fi
+}
