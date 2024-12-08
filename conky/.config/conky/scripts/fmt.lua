@@ -3,8 +3,8 @@ function conky_format(format, number)
 end
 
 function conky_volume(foo)
-  local handle = io.popen("pacmd list-sinks | grep 'volume: front-left:' | grep -o '[[:digit:]]*%' | head -n 1")
-  local result = handle:read("*all"):gsub("%s+$", "")
+  local handle = io.popen("wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -d ' ' -f2")
+  local result = handle:read("*all")
   handle:close()
-  return string.format("%4s", result)
+  return string.format("%3s%%", math.floor(100 * tonumber(result)))
 end
