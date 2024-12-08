@@ -110,7 +110,7 @@ data DmenuLineCount
 dmenuCommand :: DmenuSettings -> String
 dmenuCommand DmenuSettings{..} = concat
   [ dsProgramName
-  , " -dim 0.3 -fn 'mononoki'"
+  , " -dim 0.3 -fn 'Liberation Mono"
   , " -x ", show x
   , " -y ", show y
   , " -w ", show w
@@ -125,49 +125,9 @@ dmenuCommand DmenuSettings{..} = concat
       Unspecified -> ""
       Fixed n -> "-l " ++ show n
 
-spawnDmenu :: X ()
-spawnDmenu = do
-  dim <- dmenuDim
-  spawnHere $ dmenuCommand DmenuSettings
-    { dsProgramName = "dmenu_run"
-    , dsSpawnRect = dim
-    , dsPrompt = "$ "
-    , dsLines = FromHeight
-    , dsInput = True
-    }
-
--- | Constructs a URI for performing a web search of the given string.
-searchURI :: String -> ShowS
-searchURI q = uriToString id $ URI
-  { uriScheme = "https"
-  , uriAuthority = Just URIAuth
-    { uriUserInfo = ""
-    , uriRegName = "duckduckgo.com"
-    , uriPort = ""
-    }
-  , uriPath = ""
-  , uriQuery = out $ renderQuery False [("q", Just $ t q)]
-  }
-  where
-    out = T.unpack . T.decodeUtf8
-    t = T.encodeUtf8 . T.pack
-
--- spawns dmenu for performing a web search with the given prompt
-spawnDmenuWeb :: String -> X ()
-spawnDmenuWeb p = do
-  spawn =<< dmenuCommand . mkSettings <$> dmenuDim
-  where
-    mkSettings dim = DmenuSettings
-      { dsProgramName = "dmenu"
-      , dsSpawnRect = dim
-      , dsPrompt = p
-      , dsLines = Fixed 0
-      , dsInput = False
-      }
-
 basicPrompt :: XPConfig
 basicPrompt = def
-  { font = "xft:mononoki:size=9"
+  { font = "xft:Liberation Mono:size=9"
   , fgColor = "#839496"
   , bgColor = "#002b36"
   , fgHLight = "#268bd2"
@@ -235,7 +195,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launch a terminal
     [ ((modMask                , xK_Return     ), spawnHere $ XMonad.terminal conf)
 
-    -- launch dmenu
+    -- launch xmonad prompt to run programs
     , ((modMask                , xK_p          ), runMyShellPrompt basicPrompt)
 
     -- launch gmrun
@@ -465,7 +425,7 @@ startStatusBar =
       [ "dzen2"
       , "-dock", "-p", "-x 0"
       , "-w", show width
-      , " -fn mononoki:size=10"
+      , " -fn 'Liberation Mono:size=10'"
       ]
       where
         width = myScreenWidth * 3 `div` 5

@@ -32,10 +32,10 @@ URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
 URxvt*depth: 32
 URxvt*imFont: xft:Noto Color Emoji:size=12
-URxvt*font: xft:Mononoki Nerd Font Mono:size=12,xft:Noto Color Emoji:size=12
-URxvt*boldFont: xft:Mononoki Nerd Font Mono:bold:size=12,xft:Noto Color Emoji:size=12
-URxvt*italicFont: xft:Mononoki Nerd Font Mono:italic:size=12,xft:Noto Color Emoji:size=12
-URxvt*boldItalicFont: xft:Mononoki Nerd Font Mono:bold:italic:size=12,xft:Noto Color Emoji:size=12
+URxvt*font: xft:Liberation Mono:size=12,xft:Noto Color Emoji:size=12
+URxvt*boldFont: xft:Liberation Mono:bold:size=12,xft:Noto Color Emoji:size=12
+URxvt*italicFont: xft:Liberation Mono:italic:size=12,xft:Noto Color Emoji:size=12
+URxvt*boldItalicFont: xft:Liberation Mono:bold:italic:size=12,xft:Noto Color Emoji:size=12
 URxvt*scrollBar: false
 URxvt*scrollTtyOutput: false
 URxvt*secondaryScreen: true
