@@ -30,4 +30,4 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
 which ssh-agent >/dev/null && eval $(ssh-agent -s)
 
-exec $HOME/.local/bin/xmonad
+exec xmonad

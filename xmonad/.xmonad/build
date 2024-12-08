@@ -1,3 +1,0 @@
-#!/usr/bin/zsh
-
-exec stack ghc -- xmonad.hs -i -ilib -fforce-recomp -main-is main -v0 -o $@
