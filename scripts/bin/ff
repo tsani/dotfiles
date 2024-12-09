@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Firefox launcher script
+
+[ -z "$1" ] && exec /usr/bin/firefox
+
+exec /usr/bin/firefox -new-instance -P "$1"
