@@ -40,6 +40,11 @@ case "$1" in
         cd ~/teaching
         exec ee journal.md
         ;;
+    "git")
+        cd ~/journal
+        shift
+        exec git "$@"
+        ;;
     "")
         cd ~/journal
         exec ee index.md
