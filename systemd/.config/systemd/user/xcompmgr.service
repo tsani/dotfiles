@@ -1,0 +1,11 @@
+[Unit]
+Description=Sample X compositor
+After=display-manager.service
+
+[Service]
+ExecStart=/usr/bin/xcompmgr -c -f -C -D 2 -r 2 -t -1 -l -1
+Restart=always
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=default.target
