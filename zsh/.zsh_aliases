@@ -40,13 +40,19 @@ latest () {
     ls -t | head -n 1
 }
 
-jj() {
+jj () {
+    # Jump to teaching dir
+    if [[ "${1:0:3}" =~ [0-9][0-9][0-9] ]] ; then
+        cd ~/teaching/comp-$1
+        return 0
+    fi
+
     # Changes directory, jumping to the one specified by the given JD code.
-    [ ! -d "$JOURNAL_DIR" ] && die "JOURNAL_DIR must be a directory"
+    [ ! -d "$JOURNAL_DIR" ] && echo "JOURNAL_DIR must be a directory" >&2 && return 1
 
     cd "$JOURNAL_DIR"
-    cd "$(ls | grep "^${1:0:1}")" || die 'failed to enter area'
-    cd "$(ls | grep "^${1:0:2}")" || die 'failed to enter category'
+    cd ${1:0:1}*
+    cd ${1:0:2}*
     ITEM="$(ls | grep "^$1")"
     if [ -d "$ITEM" ] ; then
         cd "$ITEM"
@@ -55,4 +61,10 @@ jj() {
     else
         # do nothing :)
     fi
+}
+
+mimishare () {
+    DEST="mimi.cs.mcgill.ca:public_html/$1"
+    rsync "$1" "$DEST"
+    xclip -i -sel clip <<< "https://cs.mcgill.ca/~jerrin/$1"
 }
