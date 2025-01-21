@@ -2,19 +2,17 @@
 
 xrdb -merge $HOME/.Xresources &
 xmodmap "$HOME/.Xmodmap" &
-
 # start some nice programs
 hsetroot -solid '#002b36' &
 xsetroot -cursor_name left_ptr &
 xset -b -dpms s off s noblank &
 setxkbmap -option compose:ralt &
-tv off
 
 # await startup processes to collect their deaths
 wait
 
-nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
-tv mirror
+picom --config ~/.config/picom.conf -b
+nvidia-settings --assign CurrentMetaMode="DP-3: 1920x1080 +0+0 { ForceFullCompositionPipeline = On }, HDMI-0: 1920x1080 +1920+0 { ForceFullCompositionPipeline = On }"
 
 systemctl --user import-environment DISPLAY
 
