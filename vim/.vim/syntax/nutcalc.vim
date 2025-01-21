@@ -1,0 +1,1 @@
+/home/tsani/projects/nutcalc/vim/syntax/nutcalc.vim

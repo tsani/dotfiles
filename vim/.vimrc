@@ -30,6 +30,9 @@ autocmd BufRead,BufNewFile *.smg setfiletype prismmodel
 autocmd BufRead,BufNewFile *.props setfiletype prismproperty
 autocmd BufRead,BufNewFile *.pctl setfiletype prismproperty
 
+" Nutcalc
+autocmd BufRead,BufNewFile *.nut setfiletype nutcalc
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Quickfix list hacking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
