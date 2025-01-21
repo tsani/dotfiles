@@ -204,7 +204,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- change xmonad working directory
     , ((modMask                , xK_equal      ), changeDir def)
 
-    , ((modMask                , xK_backslash  ), spawnHere "$BROWSER")
+    , ((modMask                , xK_backslash  ), spawnHere "xkill")
 
     -- Lock the screen.
     , ((modMask .|. shiftMask  , xK_z          ), spawn "i3lock -c 002b36")
