@@ -495,7 +495,7 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>z :b #<CR>
 
 " make all cut/paste commands affect the clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 nnoremap <leader>b :mak<CR>
 
