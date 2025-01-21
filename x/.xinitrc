@@ -13,6 +13,7 @@ tv off
 # await startup processes to collect their deaths
 wait
 
+nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
 tv mirror
 
 systemctl --user import-environment DISPLAY
