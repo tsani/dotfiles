@@ -1,0 +1,6 @@
+set guifont=Menlo-Regular:h14
+set guioptions-=e
+set go-=m "menubar
+set go-=T "toolbar
+set go-=r "scrollbar
+"set go=c

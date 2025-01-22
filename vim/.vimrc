@@ -181,16 +181,9 @@ au InsertLeave * :set relativenumber | set foldcolumn=0
 set list
 set listchars=tab:>\ ,trail:-,nbsp:+
 
-" gvim settings
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=e
-    set go-=m "menubar
-    set go-=T "toolbar
-    set go-=r "scrollbar
-    "set go=c
-    set t_Co=256
-endif
+" NOTE: gvim settings are in ~/.vim/gvimrc
+set t_Co=256
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
