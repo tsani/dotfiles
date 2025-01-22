@@ -53,6 +53,12 @@
 	     (set-fill-column 100)
 	     (turn-on-auto-fill)))
 
+(add-to-list 'load-path "/Users/jerrin/.emacs.d/lisp")
+(load "beluga-mode.el")
+
+(setq focus-follows-mouse t)
+;; ^ so emacs will warp the mouse when using a frame-select command
+
 ; make insert-mode C-u delete to beginning of line
 (define-key evil-insert-state-map (kbd "C-u")
   (lambda ()
@@ -64,6 +70,8 @@
   tab-width 4)
 (setq c-basic-offset 4)
 (setq c-default-style "linux")
+
+(setq-default require-final-newline t)
 
 (define-globalized-minor-mode global-highlight-parentheses-mode
   highlight-parentheses-mode
@@ -87,9 +95,6 @@
 
 (setq show-paren-delay 0)
 (show-paren-mode 1)
-(setq jake-preferred-font "mononoki-12")
-(add-to-list 'default-frame-alist
-             `(font . ,jake-preferred-font))
 (add-to-list 'default-frame-alist
              '(vertical-scroll-bars . nil))
 (tool-bar-mode -1)
