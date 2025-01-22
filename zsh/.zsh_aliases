@@ -64,7 +64,11 @@ jj () {
 }
 
 mimishare () {
-    DEST="mimi.cs.mcgill.ca:public_html/$1"
-    rsync "$1" "$DEST"
-    xclip -i -sel clip <<< "https://cs.mcgill.ca/~jerrin/$1"
+    local B="$(basename "$1")"
+    rsync "$1" "mimi.cs.mcgill.ca:public_html/$B"
+    if [ $(uname) = "Darwin" ] ; then
+        pbcopy <<< "https://cs.mcgill.ca/~jerrin/$B"
+    else
+        xclip -i -sel clip <<< "https://cs.mcgill.ca/~jerrin/$B"
+    fi
 }
