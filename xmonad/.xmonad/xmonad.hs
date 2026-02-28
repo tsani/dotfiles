@@ -39,7 +39,7 @@ import XMonad.Util.Run
 -- 1 is the VGA port, usually on the left.
 -- 2 is the displayport, usually on the right.
 screenIds :: [Int]
-screenIds = [ 1, 0, 2 ]
+screenIds = [ 0, 1, 2 ]
 
 myScreenWidth = 1920
 
@@ -371,7 +371,7 @@ myLayout = workspaceDir "~" $ smartBorders $ smartSpacing 5 $
      ratio   = 1078 / 1920
 
      -- Percent of screen to increment by when resizing panes
-     delta   = 2/100
+     delta   = 0.5/100
 
 ------------------------------------------------------------------------
 -- Window rules:
