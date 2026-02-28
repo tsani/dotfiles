@@ -1,18 +1,16 @@
 #!/usr/bin/zsh -l
 
-xrdb -merge $HOME/.Xresources &
-xmodmap "$HOME/.Xmodmap" &
-# start some nice programs
-hsetroot -solid '#002b36' &
-xsetroot -cursor_name left_ptr &
-xset -b -dpms s off s noblank &
-setxkbmap -option compose:ralt &
+xrdb -merge $HOME/.Xresources
+xmodmap "$HOME/.Xmodmap"
+hsetroot -solid '#002b36'
+xsetroot -cursor_name left_ptr
+xset -b -dpms s off s noblank
+setxkbmap -option compose:ralt
 
-# await startup processes to collect their deaths
-wait
-
+nvidia-settings --assign CurrentMetaMode="HDMI-0: 1920x1080 +0+0, DP-1: 1920x1080 +1920+0"
+# nvidia-settings --assign CurrentMetaMode="HDMI-0: 1920x1080 +0+0 { ForceFullCompositionPipeline = On }, DP-1: 1920x1080 +1920+0 { ForceFullCompositionPipeline = On }"
+xrandr --output HDMI-0 --rotate left
 picom --config ~/.config/picom.conf -b
-nvidia-settings --assign CurrentMetaMode="DP-3: 1920x1080 +0+0 { ForceFullCompositionPipeline = On }, HDMI-0: 1920x1080 +1920+0 { ForceFullCompositionPipeline = On }"
 
 systemctl --user import-environment DISPLAY
 
