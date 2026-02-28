@@ -30,57 +30,45 @@ Xft.hintstyle: hintslight
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
-URxvt*depth: 32
-URxvt*imFont: xft:Noto Color Emoji:size=12
-URxvt*font: xft:Liberation Mono:size=12,xft:Noto Color Emoji:size=12
-URxvt*boldFont: xft:Liberation Mono:bold:size=12,xft:Noto Color Emoji:size=12
-URxvt*italicFont: xft:Liberation Mono:italic:size=12,xft:Noto Color Emoji:size=12
-URxvt*boldItalicFont: xft:Liberation Mono:bold:italic:size=12,xft:Noto Color Emoji:size=12
-URxvt*scrollBar: false
-URxvt*scrollTtyOutput: false
-URxvt*secondaryScreen: true
-URxvt*secondaryScroll: true
-URxvt*geometry: 400x400
-!! ^ so that the prompt appears at the top of the screen following the 2 jan 2023 update
-
+URxvt.depth: 32
+URxvt.font: xft:Liberation Mono:size=12,xft:Noto Color Emoji:size=12
+URxvt.boldFont: xft:Liberation Mono:bold:size=12,xft:Noto Color Emoji:size=12
+URxvt.italicFont: xft:Liberation Mono:italic:size=12,xft:Noto Color Emoji:size=12
+URxvt.boldItalicFont: xft:Liberation Mono:bold:italic:size=12,xft:Noto Color Emoji:size=12
+urxvt-big.font: xft:Liberation Mono:size=18,xft:Noto Color Emoji:size=18
+urxvt-big.boldFont: xft:Liberation Mono:bold:size=18,xft:Noto Color Emoji:size=18
+urxvt-big.italicFont: xft:Liberation Mono:italic:size=18,xft:Noto Color Emoji:size=18
+urxvt-big.boldItalicFont: xft:Liberation Mono:bold:italic:size=18,xft:Noto Color Emoji:size=18
+URxvt.scrollBar: false
+URxvt.scrollTtyOutput: false
+URxvt.secondaryScreen: true
+URxvt.secondaryScroll: true
+URxvt.geometry: 400x400
 URxvt.urgentOnBell:         true
-URxvt.cursorColor:          #657b83
 URxvt.intensityStyles: false
-
-URxvt*background: S_base3
-URxvt*foreground: S_base00
-URxvt*fadeColor: S_base3
-URxvt*cursorColor: S_base01
-URxvt*pointerColorBackground:S_base1
-URxvt*pointerColorForeground:S_base01
-!! black dark/light
-URxvt*color0: S_base02
-URxvt*color8: S_base03
-!! red dark/light
-URxvt*color1: S_red
-URxvt*color9: S_orange
-!! green dark/light
-URxvt*color2: S_green
-URxvt*color10: S_base01
-!! yellow dark/light
-URxvt*color3: S_yellow
-URxvt*color11: S_base00
-!! blue dark/light
-URxvt*color4: S_blue
-URxvt*color12: S_base0
-!! magenta dark/light
-URxvt*color5: S_magenta
-URxvt*color13: S_violet
-!! cyan dark/light
-URxvt*color6: S_cyan
-URxvt*color14: S_base1
-!! white dark/light
-URxvt*color7: S_base2
-URxvt*color15: S_base3
-
-!! Make Ctrl+L clear the scrollback
+URxvt.background: S_base3
+URxvt.foreground: S_base00
+URxvt.fadeColor: S_base3
+URxvt.cursorColor: S_base01
+URxvt.pointerColorBackground:S_base1
+URxvt.pointerColorForeground:S_base01
+URxvt.color0: S_base02
+URxvt.color8: S_base03
+URxvt.color1: S_red
+URxvt.color9: S_orange
+URxvt.color2: S_green
+URxvt.color10: S_base01
+URxvt.color3: S_yellow
+URxvt.color11: S_base00
+URxvt.color4: S_blue
+URxvt.color12: S_base0
+URxvt.color5: S_magenta
+URxvt.color13: S_violet
+URxvt.color6: S_cyan
+URxvt.color14: S_base1
+URxvt.color7: S_base2
+URxvt.color15: S_base3
 URxvt.keysym.Control-l: command:\033c
-
 
 Emacs*toolBar: 0
 Emacs*menuBar: 0
