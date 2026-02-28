@@ -1,0 +1,9 @@
+[Unit]
+Description=Automatic udisks2 mounting
+
+[Service]
+ExecStart=/usr/bin/udiskie -a
+Type=simple
+
+[Install]
+WantedBy=default.target
