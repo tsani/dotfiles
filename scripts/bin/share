@@ -24,11 +24,7 @@ die() {
 PLATFORM="$(uname)"
 
 if [ "$PLATFORM" = "Linux" ] ; then
-    if which xsel > /dev/null ; then
-        copy() {
-            xsel
-        }
-    elif which xclip > /dev/null ; then
+    if which xclip > /dev/null 2>&1 ; then
         copy() {
             xclip -i -selection clipboard
         }
