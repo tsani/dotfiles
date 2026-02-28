@@ -1,4 +1,4 @@
-set guifont=Liberation\ Mono\ 12
+set guifont=Liberation\ Mono\ 11
 set guioptions-=e
 set go-=m "menubar
 set go-=T "toolbar
