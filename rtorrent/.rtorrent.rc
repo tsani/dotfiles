@@ -37,5 +37,4 @@ encryption = allow_incoming,try_outgoing,enable_retry
 
 schedule2 = watch_start,10,10,((load.start_verbose, (cat, (cfg.watch), "*.torrent")))
 
-dht_port = 63425
 dht = auto
