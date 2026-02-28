@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e -o pipefail
+
+OUTPATH="$1"
+
+if ! FMT="$(xclip -o -sel clip -t TARGETS | grep '^image/' | head -n1)" ; then
+    echo "fatal: no image data in clipboard" >&2
+    exit 1
+fi
+
+if [ -z "$OUTPATH" ] ; then
+    IFS=/ read junk FILETYPE <<< "$FMT"
+    DATE="$(date +"%Y-%m-%d-%H%M%S")"
+    OUTPATH="${DATE}.${FILETYPE}"
+fi
+
+echo "$OUTPATH"
+exec xclip -o -sel clip -t "$FMT" > "$OUTPATH"
