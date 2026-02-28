@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Discord launcher script to enable multiple simultaneous accounts
+
+case "$1" in
+    "personal"|"")
+        exec /opt/discord/Discord
+        ;;
+    "work")
+        mkdir -p /tmp/discord-work $HOME/.discord-work-config
+        TMPDIR=/tmp/discord-work XDG_CONFIG_HOME=$HOME/.discord-work-config exec /opt/discord/Discord
+        ;;
+    "private")
+        mkdir -p /tmp/discord-private $HOME/.discord-private-config
+        TMPDIR=/tmp/discord-private XDG_CONFIG_HOME=$HOME/.discord-private-config exec /opt/discord/Discord
+        ;;
+    *)
+        echo "unknown profile $1" >&2
+        exit 1
+esac
