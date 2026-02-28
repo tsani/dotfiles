@@ -54,7 +54,6 @@
 	     (turn-on-auto-fill)))
 
 (add-to-list 'load-path "/Users/jerrin/.emacs.d/lisp")
-(load "beluga-mode.el")
 
 (setq focus-follows-mouse t)
 ;; ^ so emacs will warp the mouse when using a frame-select command
