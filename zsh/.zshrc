@@ -66,12 +66,20 @@ export HISTSIZE=1000
 export SAVEHIST=1000
 export HISTCONTROL=ignorespace:erasedups
 
-function fuck() {
-    if killall -9 "$2" ; then
-        echo
-        echo " (╯°□°）╯︵$(echo "$2"|toilet -f term -F rotate)"
-        echo
-    fi
+function letter() {
+    while read line ; do
+        [ -z "$line" ] && continue ||
+        [[ ! "$line" =~ ^[0-9]+$ ]] && continue ||
+        [ "$line" -lt 50 ] && echo 'F' ||
+        [ "$line" -lt 55 ] && echo "D" ||
+        [ "$line" -lt 60 ] && echo "C" ||
+        [ "$line" -lt 65 ] && echo "C+" ||
+        [ "$line" -lt 70 ] && echo "B-" ||
+        [ "$line" -lt 75 ] && echo "B" ||
+        [ "$line" -lt 80 ] && echo "B+" ||
+        [ "$line" -lt 85 ] && echo "A-" ||
+        echo "A"
+    done
 }
 
 source $HOME/.zsh_aliases
