@@ -1,0 +1,9 @@
+#!/bin/bash
+
+case "$1" in
+    "") exec xdg-open 'obsidian://' ;;
+    "personal") exec xdg-open "obsidian://daily?vault=personal-vault";;
+    "302") cd teaching/comp-302 && exec xdg-open "obsidian://open?vault=exam-problems-vault";;
+    "household") exec xdg-open "obsidian://open?vault=household-vault";;
+    "teaching") exec xdg-open "obsidian://open?vault=teaching";;
+esac
