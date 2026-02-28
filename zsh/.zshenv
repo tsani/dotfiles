@@ -14,3 +14,6 @@ fi
 test -e "$LOCAL_ZSHENV" && source "$LOCAL_ZSHENV"
 
 which vimb > /dev/null && export BROWSER=vimb || export BROWSER=firefox
+
+export ANDROID_SDK_ROOT=/opt/android-sdk
+export ANDROID_AVD_HOME=$XDG_CONFIG_HOME/.android/avd
