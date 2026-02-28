@@ -1,3 +1,5 @@
+alias sctlu="systemctl --user"
+alias jctlu="journalctl --user"
 alias cid="cabal install --only-dependencies"
 alias grepc="grep --colour=always"
 alias mv="mv -i"
