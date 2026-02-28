@@ -29,12 +29,6 @@ grs() {
     git stash && git rebase $@ && git stash pop
 }
 
-fun () {
-    dunstctl set-paused true
-    killall thunderbird
-    killall chromium
-}
-
 alias dunst-on='dunstctl set-paused false'
 
 latest () {
@@ -78,4 +72,9 @@ mimishare () {
     else
         xclip -i -sel clip <<< "https://cs.mcgill.ca/~jerrin/$B"
     fi
+}
+
+lmk () {
+    fg
+    notify-send "Operation complete"
 }
