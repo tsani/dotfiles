@@ -3,5 +3,7 @@
 # Firefox launcher script
 
 [ -z "$1" ] && exec /usr/bin/firefox
+PROFILE="$1"
+shift
 
-exec /usr/bin/firefox -new-instance -P "$1"
+exec /usr/bin/firefox -P "$PROFILE" "$@"
